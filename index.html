@@ -34,7 +34,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 .sb-icons{display:flex;gap:5px;align-items:center}
 .sb-icons svg{display:block}
 
-/* scrollable app area */
 .app{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;position:relative}
 .app::-webkit-scrollbar{width:0}
 
@@ -62,11 +61,12 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 .btn-glass{background:rgba(255,255,255,.16);color:#fff;border:1.5px solid rgba(255,255,255,.4);margin-top:11px}
 .btn-pink{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;box-shadow:0 8px 20px rgba(230,53,122,.36)}
 .btn-soft{background:var(--pink-l);color:var(--pink-d)}
+.btn-inline{display:inline-block;width:auto;padding:13px 24px}
 .splash-dots{display:flex;gap:7px;margin-top:30px}
 .splash-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35)}
 .splash-dots i.on{background:#fff;width:22px;border-radius:4px}
 
-/* ===== ONBOARDING SLIDE ===== */
+/* ===== ONBOARDING ===== */
 .ob-skip{position:absolute;top:48px;right:24px;font-size:.8rem;color:var(--muted);
   font-weight:700;cursor:pointer;z-index:60}
 .ob{padding:70px 32px 30px;display:flex;flex-direction:column;align-items:center;text-align:center;min-height:100%}
@@ -78,7 +78,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 .ob p{font-size:.9rem;color:var(--muted);line-height:1.65;max-width:290px;margin-bottom:auto}
 .ob-foot{width:100%;padding-top:24px}
 
-/* ===== LOGIN ===== */
+/* ===== AUTH ===== */
 #v-login,#v-signup{background:var(--white);min-height:100%}
 .auth-top{background:linear-gradient(150deg,#E6357A,#7B3F98);padding:54px 30px 60px;
   border-radius:0 0 34px 34px;color:#fff;position:relative}
@@ -91,11 +91,17 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 .field{margin-bottom:15px}
 .field label{display:block;font-size:.7rem;font-weight:800;text-transform:uppercase;
   letter-spacing:.6px;color:var(--purple);margin-bottom:6px}
-.field input,.field select{width:100%;padding:13px 14px;border:1.6px solid var(--line);
+.field input,.field select,.field textarea{width:100%;padding:13px 14px;border:1.6px solid var(--line);
   border-radius:13px;font-size:.9rem;color:var(--ink);background:var(--pink-xl);outline:none;
   transition:border .2s,background .2s;font-family:inherit}
-.field input:focus,.field select:focus{border-color:var(--pink);background:#fff}
+.field textarea{resize:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--pink);background:#fff}
 .field .hint{font-size:.68rem;color:var(--muted);margin-top:5px}
+.field .ferr{font-size:.66rem;color:var(--alert);margin-top:5px;font-weight:700;display:none}
+.field.bad input,.field.bad select{border-color:var(--alert);background:#fff}
+.field.bad .ferr{display:block}
+.duo{display:flex;gap:11px}
+.duo .field{flex:1}
 .auth-row{display:flex;justify-content:space-between;align-items:center;font-size:.76rem;margin:4px 0 18px}
 .auth-row .lnk{color:var(--pink);font-weight:700;cursor:pointer}
 .check{display:flex;align-items:center;gap:6px;color:var(--muted);cursor:pointer}
@@ -110,6 +116,10 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 .auth-foot b{color:var(--pink);cursor:pointer}
 .popia-note{display:flex;gap:8px;align-items:flex-start;background:var(--purple-l);
   border-radius:13px;padding:11px 13px;margin-top:16px;font-size:.7rem;color:var(--purple-d);line-height:1.5}
+.filein{display:flex;align-items:center;gap:9px;border:1.6px dashed var(--rose);border-radius:13px;
+  padding:13px 14px;background:var(--pink-xl);font-size:.8rem;font-weight:700;color:var(--pink-d);
+  cursor:pointer;margin-bottom:15px}
+.filein input{display:none}
 
 /* ===== APP HEADER ===== */
 .appbar{padding:6px 20px 16px;color:#fff;
@@ -126,9 +136,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 .avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#FFD9E8,#E6BBF0);
   display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--purple-d);
   font-size:.95rem;cursor:pointer;border:2px solid rgba(255,255,255,.6)}
-.page-title{padding:8px 20px 14px;color:#fff}
-.page-title h1{font-size:1.34rem;font-weight:900}
-.page-title p{font-size:.78rem;opacity:.85;margin-top:1px}
 
 /* ===== CONTENT ===== */
 .content{padding:0 18px 116px}
@@ -137,13 +144,13 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 .section-h h3{font-size:.98rem;font-weight:900;color:var(--ink)}
 .section-h .more{font-size:.76rem;font-weight:800;color:var(--pink);cursor:pointer}
 
-/* health score card */
+/* score card */
 .score-card{background:#fff;border-radius:22px;box-shadow:var(--sh);padding:20px;
   display:flex;align-items:center;gap:18px}
 .ring-wrap{position:relative;width:96px;height:96px;flex:0 0 96px}
 .ring-wrap svg{transform:rotate(-90deg)}
 .ring-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.ring-num b{font-size:1.55rem;font-weight:900;color:var(--purple)}
+.ring-num b{font-size:1.5rem;font-weight:900;color:var(--purple)}
 .ring-num span{font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
 .score-info h4{font-size:1rem;font-weight:900;margin-bottom:3px}
 .score-info p{font-size:.78rem;color:var(--muted);line-height:1.5}
@@ -152,23 +159,21 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 
 /* quick stats */
 .qstats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-.qstat{background:#fff;border-radius:17px;box-shadow:var(--sh);padding:13px 10px;text-align:center}
+.qstat{background:#fff;border-radius:17px;box-shadow:var(--sh);padding:13px 8px;text-align:center}
 .qstat .qi{width:34px;height:34px;border-radius:11px;margin:0 auto 7px;display:flex;
   align-items:center;justify-content:center}
 .qstat b{display:block;font-size:1.05rem;font-weight:900;color:var(--ink)}
-.qstat span{font-size:.62rem;color:var(--muted);font-weight:700}
+.qstat span{font-size:.6rem;color:var(--muted);font-weight:700}
 
 /* generic card */
 .card{background:#fff;border-radius:18px;box-shadow:var(--sh);padding:15px;margin-bottom:11px}
 .card.tap{cursor:pointer;transition:transform .14s}
 .card.tap:active{transform:scale(.98)}
-
-/* reminder / list item */
 .litem{display:flex;align-items:center;gap:13px}
 .licon{width:46px;height:46px;border-radius:14px;flex:0 0 46px;display:flex;
-  align-items:center;justify-content:center}
+  align-items:center;justify-content:center;font-size:1.25rem}
 .litxt{flex:1;min-width:0}
-.litxt h4{font-size:.88rem;font-weight:800;margin-bottom:2px}
+.litxt h4{font-size:.86rem;font-weight:800;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .litxt p{font-size:.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lichev{color:var(--soft)}
 .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;
@@ -176,6 +181,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 .b-ok{background:var(--ok-l);color:var(--ok)}
 .b-warn{background:var(--warn-l);color:var(--warn)}
 .b-alert{background:var(--alert-l);color:var(--alert)}
+.b-mute{background:#EFEAF2;color:var(--muted)}
 .b-pink{background:var(--pink-l);color:var(--pink-d)}
 .b-purple{background:var(--purple-l);color:var(--purple-d)}
 
@@ -183,6 +189,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 .insight{border-radius:18px;padding:15px;margin-bottom:11px;color:#fff;position:relative;overflow:hidden}
 .insight.alert{background:linear-gradient(135deg,#E6357A,#C71F63)}
 .insight.edu{background:linear-gradient(135deg,#7B3F98,#9B3590)}
+.insight.good{background:linear-gradient(135deg,#3F9E6A,#5E8C73)}
 .insight .tag{font-size:.62rem;font-weight:900;text-transform:uppercase;letter-spacing:1px;opacity:.85}
 .insight h4{font-size:1rem;font-weight:900;margin:5px 0 5px}
 .insight p{font-size:.78rem;line-height:1.55;opacity:.94}
@@ -190,41 +197,46 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
   font-weight:800;background:rgba(255,255,255,.2);padding:7px 13px;border-radius:20px;cursor:pointer}
 .insight .ghost-ico{position:absolute;right:-14px;bottom:-14px;font-size:5rem;opacity:.13}
 
-/* timeline reminders */
-.tl-day{font-size:.74rem;font-weight:900;color:var(--purple);margin:18px 4px 9px;
-  text-transform:uppercase;letter-spacing:.6px}
-.rem-card{background:#fff;border-radius:16px;box-shadow:var(--sh);padding:13px;margin-bottom:9px;
-  display:flex;gap:12px;align-items:center;border-left:4px solid var(--pink)}
-.rem-card.done{border-left-color:var(--ok);opacity:.78}
-.rem-card.soon{border-left-color:var(--warn)}
-.rem-time{flex:0 0 50px;text-align:center}
-.rem-time b{font-size:.92rem;font-weight:900;display:block}
-.rem-time span{font-size:.6rem;color:var(--muted);font-weight:700}
-.rem-mid{flex:1;min-width:0}
-.rem-mid h4{font-size:.86rem;font-weight:800}
-.rem-mid p{font-size:.71rem;color:var(--muted);margin-top:1px}
-.chk{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);flex:0 0 26px;
-  display:flex;align-items:center;justify-content:center;cursor:pointer}
-.chk.on{background:var(--ok);border-color:var(--ok)}
+/* empty state */
+.empty{text-align:center;padding:48px 24px 30px}
+.empty .ei{font-size:3.6rem;margin-bottom:12px}
+.empty h3{font-size:1.12rem;font-weight:900;margin-bottom:7px}
+.empty p{font-size:.84rem;color:var(--muted);line-height:1.6;max-width:268px;margin:0 auto 20px}
 
-/* records filter chips */
-.chips{display:flex;gap:8px;overflow-x:auto;padding:3px 0 4px;margin-bottom:6px}
-.chips::-webkit-scrollbar{height:0}
-.chip{flex:0 0 auto;padding:8px 15px;border-radius:20px;background:#fff;border:1.5px solid var(--line);
-  font-size:.76rem;font-weight:800;color:var(--muted);cursor:pointer}
-.chip.on{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border-color:transparent}
+/* add-report row */
+.add-row{display:flex;justify-content:space-between;align-items:center;margin:16px 4px 12px}
+.add-row h3{font-size:1rem;font-weight:900}
+.add-btn{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;
+  font-size:.78rem;font-weight:800;padding:9px 15px;border-radius:20px;cursor:pointer;font-family:inherit}
+.add-btn:active{transform:scale(.96)}
+
+/* trend rows */
+.trend-row{display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;
+  box-shadow:var(--sh);padding:13px;margin-bottom:9px;cursor:pointer;transition:transform .14s}
+.trend-row:active{transform:scale(.98)}
+.trend-ic{width:44px;height:44px;border-radius:13px;flex:0 0 44px;display:flex;
+  align-items:center;justify-content:center;font-size:1.2rem}
+.trend-mid{flex:1;min-width:0}
+.trend-mid h4{font-size:.86rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trend-mid p{font-size:.69rem;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.spark{margin-top:4px;height:26px}
+.trend-val{text-align:right;flex:0 0 auto}
+.trend-val b{font-size:1rem;font-weight:900;display:block;line-height:1.1}
+.trend-val .tu{font-size:.58rem;color:var(--muted);font-weight:700}
+.tr-badge{font-size:.6rem;font-weight:800;padding:2px 7px;border-radius:12px;
+  display:inline-flex;gap:3px;margin-top:3px}
 
 /* vault summary */
-.vault-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
-.vault-cat{border-radius:17px;padding:15px;color:#fff;cursor:pointer}
-.vault-cat b{font-size:1.5rem;font-weight:900;display:block}
-.vault-cat span{font-size:.74rem;font-weight:700;opacity:.92}
-.vault-cat .vi{font-size:1.3rem;margin-bottom:6px}
+.vault-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
+.vault-cat{border-radius:17px;padding:14px;color:#fff}
+.vault-cat b{font-size:1.4rem;font-weight:900;display:block}
+.vault-cat span{font-size:.72rem;font-weight:700;opacity:.92}
+.vault-cat .vi{font-size:1.2rem;margin-bottom:5px}
 
 /* learn cards */
 .learn-feat{border-radius:20px;overflow:hidden;box-shadow:var(--sh);margin-bottom:13px;cursor:pointer}
-.learn-feat .lf-img{height:124px;background:linear-gradient(135deg,#F178A8,#7B3F98);
-  display:flex;align-items:center;justify-content:center;font-size:3.4rem;position:relative}
+.learn-feat .lf-img{height:118px;background:linear-gradient(135deg,#F178A8,#7B3F98);
+  display:flex;align-items:center;justify-content:center;font-size:3.2rem;position:relative}
 .learn-feat .lf-tag{position:absolute;top:11px;left:11px;background:rgba(255,255,255,.92);
   color:var(--pink-d);font-size:.62rem;font-weight:900;padding:4px 10px;border-radius:20px;
   text-transform:uppercase;letter-spacing:.5px}
@@ -234,11 +246,20 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 .learn-feat .lf-meta{font-size:.68rem;color:var(--soft);font-weight:700;margin-top:8px}
 .learn-row{display:flex;gap:12px;background:#fff;border-radius:16px;box-shadow:var(--sh);
   padding:11px;margin-bottom:9px;cursor:pointer}
-.learn-row .lr-thumb{width:58px;height:58px;border-radius:13px;flex:0 0 58px;display:flex;
-  align-items:center;justify-content:center;font-size:1.7rem}
+.learn-row .lr-thumb{width:56px;height:56px;border-radius:13px;flex:0 0 56px;display:flex;
+  align-items:center;justify-content:center;font-size:1.6rem}
 .learn-row .lr-txt{flex:1;min-width:0}
 .learn-row .lr-txt h4{font-size:.83rem;font-weight:800;line-height:1.3}
 .learn-row .lr-txt p{font-size:.69rem;color:var(--muted);margin-top:3px}
+
+/* reminder cards */
+.rem-card{background:#fff;border-radius:16px;box-shadow:var(--sh);padding:13px;margin-bottom:9px;
+  display:flex;gap:12px;align-items:center;border-left:4px solid var(--pink);cursor:pointer}
+.rem-ic{width:42px;height:42px;border-radius:12px;flex:0 0 42px;display:flex;
+  align-items:center;justify-content:center;font-size:1.15rem;background:var(--pink-l)}
+.rem-mid{flex:1;min-width:0}
+.rem-mid h4{font-size:.86rem;font-weight:800}
+.rem-mid p{font-size:.71rem;color:var(--muted);margin-top:1px}
 
 /* profile */
 .prof-head{background:linear-gradient(150deg,#E6357A,#7B3F98);padding:24px 20px 56px;
@@ -248,12 +269,11 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
   font-weight:900;color:var(--purple-d);border:3px solid rgba(255,255,255,.7)}
 .prof-head h2{font-size:1.25rem;font-weight:900}
 .prof-head p{font-size:.78rem;opacity:.88;margin-top:2px}
-.prof-stats{display:flex;background:#fff;border-radius:18px;box-shadow:var(--sh);
-  margin:0 4px;overflow:hidden}
+.prof-stats{display:flex;background:#fff;border-radius:18px;box-shadow:var(--sh);margin:0 4px;overflow:hidden}
 .prof-stat{flex:1;text-align:center;padding:14px 6px}
 .prof-stat+.prof-stat{border-left:1px solid var(--line)}
 .prof-stat b{display:block;font-size:1.15rem;font-weight:900;color:var(--purple)}
-.prof-stat span{font-size:.64rem;color:var(--muted);font-weight:700}
+.prof-stat span{font-size:.62rem;color:var(--muted);font-weight:700}
 .menu{background:#fff;border-radius:18px;box-shadow:var(--sh);overflow:hidden;margin-top:14px}
 .menu-item{display:flex;align-items:center;gap:13px;padding:14px 15px;cursor:pointer}
 .menu-item+.menu-item{border-top:1px solid var(--line)}
@@ -262,8 +282,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 .menu-item .mi-tx{flex:1}
 .menu-item .mi-tx h4{font-size:.86rem;font-weight:800}
 .menu-item .mi-tx p{font-size:.69rem;color:var(--muted);margin-top:1px}
-
-/* family hub avatars */
 .fam-row{display:flex;gap:13px;overflow-x:auto;padding:4px 0}
 .fam-row::-webkit-scrollbar{height:0}
 .fam{flex:0 0 auto;text-align:center;cursor:pointer}
@@ -277,7 +295,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
   border-top:1px solid var(--line);display:flex;align-items:flex-start;padding:9px 6px 0;
   box-shadow:0 -6px 22px rgba(123,63,152,.08);z-index:100}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;
-  color:var(--soft);position:relative}
+  color:var(--soft)}
 .tab span{font-size:.62rem;font-weight:800}
 .tab.on{color:var(--pink)}
 .tab svg{display:block}
@@ -287,11 +305,11 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
   display:flex;align-items:center;justify-content:center;cursor:pointer;border:4px solid #fff}
 .fab:active{transform:scale(.93)}
 
-/* ===== AI ASSISTANT SHEET ===== */
+/* ===== SHEETS ===== */
 .sheet-bg{position:absolute;inset:0;background:rgba(43,30,51,.55);z-index:300;
   display:none;align-items:flex-end;backdrop-filter:blur(2px)}
 .sheet-bg.open{display:flex;animation:fade .25s}
-.sheet{background:var(--pink-xl);width:100%;border-radius:28px 28px 0 0;max-height:88%;
+.sheet{background:var(--pink-xl);width:100%;border-radius:28px 28px 0 0;max-height:90%;
   display:flex;flex-direction:column;animation:up .32s cubic-bezier(.2,.8,.2,1)}
 @keyframes up{from{transform:translateY(100%)}to{transform:none}}
 .sheet-grab{width:40px;height:5px;border-radius:3px;background:var(--line);margin:9px auto 2px}
@@ -318,25 +336,24 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 .chat-input button{width:44px;height:44px;border-radius:50%;border:none;flex:0 0 44px;
   background:linear-gradient(135deg,var(--pink),var(--purple));cursor:pointer;
   display:flex;align-items:center;justify-content:center}
-
-/* toast */
-.toast{position:absolute;left:50%;transform:translateX(-50%) translateY(20px);bottom:96px;
-  background:var(--ink);color:#fff;font-size:.78rem;font-weight:700;padding:11px 18px;
-  border-radius:14px;z-index:400;opacity:0;transition:.3s;pointer-events:none;max-width:84%;text-align:center}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* detail sheet generic */
 .dsheet .sheet{background:#fff}
-.dbody{overflow-y:auto;padding:18px}
+.dbody{overflow-y:auto;padding:18px 18px 26px}
 .dbody::-webkit-scrollbar{width:0}
 .dhero{border-radius:18px;padding:20px;color:#fff;text-align:center;margin-bottom:16px}
 .dhero .dh-ic{font-size:2.6rem}
 .dhero h3{font-size:1.15rem;font-weight:900;margin-top:6px}
-.dhero p{font-size:.78rem;opacity:.9;margin-top:2px}
-.drow{display:flex;justify-content:space-between;padding:11px 2px;border-bottom:1px solid var(--line);font-size:.83rem}
-.drow span{color:var(--muted);font-weight:700}
-.drow b{font-weight:800}
+.dhero p{font-size:.76rem;opacity:.92;margin-top:2px}
+.drow{display:flex;justify-content:space-between;gap:12px;padding:11px 2px;
+  border-bottom:1px solid var(--line);font-size:.83rem}
+.drow span{color:var(--muted);font-weight:700;flex:0 0 auto}
+.drow b{font-weight:800;text-align:right}
 .dbody p.txt{font-size:.85rem;line-height:1.7;color:var(--ink);margin-bottom:12px}
+.dbody h4.dh{font-size:.86rem;font-weight:900;margin:16px 0 8px}
+
+.toast{position:absolute;left:50%;transform:translateX(-50%) translateY(20px);bottom:96px;
+  background:var(--ink);color:#fff;font-size:.78rem;font-weight:700;padding:11px 18px;
+  border-radius:14px;z-index:400;opacity:0;transition:.3s;pointer-events:none;max-width:84%;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 @media (max-width:430px){
   body{padding:0}
@@ -352,7 +369,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
   <div class="notch"></div>
   <div class="screen">
 
-    <!-- STATUS BAR -->
     <div class="statusbar light" id="statusbar">
       <span>9:41</span>
       <div class="sb-icons">
@@ -362,7 +378,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
       </div>
     </div>
 
-    <!-- ============ APP SCROLL AREA ============ -->
     <div class="app" id="app">
 
       <!-- ===== SPLASH ===== -->
@@ -389,7 +404,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 
       <!-- ===== ONBOARDING ===== -->
       <div class="view" id="v-ob">
-        <div class="ob-skip" onclick="go('v-login')">Skip</div>
+        <div class="ob-skip" onclick="go('v-signup')">Skip</div>
         <div class="ob" id="ob-slide"></div>
       </div>
 
@@ -397,23 +412,23 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
       <div class="view" id="v-login">
         <div class="auth-top">
           <span class="auth-back" onclick="go('v-splash')">&larr; Back</span>
-          <svg class="auth-mini-logo" viewBox="0 0 100 100"><g fill="#fff"><ellipse cx="50" cy="56" rx="9" ry="26"/><ellipse cx="50" cy="56" rx="9" ry="26" transform="rotate(45 50 56)" opacity=".8"/><ellipse cx="50" cy="56" rx="9" ry="26" transform="rotate(-45 50 56)" opacity=".8"/><circle cx="50" cy="50" r="7" fill="#FFD9E8"/></g></svg>
+          <svg class="auth-mini-logo" viewBox="0 0 100 100"><g fill="#fff"><ellipse cx="50" cy="44" rx="11" ry="27" transform="rotate(38 50 72)" opacity=".75"/><ellipse cx="50" cy="44" rx="11" ry="27" transform="rotate(-38 50 72)" opacity=".75"/><ellipse cx="50" cy="42" rx="12" ry="30"/><circle cx="50" cy="72" r="6" fill="#FFD9E8"/></g></svg>
           <h1>Welcome back</h1>
           <p>Sign in to continue your wellness journey</p>
         </div>
         <div class="auth-body">
           <div class="auth-card">
-            <div class="field"><label>Email or phone</label><input type="text" value="nomsa@email.com" id="li-email"></div>
-            <div class="field"><label>Password</label><input type="password" value="********"></div>
+            <div class="field"><label>Email or phone</label><input type="text" id="li-email" placeholder="you@email.com"></div>
+            <div class="field"><label>Password</label><input type="password" id="li-pass" placeholder="Your password"></div>
             <div class="auth-row">
               <label class="check"><input type="checkbox" checked>Remember me</label>
-              <span class="lnk">Forgot password?</span>
+              <span class="lnk" onclick="toast('A reset link would be emailed to you')">Forgot password?</span>
             </div>
-            <button class="btn btn-pink" onclick="login()">Sign In</button>
+            <button class="btn btn-pink" onclick="doLogin()">Sign In</button>
             <div class="auth-or">or continue with</div>
             <div class="bio-row">
-              <div class="bio-btn" onclick="login()">&#128274; Face ID</div>
-              <div class="bio-btn" onclick="login()">&#128070; Fingerprint</div>
+              <div class="bio-btn" onclick="doLogin()">&#128274; Face ID</div>
+              <div class="bio-btn" onclick="doLogin()">&#128070; Fingerprint</div>
             </div>
           </div>
           <div class="auth-foot">New to SheCare? <b onclick="go('v-signup')">Create account</b></div>
@@ -429,12 +444,17 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
         </div>
         <div class="auth-body">
           <div class="auth-card">
-            <div class="field"><label>Full name</label><input type="text" placeholder="e.g. Nomsa Dlamini"></div>
-            <div class="field"><label>Email address</label><input type="email" placeholder="you@email.com"></div>
-            <div class="field"><label>Date of birth</label><input type="text" placeholder="DD / MM / YYYY"></div>
-            <div class="field"><label>Create password</label><input type="password" placeholder="At least 8 characters">
+            <div class="field" id="f-name"><label>Full name</label>
+              <input type="text" id="su-name" placeholder="e.g. Thembisa Mokoena">
+              <div class="ferr">Please enter your full name.</div></div>
+            <div class="field"><label>Email address</label>
+              <input type="email" id="su-email" placeholder="you@email.com"></div>
+            <div class="field"><label>Date of birth</label>
+              <input type="text" id="su-dob" placeholder="DD / MM / YYYY"></div>
+            <div class="field"><label>Create password</label>
+              <input type="password" id="su-pass" placeholder="At least 8 characters">
               <div class="hint">Use a mix of letters, numbers &amp; symbols</div></div>
-            <button class="btn btn-pink" onclick="login()">Create My Account</button>
+            <button class="btn btn-pink" onclick="doSignup()">Create My Account</button>
             <div class="popia-note">
               <span>&#128737;</span>
               <span>Your health data is encrypted and protected. SheCare is fully <b>POPIA compliant</b> &mdash; you stay in control.</span>
@@ -449,75 +469,35 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
         <div class="appbar curve">
           <div class="ab-row">
             <div>
-              <div class="ab-greet">Good morning &#9728;&#65039;</div>
-              <div class="ab-name">Nomsa &#128075;</div>
+              <div class="ab-greet" id="ab-greet">Good morning</div>
+              <div class="ab-name" id="ab-name">&nbsp;</div>
             </div>
             <div class="ab-actions">
               <div class="ab-ico" onclick="toast('No new notifications')"><span class="dot"></span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg>
               </div>
-              <div class="avatar" onclick="tab('profile')">ND</div>
+              <div class="avatar" id="ab-av" onclick="tab('profile')">&nbsp;</div>
             </div>
           </div>
         </div>
         <div class="content pull">
-          <div class="score-card">
-            <div class="ring-wrap">
-              <svg width="96" height="96">
-                <circle cx="48" cy="48" r="40" fill="none" stroke="#F1E3EC" stroke-width="11"/>
-                <circle cx="48" cy="48" r="40" fill="none" stroke="url(#g1)" stroke-width="11"
-                  stroke-linecap="round" stroke-dasharray="251.2" stroke-dashoffset="45.2"/>
-                <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="#E6357A"/><stop offset="1" stop-color="#7B3F98"/>
-                </linearGradient></defs>
-              </svg>
-              <div class="ring-num"><b>82%</b><span>Health</span></div>
-            </div>
-            <div class="score-info">
-              <h4>You're doing great!</h4>
-              <p>Your health summary is on track. One screening is due soon.</p>
-              <span class="score-pill">&#9650; Up 6% this month</span>
-            </div>
-          </div>
-
-          <div class="qstats">
-            <div class="qstat"><div class="qi" style="background:var(--pink-l)">&#128138;</div><b>12</b><span>Records</span></div>
-            <div class="qstat"><div class="qi" style="background:var(--warn-l)">&#9200;</div><b>3</b><span>Due soon</span></div>
-            <div class="qstat"><div class="qi" style="background:var(--ok-l)">&#9989;</div><b>8</b><span>Up to date</span></div>
-          </div>
-
-          <div class="section-h"><h3>Needs your attention</h3></div>
-          <div class="insight alert" onclick="openDetail('chol')">
-            <div class="ghost-ico">&#128201;</div>
-            <div class="tag">&#128680; Trend Alert</div>
-            <h4>Cholesterol trending up</h4>
-            <p>Your cholesterol has risen over the last 12 months. Small lifestyle changes can help.</p>
-            <span class="ia">View trend &amp; tips &rarr;</span>
-          </div>
-
-          <div class="section-h"><h3>Upcoming screenings</h3><span class="more" onclick="tab('reminders')">See all</span></div>
+          <div id="home-score"></div>
+          <div id="home-stats"></div>
+          <div id="home-trends"></div>
+          <div id="home-insight"></div>
+          <div class="section-h"><h3>Recommended screenings</h3></div>
           <div class="card tap" onclick="openDetail('pap')">
-            <div class="litem">
-              <div class="licon" style="background:var(--pink-l)">&#129658;</div>
-              <div class="litxt"><h4>Pap Smear</h4><p>Due in 3 weeks &middot; Jan 2026</p></div>
-              <span class="badge b-warn">Due soon</span>
-            </div>
-          </div>
+            <div class="litem"><div class="licon" style="background:var(--pink-l)">&#129658;</div>
+              <div class="litxt"><h4>Pap Smear</h4><p>Cervical screening &middot; every 3 years</p></div>
+              <span class="lichev">&rsaquo;</span></div></div>
           <div class="card tap" onclick="openDetail('mammo')">
-            <div class="litem">
-              <div class="licon" style="background:var(--purple-l)">&#129658;</div>
-              <div class="litxt"><h4>Mammogram</h4><p>Scheduled &middot; Aug 2026</p></div>
-              <span class="badge b-ok">On track</span>
-            </div>
-          </div>
+            <div class="litem"><div class="licon" style="background:var(--purple-l)">&#129658;</div>
+              <div class="litxt"><h4>Mammogram</h4><p>Breast screening &middot; from age 40</p></div>
+              <span class="lichev">&rsaquo;</span></div></div>
           <div class="card tap" onclick="openDetail('vitd')">
-            <div class="litem">
-              <div class="licon" style="background:var(--warn-l)">&#9728;&#65039;</div>
-              <div class="litxt"><h4>Vitamin D Test</h4><p>Next &middot; Feb 2026</p></div>
-              <span class="badge b-ok">On track</span>
-            </div>
-          </div>
-
+            <div class="litem"><div class="licon" style="background:var(--warn-l)">&#9728;&#65039;</div>
+              <div class="litxt"><h4>Vitamin D Test</h4><p>Bone &amp; immune health</p></div>
+              <span class="lichev">&rsaquo;</span></div></div>
           <div class="section-h"><h3>Learn today</h3><span class="more" onclick="tab('learn')">More</span></div>
           <div class="insight edu" onclick="openDetail('hpv')">
             <div class="ghost-ico">&#128218;</div>
@@ -537,64 +517,13 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
               <div class="ab-greet">Your secure</div>
               <div class="ab-name">Health Vault &#128274;</div>
             </div>
-            <div class="ab-ico" onclick="toast('Search records')">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <div class="ab-ico" onclick="openAddReport()">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
             </div>
           </div>
         </div>
         <div class="content">
-          <div class="vault-grid" style="margin-top:14px">
-            <div class="vault-cat" style="background:linear-gradient(135deg,#E6357A,#C71F63)" onclick="toast('Lab results')">
-              <div class="vi">&#128138;</div><b>6</b><span>Lab Results</span></div>
-            <div class="vault-cat" style="background:linear-gradient(135deg,#7B3F98,#5E2C77)" onclick="toast('Scans &amp; imaging')">
-              <div class="vi">&#129658;</div><b>3</b><span>Scans &amp; Imaging</span></div>
-            <div class="vault-cat" style="background:linear-gradient(135deg,#9B3590,#7B3F98)" onclick="toast('Doctor reports')">
-              <div class="vi">&#128209;</div><b>2</b><span>Doctor Reports</span></div>
-            <div class="vault-cat" style="background:linear-gradient(135deg,#F178A8,#E6357A)" onclick="toast('Prescriptions')">
-              <div class="vi">&#128138;</div><b>1</b><span>Prescriptions</span></div>
-          </div>
-
-          <div class="section-h"><h3>All records</h3><span class="more" onclick="toast('Sort by date')">Recent</span></div>
-          <div class="chips">
-            <div class="chip on">All</div><div class="chip">Labs</div><div class="chip">Scans</div>
-            <div class="chip">Reports</div><div class="chip">2026</div>
-          </div>
-
-          <div class="card tap" onclick="openDetail('bloodrec')">
-            <div class="litem">
-              <div class="licon" style="background:var(--pink-l)">&#128138;</div>
-              <div class="litxt"><h4>Full Blood Count</h4><p>Lancet Labs &middot; 14 Mar 2026</p></div>
-              <span class="badge b-ok">Normal</span>
-            </div>
-          </div>
-          <div class="card tap" onclick="openDetail('chol')">
-            <div class="litem">
-              <div class="licon" style="background:var(--alert-l)">&#128153;</div>
-              <div class="litxt"><h4>Lipid / Cholesterol Panel</h4><p>Lancet Labs &middot; 14 Mar 2026</p></div>
-              <span class="badge b-warn">Review</span>
-            </div>
-          </div>
-          <div class="card tap" onclick="openDetail('mammorec')">
-            <div class="litem">
-              <div class="licon" style="background:var(--purple-l)">&#129658;</div>
-              <div class="litxt"><h4>Mammogram Imaging</h4><p>Netcare Radiology &middot; Aug 2024</p></div>
-              <span class="badge b-ok">Clear</span>
-            </div>
-          </div>
-          <div class="card tap" onclick="openDetail('vitd')">
-            <div class="litem">
-              <div class="licon" style="background:var(--warn-l)">&#9728;&#65039;</div>
-              <div class="litxt"><h4>Vitamin D Level</h4><p>Lancet Labs &middot; 02 Feb 2026</p></div>
-              <span class="badge b-warn">Low</span>
-            </div>
-          </div>
-          <div class="card tap" onclick="openDetail('checkup')">
-            <div class="litem">
-              <div class="licon" style="background:var(--purple-l)">&#128209;</div>
-              <div class="litxt"><h4>Annual Wellness Report</h4><p>Dr. M. Khumalo &middot; Jan 2026</p></div>
-              <span class="badge b-ok">Filed</span>
-            </div>
-          </div>
+          <div id="rec-body"></div>
         </div>
       </div>
 
@@ -604,51 +533,45 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
           <div class="ab-row">
             <div>
               <div class="ab-greet">Stay on track</div>
-              <div class="ab-name">Smart Reminders &#128276;</div>
-            </div>
-            <div class="ab-ico" onclick="toast('Add a reminder')">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+              <div class="ab-name">Screenings &#128276;</div>
             </div>
           </div>
         </div>
         <div class="content">
-          <div class="tl-day">This month</div>
-          <div class="rem-card soon">
-            <div class="rem-time"><b>Jan</b><span>2026</span></div>
-            <div class="rem-mid"><h4>Pap Smear screening</h4><p>Cervical health &middot; every 3 years</p></div>
-            <div class="chk" onclick="checkRem(this)"></div>
+          <div class="insight edu" style="margin-top:16px" onclick="openDetail('screening')">
+            <div class="ghost-ico">&#128197;</div>
+            <div class="tag">&#128161; Why it matters</div>
+            <h4>Prevention beats cure</h4>
+            <p>Regular screenings catch issues early &mdash; when they are easiest to treat. Here are the key ones for women.</p>
           </div>
-          <div class="rem-card">
-            <div class="rem-time"><b>Feb</b><span>2026</span></div>
-            <div class="rem-mid"><h4>Vitamin D re-test</h4><p>Follow-up on low result</p></div>
-            <div class="chk" onclick="checkRem(this)"></div>
+          <div class="section-h"><h3>Recommended screening schedule</h3></div>
+          <div class="rem-card" onclick="openDetail('pap')">
+            <div class="rem-ic">&#129658;</div>
+            <div class="rem-mid"><h4>Pap Smear</h4><p>Every 3 years &middot; ages 21&ndash;65</p></div>
+            <span class="badge b-pink">Cervical</span>
           </div>
-
-          <div class="tl-day">Coming up</div>
-          <div class="rem-card">
-            <div class="rem-time"><b>Mar</b><span>2026</span></div>
-            <div class="rem-mid"><h4>Blood pressure check</h4><p>Routine &middot; at clinic or home</p></div>
-            <div class="chk" onclick="checkRem(this)"></div>
+          <div class="rem-card" style="border-left-color:var(--purple)" onclick="openDetail('mammo')">
+            <div class="rem-ic" style="background:var(--purple-l)">&#129658;</div>
+            <div class="rem-mid"><h4>Mammogram</h4><p>Every 1&ndash;2 years &middot; from age 40</p></div>
+            <span class="badge b-purple">Breast</span>
           </div>
-          <div class="rem-card">
-            <div class="rem-time"><b>Aug</b><span>2026</span></div>
-            <div class="rem-mid"><h4>Mammogram</h4><p>Breast screening &middot; annual</p></div>
-            <div class="chk" onclick="checkRem(this)"></div>
+          <div class="rem-card" style="border-left-color:var(--warn)" onclick="openDetail('bp')">
+            <div class="rem-ic" style="background:var(--warn-l)">&#128147;</div>
+            <div class="rem-mid"><h4>Blood Pressure</h4><p>At least once a year</p></div>
+            <span class="badge b-warn">Heart</span>
           </div>
-
-          <div class="tl-day">Completed</div>
-          <div class="rem-card done">
-            <div class="rem-time"><b>Mar</b><span>2026</span></div>
-            <div class="rem-mid"><h4>Full blood count</h4><p>Done &middot; results normal</p></div>
-            <div class="chk on">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><path d="M20 6 9 17l-5-5"/></svg>
-            </div>
+          <div class="rem-card" style="border-left-color:var(--ok)" onclick="openDetail('cholesterolEdu')">
+            <div class="rem-ic" style="background:var(--ok-l)">&#129656;</div>
+            <div class="rem-mid"><h4>Cholesterol &amp; glucose</h4><p>Every 5 years &middot; sooner if at risk</p></div>
+            <span class="badge b-ok">Metabolic</span>
           </div>
-          <div class="rem-card done">
-            <div class="rem-time"><b>Jan</b><span>2026</span></div>
-            <div class="rem-mid"><h4>Annual wellness visit</h4><p>Done &middot; report filed</p></div>
-            <div class="chk on">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><path d="M20 6 9 17l-5-5"/></svg>
+          <div id="rem-logged"></div>
+          <div class="section-h"><h3>Add your dates</h3></div>
+          <div class="card tap" onclick="openAddReport()">
+            <div class="litem">
+              <div class="licon" style="background:var(--pink-l)">&#10133;</div>
+              <div class="litxt"><h4>Log a screening or report</h4><p>Keep your own record &amp; reminders</p></div>
+              <span class="lichev">&rsaquo;</span>
             </div>
           </div>
         </div>
@@ -662,18 +585,10 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
               <div class="ab-greet">Knowledge is power</div>
               <div class="ab-name">Learn &amp; Thrive &#128218;</div>
             </div>
-            <div class="ab-ico" onclick="toast('Search articles')">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-            </div>
           </div>
         </div>
         <div class="content">
-          <div class="chips" style="margin-top:14px">
-            <div class="chip on">For You</div><div class="chip">Screening</div><div class="chip">Nutrition</div>
-            <div class="chip">Mental Health</div><div class="chip">Fitness</div>
-          </div>
-
-          <div class="learn-feat" onclick="openDetail('hpv')">
+          <div class="learn-feat" style="margin-top:14px" onclick="openDetail('hpv')">
             <div class="lf-img">&#128300;<span class="lf-tag">Featured</span></div>
             <div class="lf-body">
               <h4>Understanding HPV &amp; how Pap smears protect you</h4>
@@ -681,7 +596,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
               <div class="lf-meta">5 min read &middot; Reviewed by a gynaecologist</div>
             </div>
           </div>
-
           <div class="section-h"><h3>Recommended for you</h3></div>
           <div class="learn-row" onclick="openDetail('breast')">
             <div class="lr-thumb" style="background:var(--pink-l)">&#129658;</div>
@@ -698,7 +612,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
             <div class="lr-txt"><h4>Managing stress &amp; mental wellness</h4>
               <p>Everyday habits for a calmer mind</p></div>
           </div>
-          <div class="learn-row" onclick="openDetail('chol')">
+          <div class="learn-row" onclick="openDetail('cholesterolEdu')">
             <div class="lr-thumb" style="background:var(--warn-l)">&#10084;&#65039;</div>
             <div class="lr-txt"><h4>Lowering cholesterol naturally</h4>
               <p>Lifestyle steps that make a difference</p></div>
@@ -709,32 +623,16 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
       <!-- ===== PROFILE ===== -->
       <div class="view" id="v-profile">
         <div class="prof-head">
-          <div class="prof-av">ND</div>
-          <h2>Nomsa Dlamini</h2>
-          <p>Member since 2025 &middot; POPIA protected</p>
+          <div class="prof-av" id="pf-av">&nbsp;</div>
+          <h2 id="pf-name">&nbsp;</h2>
+          <p id="pf-sub">&nbsp;</p>
         </div>
         <div class="content" style="margin-top:-32px">
-          <div class="prof-stats">
-            <div class="prof-stat"><b>82%</b><span>Health Score</span></div>
-            <div class="prof-stat"><b>12</b><span>Records</span></div>
-            <div class="prof-stat"><b>3</b><span>Family</span></div>
-          </div>
-
-          <div class="section-h"><h3>Family Health Hub</h3><span class="more" onclick="toast('Manage family')">Manage</span></div>
+          <div class="prof-stats" id="pf-stats"></div>
+          <div class="section-h"><h3>Family Health Hub</h3></div>
           <div class="card">
-            <div class="fam-row">
-              <div class="fam" onclick="toast('Nomsa &mdash; you')">
-                <div class="fa" style="background:linear-gradient(135deg,#FFD9E8,#E6BBF0);color:#5E2C77;font-weight:900;font-size:1rem">ND</div>
-                <span>You</span></div>
-              <div class="fam" onclick="toast('Thandi &mdash; daughter')">
-                <div class="fa" style="background:var(--pink-l)">&#128103;</div><span>Thandi</span></div>
-              <div class="fam" onclick="toast('Gogo &mdash; mother')">
-                <div class="fa" style="background:var(--purple-l)">&#128116;</div><span>Gogo</span></div>
-              <div class="fam add" onclick="toast('Invite a family member')">
-                <div class="fa">+</div><span>Add</span></div>
-            </div>
+            <div class="fam-row" id="pf-fam"></div>
           </div>
-
           <div class="menu">
             <div class="menu-item" onclick="toast('Personal &amp; medical info')">
               <div class="mi-ic" style="background:var(--pink-l)">&#128100;</div>
@@ -746,12 +644,12 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
               <div class="mi-tx"><h4>Reminders &amp; notifications</h4><p>Screening alerts &amp; check-ups</p></div>
               <span class="lichev">&rsaquo;</span>
             </div>
-            <div class="menu-item" onclick="toast('Privacy &amp; data')">
+            <div class="menu-item" onclick="openDetail('privacy')">
               <div class="mi-ic" style="background:var(--purple-l)">&#128274;</div>
               <div class="mi-tx"><h4>Privacy &amp; data control</h4><p>POPIA compliant &middot; you own your data</p></div>
               <span class="badge b-ok">Secured</span>
             </div>
-            <div class="menu-item" onclick="toast('Connected providers')">
+            <div class="menu-item" onclick="toast('Connected labs &amp; doctors')">
               <div class="mi-ic" style="background:var(--ok-l)">&#127973;</div>
               <div class="mi-tx"><h4>Connected labs &amp; doctors</h4><p>Auto-sync your results</p></div>
               <span class="lichev">&rsaquo;</span>
@@ -762,16 +660,15 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
               <span class="lichev">&rsaquo;</span>
             </div>
           </div>
-
-          <button class="btn btn-soft" style="margin-top:14px" onclick="go('v-splash')">Sign Out</button>
+          <button class="btn btn-soft" style="margin-top:14px" onclick="signOut()">Sign Out</button>
           <p style="text-align:center;font-size:.68rem;color:var(--soft);margin-top:14px">
-            SheCare v1.0 &middot; Know Today. Prevent Tomorrow. Thrive Always.</p>
+            SheCare v2.0 &middot; Know Today. Prevent Tomorrow. Thrive Always.</p>
         </div>
       </div>
 
     </div><!-- /app -->
 
-    <!-- ============ BOTTOM NAV ============ -->
+    <!-- ===== BOTTOM NAV ===== -->
     <div class="tabbar" id="tabbar" style="display:none">
       <div class="tab on" data-tab="home" onclick="tab('home')">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></svg>
@@ -788,7 +685,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
       </div>
       <div class="tab" data-tab="reminders" onclick="tab('reminders')">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg>
-        <span>Reminders</span>
+        <span>Screenings</span>
       </div>
       <div class="tab" data-tab="profile" onclick="tab('profile')">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
@@ -796,7 +693,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
       </div>
     </div>
 
-    <!-- ============ AI ASSISTANT SHEET ============ -->
+    <!-- ===== AI ASSISTANT SHEET ===== -->
     <div class="sheet-bg" id="ai-sheet">
       <div class="sheet">
         <div class="sheet-grab"></div>
@@ -806,16 +703,14 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
           </div>
           <div>
             <h3>SheCare Assistant</h3>
-            <p>&#9679; Online &middot; understands your records</p>
+            <p>&#9679; Online &middot; reads your records</p>
           </div>
-          <div class="x" onclick="closeAI()">&#10005;</div>
+          <div class="x" onclick="closeSheet('ai-sheet')">&#10005;</div>
         </div>
-        <div class="chat" id="chat">
-          <div class="msg ai">Hi Nomsa &#128075; I'm your SheCare Assistant. I can help you understand your results, screenings and health trends. What would you like to know?</div>
-        </div>
+        <div class="chat" id="chat"></div>
         <div class="chips-q" id="chips-q">
-          <div class="chip-q" onclick="ask('What does my cholesterol result mean?')">Explain my cholesterol</div>
-          <div class="chip-q" onclick="ask('When is my next screening?')">Next screening?</div>
+          <div class="chip-q" onclick="ask('Explain my latest result')">Explain my latest result</div>
+          <div class="chip-q" onclick="ask('What are my health trends?')">My health trends?</div>
           <div class="chip-q" onclick="ask('Why is a Pap smear important?')">Why a Pap smear?</div>
         </div>
         <div class="chat-input">
@@ -827,14 +722,29 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
       </div>
     </div>
 
-    <!-- ============ DETAIL SHEET ============ -->
+    <!-- ===== DETAIL SHEET ===== -->
     <div class="sheet-bg dsheet" id="detail-sheet">
       <div class="sheet">
         <div class="sheet-grab"></div>
         <div class="sheet-hd" style="border:none;padding-bottom:4px">
-          <div class="x" style="margin-left:auto" onclick="closeDetail()">&#10005;</div>
+          <div class="x" style="margin-left:auto" onclick="closeSheet('detail-sheet')">&#10005;</div>
         </div>
         <div class="dbody" id="detail-body"></div>
+      </div>
+    </div>
+
+    <!-- ===== ADD REPORT SHEET ===== -->
+    <div class="sheet-bg dsheet" id="add-sheet">
+      <div class="sheet">
+        <div class="sheet-grab"></div>
+        <div class="sheet-hd">
+          <div class="ai-orb" style="border-radius:13px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+          </div>
+          <div><h3>Add a Report</h3><p style="color:var(--muted)">Build your trends</p></div>
+          <div class="x" onclick="closeSheet('add-sheet')">&#10005;</div>
+        </div>
+        <div class="dbody" id="add-body"></div>
       </div>
     </div>
 
@@ -844,79 +754,612 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 </div><!-- /phone -->
 
 <script>
-/* ---------- onboarding ---------- */
+/* ================= DATA LAYER ================= */
+var DB={user:null,records:[]};
+function dbLoad(){
+  try{DB.user=JSON.parse(localStorage.getItem('shecare_user'))||null;}catch(e){DB.user=null;}
+  try{DB.records=JSON.parse(localStorage.getItem('shecare_records'))||[];}catch(e){DB.records=[];}
+}
+function dbSaveUser(){try{localStorage.setItem('shecare_user',JSON.stringify(DB.user));}catch(e){}}
+function dbSaveRecords(){
+  try{localStorage.setItem('shecare_records',JSON.stringify(DB.records));}
+  catch(e){toast('Storage full — try removing attachments');}
+}
+dbLoad();
+
+/* ================= METRICS ================= */
+var METRICS={
+  cholesterol:{label:'Cholesterol',unit:'mmol/L',icon:'🫀',dir:'low',ok:[0,5],warn:[5,6.2],ref:'Below 5.0'},
+  bp:{label:'Blood Pressure',unit:'mmHg',icon:'💗',dir:'low',ok:[0,130],warn:[130,140],ref:'Below 130/85',dual:true},
+  glucose:{label:'Blood Glucose',unit:'mmol/L',icon:'🩸',dir:'low',ok:[3.9,5.5],warn:[5.5,7],ref:'3.9–5.5 fasting'},
+  vitd:{label:'Vitamin D',unit:'nmol/L',icon:'☀️',dir:'high',ok:[50,250],warn:[30,50],ref:'50–125'},
+  haemoglobin:{label:'Haemoglobin',unit:'g/dL',icon:'🩸',dir:'mid',ok:[12,15.5],warn:[10,17],ref:'12–15.5'},
+  weight:{label:'Weight',unit:'kg',icon:'⚖️',dir:'mid',ref:'Personal goal'},
+  mammogram:{label:'Mammogram',unit:'',icon:'🩺',screening:true},
+  pap:{label:'Pap Smear',unit:'',icon:'🩺',screening:true},
+  other:{label:'Other Report',unit:'',icon:'📄',freetext:true}
+};
+var MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmtDate(d){if(!d)return '';var p=(''+d).split('-');if(p.length!==3)return d;
+  return parseInt(p[2],10)+' '+MO[parseInt(p[1],10)-1]+' '+p[0];}
+function fmtShort(d){if(!d)return '';var p=(''+d).split('-');if(p.length!==3)return d;
+  return parseInt(p[2],10)+' '+MO[parseInt(p[1],10)-1];}
+function today(){return new Date().toISOString().slice(0,10);}
+function esc(s){return (''+(s==null?'':s)).replace(/[&<>"]/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+/* ---- metric helpers ---- */
+function metricStatus(m,v){var c=METRICS[m];
+  if(!c||!c.ok||v==null||isNaN(v))return 'mute';
+  if(v>=c.ok[0]&&v<=c.ok[1])return 'ok';
+  if(c.warn&&v>=c.warn[0]&&v<=c.warn[1])return 'warn';
+  return 'alert';}
+function stLabel(s){return s==='ok'?'In range':s==='warn'?'Monitor':s==='alert'?'Out of range':'Logged';}
+function stBg(s){return s==='ok'?'var(--ok-l)':s==='warn'?'var(--warn-l)':s==='alert'?'var(--alert-l)':'var(--purple-l)';}
+function stGrad(s){return s==='ok'?'linear-gradient(135deg,#3F9E6A,#5E8C73)':
+  s==='warn'?'linear-gradient(135deg,#D98324,#E6357A)':
+  s==='alert'?'linear-gradient(135deg,#E6357A,#C71F63)':'linear-gradient(135deg,#7B3F98,#9B3590)';}
+function recordsByMetric(m){
+  return DB.records.filter(function(r){return r.metric===m&&r.value!=null&&!isNaN(r.value);})
+    .sort(function(a,b){return a.date<b.date?-1:a.date>b.date?1:0;});}
+function latestRecord(m){var a=recordsByMetric(m);return a.length?a[a.length-1]:null;}
+function trackedMetrics(){
+  var s={};DB.records.forEach(function(r){
+    var c=METRICS[r.metric];
+    if(c&&!c.screening&&!c.freetext&&r.value!=null&&!isNaN(r.value))s[r.metric]=1;});
+  return Object.keys(s);}
+function healthScore(){
+  var mets=trackedMetrics();if(!mets.length)return null;
+  var sum=0,n=0;
+  mets.forEach(function(m){var lr=latestRecord(m);var st=metricStatus(m,lr.value);
+    if(st==='mute')return;n++;sum+=st==='ok'?100:st==='warn'?70:45;});
+  return n?Math.round(sum/n):78;}
+function trendInfo(m){
+  var a=recordsByMetric(m);if(a.length<2)return null;
+  var last=a[a.length-1].value,prev=a[a.length-2].value,delta=last-prev;
+  var cfg=METRICS[m];
+  var thr=Math.abs(prev)*0.02||0.01;
+  var dir=Math.abs(delta)<thr?'stable':(delta>0?'up':'down');
+  var good=dir==='stable'?'ok':(cfg.dir==='mid'?'mute':
+    (((cfg.dir==='low'&&dir==='down')||(cfg.dir==='high'&&dir==='up'))?'good':'bad'));
+  return {series:a,last:last,prev:prev,delta:delta,dir:dir,good:good};}
+function worstMetric(){
+  var rank={alert:3,warn:2,ok:1,mute:0},worst=null;
+  trackedMetrics().forEach(function(m){
+    var lr=latestRecord(m),st=metricStatus(m,lr.value);
+    if(!worst||rank[st]>rank[worst.st])worst={m:m,st:st,lr:lr};});
+  return worst;}
+function sparkline(vals,w,h,st,fluid){
+  if(vals.length<2)return '';
+  var mn=Math.min.apply(null,vals),mx=Math.max.apply(null,vals),rg=(mx-mn)||1;
+  var col=st==='alert'?'#D14343':st==='warn'?'#D98324':st==='ok'?'#3F9E6A':'#7B3F98';
+  var pts=vals.map(function(v,i){
+    var x=(i/(vals.length-1))*w;
+    var y=h-4-((v-mn)/rg)*(h-8);
+    return x.toFixed(1)+','+y.toFixed(1);});
+  var lp=pts[pts.length-1].split(',');
+  var line='<polyline fill="none" stroke="'+col+'" stroke-width="2.2" stroke-linecap="round" '+
+    'stroke-linejoin="round" vector-effect="non-scaling-stroke" points="'+pts.join(' ')+'"/>';
+  if(fluid){
+    return '<svg width="100%" height="'+h+'" viewBox="0 0 '+w+' '+h+'" '+
+      'preserveAspectRatio="none" style="display:block">'+line+'</svg>';
+  }
+  return '<svg width="'+w+'" height="'+h+'" style="overflow:visible">'+line+
+    '<circle cx="'+lp[0]+'" cy="'+lp[1]+'" r="2.8" fill="'+col+'"/></svg>';}
+
+/* ================= ONBOARDING ================= */
 var obSlides=[
-  {art:'&#128138;',cls:'a',h:'All your health <em>in one place</em>',
-   p:'Lab results, scans and doctor reports &mdash; collected securely so nothing gets lost across labs, clinics and emails.'},
-  {art:'&#128200;',cls:'a',h:'Spot the <em>trends</em> early',
+  {art:'📊',h:'All your health <em>in one place</em>',
+   p:'Lab results, scans and doctor reports — collected securely so nothing gets lost across labs, clinics and emails.'},
+  {art:'📈',h:'Spot the <em>trends</em> early',
    p:'SheCare tracks your results over time, highlights what matters, and helps you catch issues before they become serious.'},
-  {art:'&#128276;',cls:'a',h:'Never miss a <em>screening</em>',
-   p:'Smart reminders keep you on track with Pap smears, mammograms and check-ups &mdash; prevention made simple.'}
+  {art:'🔔',h:'Never miss a <em>screening</em>',
+   p:'Smart reminders keep you on track with Pap smears, mammograms and check-ups — prevention made simple.'}
 ];
 var obIdx=0;
 function renderOb(){
   var s=obSlides[obIdx];
   document.getElementById('ob-slide').innerHTML=
-    '<div class="ob-art '+s.cls+'">'+s.art+'</div>'+
-    '<h2>'+s.h+'</h2><p>'+s.p+'</p>'+
+    '<div class="ob-art a">'+s.art+'</div><h2>'+s.h+'</h2><p>'+s.p+'</p>'+
     '<div class="splash-dots" style="margin:24px 0">'+
-      obSlides.map(function(_,i){return '<i class="'+(i===obIdx?'on':'')+'"></i>'}).join('')+
-    '</div>'+
-    '<div class="ob-foot"><button class="btn btn-pink" onclick="nextOb()">'+
-      (obIdx===obSlides.length-1?'Get Started':'Continue')+'</button></div>';
+      obSlides.map(function(_,i){return '<i class="'+(i===obIdx?'on':'')+'"></i>';}).join('')+
+    '</div><div class="ob-foot"><button class="btn btn-pink" onclick="nextOb()">'+
+      (obIdx===obSlides.length-1?'Create my account':'Continue')+'</button></div>';
 }
-function nextOb(){ if(obIdx<obSlides.length-1){obIdx++;renderOb();} else {go('v-signup');} }
+function nextOb(){if(obIdx<obSlides.length-1){obIdx++;renderOb();}else{go('v-signup');}}
 
-/* ---------- view routing ---------- */
+/* ================= ROUTING ================= */
 var appViews=['v-home','v-records','v-reminders','v-learn','v-profile'];
 function go(id){
-  document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active')});
+  document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});
   document.getElementById(id).classList.add('active');
   if(id==='v-ob'){obIdx=0;renderOb();}
+  if(id==='v-home')renderHome();
+  if(id==='v-records')renderRecords();
+  if(id==='v-reminders')renderReminders();
+  if(id==='v-profile')renderProfile();
   var inApp=appViews.indexOf(id)>=0;
   document.getElementById('tabbar').style.display=inApp?'flex':'none';
-  var dark=(id==='v-splash'||id==='v-login'||id==='v-signup'||inApp);
-  document.getElementById('statusbar').classList.toggle('light',dark);
+  document.getElementById('statusbar').classList.toggle('light',
+    id==='v-splash'||id==='v-login'||id==='v-signup'||inApp);
   document.getElementById('app').scrollTop=0;
 }
-function login(){ tab('home'); }
 function tab(name){
   go('v-'+name);
   document.querySelectorAll('.tab').forEach(function(t){
-    t.classList.toggle('on',t.getAttribute('data-tab')===name);
-  });
+    t.classList.toggle('on',t.getAttribute('data-tab')===name);});
+}
+function enterApp(){tab('home');}
+
+/* ================= AUTH ================= */
+function doSignup(){
+  var name=(document.getElementById('su-name').value||'').trim().replace(/\s+/g,' ');
+  var fn=document.getElementById('f-name');
+  if(name.length<2){fn.classList.add('bad');document.getElementById('su-name').focus();return;}
+  fn.classList.remove('bad');
+  var parts=name.split(' ');
+  var ini=(parts[0].charAt(0)+(parts.length>1?parts[parts.length-1].charAt(0):(parts[0].charAt(1)||''))).toUpperCase();
+  DB.user={name:name,first:parts[0],initials:ini,
+    email:(document.getElementById('su-email').value||'').trim(),
+    dob:(document.getElementById('su-dob').value||'').trim(),
+    joined:new Date().getFullYear()};
+  dbSaveUser();
+  toast('Welcome to SheCare, '+DB.user.first+'! 🌸');
+  enterApp();
+}
+function doLogin(){
+  if(DB.user){toast('Welcome back, '+DB.user.first+'!');enterApp();}
+  else{toast('No account on this device yet — let’s create one');go('v-signup');}
+}
+function signOut(){go('v-splash');}
+
+/* ================= HOME ================= */
+function renderHome(){
+  var u=DB.user||{first:'there',initials:'👋'};
+  var hr=new Date().getHours();
+  document.getElementById('ab-greet').textContent=
+    (hr<12?'Good morning':hr<18?'Good afternoon':'Good evening')+' 🌸';
+  document.getElementById('ab-name').innerHTML=esc(u.first)+' 👋';
+  document.getElementById('ab-av').textContent=u.initials||'👤';
+
+  /* score */
+  var sc=healthScore(),el=document.getElementById('home-score');
+  if(sc==null){
+    el.innerHTML='<div class="score-card" style="cursor:pointer" onclick="openAddReport()">'+
+      '<div class="ring-wrap"><svg width="96" height="96">'+
+      '<circle cx="48" cy="48" r="40" fill="none" stroke="#F1E3EC" stroke-width="11" stroke-dasharray="3 8"/>'+
+      '</svg><div class="ring-num"><b style="font-size:2rem;color:var(--pink)">+</b></div></div>'+
+      '<div class="score-info"><h4>Start your health story</h4>'+
+      '<p>Add your first report and SheCare builds your health score and trends.</p>'+
+      '<span class="score-pill" style="background:var(--pink-l);color:var(--pink-d)">Tap to add a report</span>'+
+      '</div></div>';
+  }else{
+    var off=(251.33*(1-sc/100)).toFixed(1);
+    var msg=sc>=85?'You’re doing great!':sc>=70?'You’re on track':'A few things to watch';
+    var n=DB.records.length;
+    el.innerHTML='<div class="score-card"><div class="ring-wrap"><svg width="96" height="96">'+
+      '<circle cx="48" cy="48" r="40" fill="none" stroke="#F1E3EC" stroke-width="11"/>'+
+      '<circle cx="48" cy="48" r="40" fill="none" stroke="url(#g1)" stroke-width="11" '+
+      'stroke-linecap="round" stroke-dasharray="251.33" stroke-dashoffset="'+off+'"/>'+
+      '<defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">'+
+      '<stop offset="0" stop-color="#E6357A"/><stop offset="1" stop-color="#7B3F98"/>'+
+      '</linearGradient></defs></svg><div class="ring-num"><b>'+sc+'%</b><span>Health</span></div></div>'+
+      '<div class="score-info"><h4>'+msg+'</h4>'+
+      '<p>Based on your '+n+' report'+(n===1?'':'s')+'. Keep adding results to refine it.</p></div></div>';
+  }
+
+  /* quick stats */
+  var ym=today().slice(0,7);
+  var thisMonth=DB.records.filter(function(r){return (''+r.date).slice(0,7)===ym;}).length;
+  var trendCount=trackedMetrics().filter(function(m){return recordsByMetric(m).length>=2;}).length;
+  document.getElementById('home-stats').innerHTML=
+    '<div class="qstats">'+
+    '<div class="qstat"><div class="qi" style="background:var(--pink-l)">📋</div><b>'+DB.records.length+'</b><span>Reports</span></div>'+
+    '<div class="qstat"><div class="qi" style="background:var(--purple-l)">📈</div><b>'+trendCount+'</b><span>Trends</span></div>'+
+    '<div class="qstat"><div class="qi" style="background:var(--ok-l)">🗓️</div><b>'+thisMonth+'</b><span>This month</span></div>'+
+    '</div>';
+
+  /* trends */
+  var tEl=document.getElementById('home-trends'),mets=trackedMetrics();
+  if(!mets.length){
+    tEl.innerHTML='<div class="section-h"><h3>Your health trends</h3></div>'+
+      '<div class="card"><div class="litem">'+
+      '<div class="licon" style="background:var(--purple-l)">📈</div>'+
+      '<div class="litxt"><h4>No trends yet</h4><p>Add 2+ reports of one type to chart it</p></div>'+
+      '<span class="add-btn" onclick="openAddReport()">Add</span></div></div>';
+  }else{
+    var h='<div class="section-h"><h3>Your health trends</h3>'+
+      '<span class="more" onclick="openAddReport()">+ Add</span></div>';
+    mets.forEach(function(m){h+=trendRow(m);});
+    tEl.innerHTML=h;
+  }
+
+  /* insight */
+  var iEl=document.getElementById('home-insight'),w=worstMetric();
+  if(w&&(w.st==='warn'||w.st==='alert')){
+    var cfg=METRICS[w.m],ti=trendInfo(w.m);
+    iEl.innerHTML='<div class="section-h"><h3>Needs your attention</h3></div>'+
+      '<div class="insight alert" onclick="openTrend(\''+w.m+'\')">'+
+      '<div class="ghost-ico">'+cfg.icon+'</div>'+
+      '<div class="tag">⚠️ Health Insight</div>'+
+      '<h4>'+cfg.label+': '+stLabel(w.st)+'</h4>'+
+      '<p>Your latest '+cfg.label.toLowerCase()+' reading is '+w.lr.value+' '+cfg.unit+
+      ' (target '+cfg.ref+').'+(ti?' It is trending '+ti.dir+'.':'')+
+      ' Tap to view the trend and tips.</p>'+
+      '<span class="ia">View trend &rarr;</span></div>';
+  }else if(w){
+    iEl.innerHTML='<div class="section-h"><h3>Your status</h3></div>'+
+      '<div class="insight good"><div class="ghost-ico">✨</div>'+
+      '<div class="tag">✅ Looking good</div>'+
+      '<h4>Your tracked results are in range</h4>'+
+      '<p>Nice work, '+esc((DB.user||{}).first||'there')+'. Keep logging your reports so SheCare can keep watching the trends for you.</p></div>';
+  }else{
+    iEl.innerHTML='';
+  }
+}
+function trendRow(m){
+  var cfg=METRICS[m],a=recordsByMetric(m),lr=a[a.length-1],
+      st=metricStatus(m,lr.value),ti=trendInfo(m);
+  var spark=ti?'<div class="spark">'+sparkline(a.map(function(r){return r.value;}),64,26,st)+'</div>':'';
+  var badge=ti
+    ?'<span class="tr-badge b-'+(ti.good==='good'?'ok':ti.good==='bad'?'alert':'mute')+'">'+
+       (ti.dir==='up'?'▲':ti.dir==='down'?'▼':'■')+' '+ti.dir+'</span>'
+    :'<span class="tr-badge b-mute">1 reading</span>';
+  var disp=(m==='bp'&&lr.value2!=null)?lr.value+'/'+lr.value2:lr.value;
+  return '<div class="trend-row" onclick="openTrend(\''+m+'\')">'+
+    '<div class="trend-ic" style="background:'+stBg(st)+'">'+cfg.icon+'</div>'+
+    '<div class="trend-mid"><h4>'+cfg.label+'</h4>'+
+    '<p>'+a.length+' reading'+(a.length>1?'s':'')+' · latest '+fmtShort(lr.date)+'</p>'+spark+'</div>'+
+    '<div class="trend-val"><b>'+disp+'</b><span class="tu">'+(cfg.unit||'')+'</span><br>'+badge+'</div></div>';
 }
 
-/* ---------- toast ---------- */
+/* ================= RECORDS ================= */
+function renderRecords(){
+  var el=document.getElementById('rec-body');
+  if(!DB.records.length){
+    el.innerHTML='<div class="empty"><div class="ei">📋</div>'+
+      '<h3>No reports yet</h3>'+
+      '<p>Add your lab results, scans and check-ups. SheCare keeps them safe and turns them into trends.</p>'+
+      '<button class="btn btn-pink btn-inline" onclick="openAddReport()">+ Add Your First Report</button></div>';
+    return;
+  }
+  var labs=0,scans=0,others=0;
+  DB.records.forEach(function(r){
+    if(r.metric==='mammogram')scans++;
+    else if(r.metric==='pap'||r.metric==='other')others++;
+    else labs++;});
+  var h='<div class="add-row"><h3>'+DB.records.length+' report'+(DB.records.length>1?'s':'')+'</h3>'+
+    '<button class="add-btn" onclick="openAddReport()">+ Add Report</button></div>'+
+    '<div class="vault-grid">'+
+    '<div class="vault-cat" style="background:linear-gradient(135deg,#E6357A,#C71F63)">'+
+      '<div class="vi">💊</div><b>'+labs+'</b><span>Lab Results</span></div>'+
+    '<div class="vault-cat" style="background:linear-gradient(135deg,#7B3F98,#5E2C77)">'+
+      '<div class="vi">🩺</div><b>'+scans+'</b><span>Scans &amp; Screenings</span></div>'+
+    '</div>';
+  h+='<div class="section-h"><h3>All reports</h3></div>';
+  DB.records.slice().sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0;})
+    .forEach(function(r){
+      var cfg=METRICS[r.metric]||METRICS.other;
+      var st=r.value!=null?metricStatus(r.metric,r.value):'mute';
+      var badge=r.value!=null
+        ?'<span class="badge b-'+st+'">'+stLabel(st)+'</span>'
+        :(r.result?'<span class="badge b-purple">'+esc((''+r.result).split(' ')[0])+'</span>':'');
+      var disp=r.value!=null?((r.metric==='bp'&&r.value2!=null)?r.value+'/'+r.value2:r.value)+' '+(r.unit||''):'';
+      h+='<div class="card tap" onclick="openRecord(\''+r.id+'\')"><div class="litem">'+
+        '<div class="licon" style="background:'+stBg(st)+'">'+cfg.icon+'</div>'+
+        '<div class="litxt"><h4>'+esc(r.label||cfg.label)+'</h4>'+
+        '<p>'+(disp?disp+' · ':'')+esc(r.provider||'Self-recorded')+' · '+fmtShort(r.date)+
+        (r.fileName?' 📎':'')+'</p></div>'+badge+'</div></div>';
+    });
+  el.innerHTML=h;
+}
+
+/* ================= REMINDERS (logged screenings) ================= */
+function renderReminders(){
+  var logged=DB.records.filter(function(r){return r.metric==='mammogram'||r.metric==='pap';});
+  var el=document.getElementById('rem-logged');
+  if(!logged.length){el.innerHTML='';return;}
+  var h='<div class="section-h"><h3>Your logged screenings</h3></div>';
+  logged.sort(function(a,b){return a.date<b.date?1:-1;}).forEach(function(r){
+    h+='<div class="rem-card" style="border-left-color:var(--ok)" onclick="openRecord(\''+r.id+'\')">'+
+      '<div class="rem-ic" style="background:var(--ok-l)">✅</div>'+
+      '<div class="rem-mid"><h4>'+esc(r.label)+'</h4><p>'+fmtDate(r.date)+
+      ' · '+esc(r.result||'Logged')+'</p></div>'+
+      '<span class="lichev">›</span></div>';
+  });
+  el.innerHTML=h;
+}
+
+/* ================= PROFILE ================= */
+function renderProfile(){
+  var u=DB.user||{name:'Your Profile',initials:'👤',joined:new Date().getFullYear()};
+  document.getElementById('pf-av').textContent=u.initials||'👤';
+  document.getElementById('pf-name').textContent=u.name||'Your Profile';
+  document.getElementById('pf-sub').textContent='Member since '+(u.joined||new Date().getFullYear())+' · POPIA protected';
+  var sc=healthScore();
+  var tc=trackedMetrics().filter(function(m){return recordsByMetric(m).length>=2;}).length;
+  document.getElementById('pf-stats').innerHTML=
+    '<div class="prof-stat"><b>'+(sc==null?'—':sc+'%')+'</b><span>Health Score</span></div>'+
+    '<div class="prof-stat"><b>'+DB.records.length+'</b><span>Reports</span></div>'+
+    '<div class="prof-stat"><b>'+tc+'</b><span>Trends</span></div>';
+  document.getElementById('pf-fam').innerHTML=
+    '<div class="fam"><div class="fa" style="background:linear-gradient(135deg,#FFD9E8,#E6BBF0);'+
+      'color:#5E2C77;font-weight:900;font-size:1rem">'+(u.initials||'👤')+'</div><span>You</span></div>'+
+    '<div class="fam add" onclick="toast(\'Invite a family member\')"><div class="fa">+</div><span>Add</span></div>';
+}
+
+/* ================= ADD REPORT ================= */
+function openAddReport(preMetric){
+  var cur=preMetric||'cholesterol';
+  var opts=Object.keys(METRICS).map(function(k){
+    return '<option value="'+k+'"'+(k===cur?' selected':'')+'>'+METRICS[k].label+'</option>';}).join('');
+  document.getElementById('add-body').innerHTML=
+    '<div class="dhero" style="background:linear-gradient(135deg,#E6357A,#7B3F98)">'+
+    '<div class="dh-ic">📤</div><h3>Add a Report</h3>'+
+    '<p>Your data is stored privately on this device</p></div>'+
+    '<div class="field"><label>Report type</label>'+
+    '<select id="ar-type" onchange="arValWrap()">'+opts+'</select></div>'+
+    '<div class="field"><label>Lab / provider</label>'+
+    '<input type="text" id="ar-provider" placeholder="e.g. Lancet Labs (or Self-recorded)"></div>'+
+    '<div class="field"><label>Date of report</label>'+
+    '<input type="date" id="ar-date" value="'+today()+'" max="'+today()+'"></div>'+
+    '<div id="ar-valwrap"></div>'+
+    '<div class="field"><label>Notes (optional)</label>'+
+    '<textarea id="ar-note" rows="2" placeholder="Anything you would like to remember"></textarea></div>'+
+    '<label class="filein">📎 <span id="ar-fname">Attach a photo or PDF (optional)</span>'+
+    '<input type="file" id="ar-file" accept="image/*,application/pdf" onchange="arFile()"></label>'+
+    '<button class="btn btn-pink" onclick="saveReport()">Save Report</button>'+
+    '<p style="font-size:.68rem;color:var(--soft);text-align:center;margin-top:12px">'+
+    'Tip: add the same report type twice to unlock a trend.</p>';
+  arValWrap();
+  document.getElementById('add-sheet').classList.add('open');
+}
+function arValWrap(){
+  var m=document.getElementById('ar-type').value,cfg=METRICS[m],h='';
+  if(cfg.screening){
+    h='<div class="field"><label>Result</label><select id="ar-result">'+
+      '<option>Normal / Clear</option><option>Follow-up recommended</option>'+
+      '<option>Abnormal - needs review</option></select></div>';
+  }else if(cfg.freetext){
+    h='<div class="field"><label>Result summary</label>'+
+      '<input type="text" id="ar-result" placeholder="Brief description of the result"></div>';
+  }else if(cfg.dual){
+    h='<div class="duo">'+
+      '<div class="field"><label>Systolic (mmHg)</label>'+
+      '<input type="number" step="any" id="ar-value" placeholder="120"></div>'+
+      '<div class="field"><label>Diastolic (mmHg)</label>'+
+      '<input type="number" step="any" id="ar-value2" placeholder="80"></div></div>';
+  }else{
+    h='<div class="field"><label>Result — '+cfg.label+' ('+cfg.unit+')</label>'+
+      '<input type="number" step="any" id="ar-value" placeholder="e.g. 4.8"><div class="hint">Healthy range: '+
+      (cfg.ref||'—')+'</div></div>';
+  }
+  document.getElementById('ar-valwrap').innerHTML=h;
+}
+function arFile(){
+  var f=document.getElementById('ar-file').files[0];
+  document.getElementById('ar-fname').textContent=f?f.name:'Attach a photo or PDF (optional)';
+}
+function saveReport(){
+  var m=document.getElementById('ar-type').value,cfg=METRICS[m];
+  var rec={id:'r'+Date.now(),metric:m,label:cfg.label,
+    provider:(document.getElementById('ar-provider').value||'').trim()||'Self-recorded',
+    date:document.getElementById('ar-date').value||today(),
+    note:(document.getElementById('ar-note').value||'').trim(),value:null};
+  if(cfg.screening||cfg.freetext){
+    var rEl=document.getElementById('ar-result');
+    rec.result=(rEl.value||'').trim();
+    if(!rec.result){toast('Please enter the result');return;}
+  }else{
+    var v=parseFloat(document.getElementById('ar-value').value);
+    if(isNaN(v)){toast('Please enter the result value');return;}
+    rec.value=v;rec.unit=cfg.unit;
+    if(cfg.dual){var d=parseFloat(document.getElementById('ar-value2').value);
+      if(!isNaN(d))rec.value2=d;}
+  }
+  var fi=document.getElementById('ar-file'),f=fi&&fi.files?fi.files[0]:null;
+  function finish(){
+    DB.records.push(rec);dbSaveRecords();
+    closeSheet('add-sheet');
+    toast('Report saved ✓');
+    renderHome();renderRecords();renderReminders();renderProfile();
+  }
+  if(f){
+    rec.fileName=f.name;
+    if(f.size<900000){
+      var fr=new FileReader();
+      fr.onload=function(){rec.fileData=fr.result;finish();};
+      fr.onerror=function(){finish();};
+      fr.readAsDataURL(f);
+    }else{finish();}
+  }else{finish();}
+}
+
+/* ================= DETAIL / RECORD / TREND ================= */
+function setDetail(html){
+  document.getElementById('detail-body').innerHTML=html;
+  document.getElementById('detail-sheet').classList.add('open');
+}
+function openRecord(id){
+  var r=null;DB.records.forEach(function(x){if(x.id===id)r=x;});
+  if(!r)return;
+  var cfg=METRICS[r.metric]||METRICS.other;
+  var st=r.value!=null?metricStatus(r.metric,r.value):'mute';
+  var h='<div class="dhero" style="background:'+stGrad(st)+'">'+
+    '<div class="dh-ic">'+cfg.icon+'</div><h3>'+esc(r.label||cfg.label)+'</h3>'+
+    '<p>'+esc(r.provider||'Self-recorded')+' · '+fmtDate(r.date)+'</p></div>';
+  if(r.value!=null){
+    var disp=(r.metric==='bp'&&r.value2!=null)?r.value+'/'+r.value2:r.value;
+    h+='<div class="drow"><span>Result</span><b>'+disp+' '+(r.unit||'')+'</b></div>'+
+       '<div class="drow"><span>Healthy range</span><b>'+(cfg.ref||'—')+'</b></div>'+
+       '<div class="drow"><span>Status</span><b>'+stLabel(st)+'</b></div>';
+  }
+  if(r.result)h+='<div class="drow"><span>Result</span><b>'+esc(r.result)+'</b></div>';
+  if(r.note)h+='<p class="txt" style="margin-top:12px">“'+esc(r.note)+'”</p>';
+  if(r.fileName){
+    h+='<div class="drow"><span>Attachment</span><b>'+
+      (r.fileData?'<a href="'+r.fileData+'" target="_blank" style="color:var(--pink)">'+esc(r.fileName)+'</a>'
+        :esc(r.fileName)+' <span style="color:var(--soft);font-weight:600">(too large to store)</span>')+
+      '</b></div>';
+  }
+  if(r.value!=null&&recordsByMetric(r.metric).length>1){
+    h+='<button class="btn btn-pink" style="margin-top:16px" onclick="closeSheet(\'detail-sheet\');openTrend(\''+
+       r.metric+'\')">View '+cfg.label+' trend</button>';
+  }
+  h+='<button class="btn btn-soft" style="margin-top:10px" onclick="openAddReport(\''+r.metric+'\')">Add another '+cfg.label+' report</button>';
+  h+='<button class="btn" style="margin-top:10px;background:#fff;border:1.5px solid var(--line);'+
+     'color:var(--alert)" onclick="deleteRecord(\''+r.id+'\')">Delete this report</button>';
+  setDetail(h);
+}
+function deleteRecord(id){
+  if(!confirm('Delete this report? This cannot be undone.'))return;
+  DB.records=DB.records.filter(function(r){return r.id!==id;});
+  dbSaveRecords();
+  closeSheet('detail-sheet');
+  toast('Report deleted');
+  renderHome();renderRecords();renderReminders();renderProfile();
+}
+function openTrend(m){
+  var cfg=METRICS[m],a=recordsByMetric(m);
+  if(!a.length){openAddReport(m);return;}
+  var lr=a[a.length-1],st=metricStatus(m,lr.value),ti=trendInfo(m);
+  var h='<div class="dhero" style="background:'+stGrad(st)+'">'+
+    '<div class="dh-ic">'+cfg.icon+'</div><h3>'+cfg.label+' trend</h3>'+
+    '<p>'+a.length+' reading'+(a.length>1?'s':'')+(cfg.ref?' · target '+cfg.ref:'')+'</p></div>';
+  if(ti){
+    h+='<div style="margin:4px 0 14px">'+
+       sparkline(a.map(function(r){return r.value;}),300,72,st,true)+'</div>';
+    h+='<div class="drow"><span>Latest</span><b>'+lr.value+' '+cfg.unit+'</b></div>'+
+       '<div class="drow"><span>Previous</span><b>'+ti.prev+' '+cfg.unit+'</b></div>'+
+       '<div class="drow"><span>Direction</span><b>'+
+       (ti.dir==='up'?'▲ Rising':ti.dir==='down'?'▼ Falling':'■ Stable')+'</b></div>'+
+       '<div class="drow"><span>Latest status</span><b>'+stLabel(st)+'</b></div>';
+    if(ti.good==='bad'){
+      h+='<p class="txt" style="margin-top:12px">This metric is moving in the wrong direction. '+
+         'Small, consistent lifestyle changes help — and it is worth discussing with your doctor at your next visit.</p>';
+    }else if(ti.good==='good'){
+      h+='<p class="txt" style="margin-top:12px">Great progress — this trend is heading the right way. Keep it up!</p>';
+    }
+  }else{
+    h+='<div class="drow"><span>Latest</span><b>'+lr.value+' '+cfg.unit+'</b></div>'+
+       '<p class="txt" style="margin-top:12px">Add one more '+cfg.label+
+       ' report and SheCare will chart the trend direction for you.</p>';
+  }
+  h+='<h4 class="dh">All readings</h4>';
+  a.slice().reverse().forEach(function(r){
+    var rst=metricStatus(m,r.value);
+    var disp=(m==='bp'&&r.value2!=null)?r.value+'/'+r.value2:r.value;
+    h+='<div class="drow"><span>'+fmtDate(r.date)+'</span>'+
+       '<b><span class="badge b-'+rst+'" style="margin-right:6px">'+stLabel(rst)+'</span>'+
+       disp+' '+cfg.unit+'</b></div>';
+  });
+  h+='<button class="btn btn-pink" style="margin-top:16px" onclick="closeSheet(\'detail-sheet\');openAddReport(\''+
+     m+'\')">Add new '+cfg.label+' reading</button>';
+  setDetail(h);
+}
+
+/* educational details */
+var details={
+  hpv:{c:'linear-gradient(135deg,#7B3F98,#9B3590)',ic:'🔬',h:'HPV &amp; Pap Smears',s:'Education · 5 min read',
+    rows:[['Topic','Cervical health'],['Reviewed by','Gynaecologist'],['Reading time','5 minutes']],
+    txt:'HPV (human papillomavirus) is a very common infection, and certain types can cause changes in cervical cells over time. Regular Pap smears detect these changes early — long before they could become cancer — when they are simple to treat. Together with the HPV vaccine, screening is the most powerful protection against cervical cancer.'},
+  pap:{c:'linear-gradient(135deg,#E6357A,#C71F63)',ic:'🩺',h:'Pap Smear',s:'Cervical screening',
+    rows:[['Checks for','Early cervical cell changes'],['Recommended','Every 3 years, ages 21–65'],['Linked to','HPV infection'],['Procedure','Quick &amp; routine, in-clinic']],
+    txt:'A Pap smear detects early changes in cervical cells before they can develop into cancer. It is quick, routine, and one of the most effective preventive screenings available to women. Log your screening dates in SheCare to stay on schedule.'},
+  mammo:{c:'linear-gradient(135deg,#7B3F98,#5E2C77)',ic:'🩺',h:'Mammogram',s:'Breast screening',
+    rows:[['Checks for','Early breast changes'],['Recommended','Every 1–2 years from age 40'],['Procedure','Low-dose breast X-ray']],
+    txt:'A mammogram is an X-ray of the breast used to detect cancer early, often before it can be felt. Early detection dramatically improves treatment outcomes. Speak to your doctor about the right schedule for you, and log each mammogram in SheCare.'},
+  vitd:{c:'linear-gradient(135deg,#D98324,#E6357A)',ic:'☀️',h:'Vitamin D',s:'Bone &amp; immune health',
+    rows:[['Supports','Bones, muscles, immunity'],['Healthy range','50–125 nmol/L'],['Sources','Sunlight, diet, supplements']],
+    txt:'Vitamin D supports strong bones, muscle function and a healthy immune system. Low levels are common, especially with limited sun exposure, and are easily improved with sunlight, diet or a supplement. Add your Vitamin D test results to track them over time.'},
+  bp:{c:'linear-gradient(135deg,#D98324,#E6357A)',ic:'💗',h:'Blood Pressure',s:'Heart health',
+    rows:[['Healthy target','Below 130/85 mmHg'],['Check','At least once a year'],['Matters for','Heart &amp; stroke risk']],
+    txt:'Blood pressure is a key indicator of heart health. High blood pressure often has no symptoms, so regular checks matter. Healthy habits — movement, less salt, good sleep and managing stress — all help. Log your readings to watch the trend.'},
+  cholesterolEdu:{c:'linear-gradient(135deg,#3F9E6A,#5E8C73)',ic:'❤️',h:'Cholesterol',s:'Education · 4 min read',
+    rows:[['Healthy target','Below 5.0 mmol/L'],['Check','Every 5 years'],['Influenced by','Diet, activity, genetics']],
+    txt:'Cholesterol is a fatty substance in your blood. Higher levels raise the risk of heart disease over time. Lifestyle steps make a real difference: more fibre and oily fish, regular activity, less fried and processed food. Track your results in SheCare to see your progress.'},
+  breast:{c:'linear-gradient(135deg,#E6357A,#F178A8)',ic:'🩺',h:'Breast Self-Examination',s:'Education · 4 min read',
+    rows:[['Topic','Early detection'],['How often','Monthly'],['Best time','A few days after your period']],
+    txt:'A monthly breast self-exam helps you learn what is normal for you, so you notice changes early. In 5 steps: look in the mirror, raise your arms, check for discharge, then feel each breast in a circular motion — lying down and standing. Report any new lump, change or skin dimpling to your doctor. Self-exams support, but do not replace, mammograms.'},
+  nutrition:{c:'linear-gradient(135deg,#3F9E6A,#7B3F98)',ic:'🥦',h:'Eating for Hormonal Balance',s:'Education · 6 min read',
+    rows:[['Topic','Nutrition'],['Focus','Hormonal health'],['Reading time','6 minutes']],
+    txt:'A balanced diet supports steady hormones, energy and long-term wellness. Prioritise fibre-rich vegetables, whole grains, healthy fats and enough protein and iron — especially important for women. Limit ultra-processed foods and added sugar, and stay hydrated. Small consistent choices matter more than perfect ones.'},
+  mental:{c:'linear-gradient(135deg,#7B3F98,#5E2C77)',ic:'🧠',h:'Stress &amp; Mental Wellness',s:'Education · 5 min read',
+    rows:[['Topic','Mental health'],['Focus','Stress management'],['Reading time','5 minutes']],
+    txt:'Mental wellness is part of your overall health. Simple daily habits help: regular sleep, movement, time outdoors, and staying connected to people who support you. Breathing exercises and short mindfulness breaks calm the nervous system. If stress, low mood or anxiety persist, reaching out for professional support is a strength, not a weakness.'},
+  screening:{c:'linear-gradient(135deg,#7B3F98,#9B3590)',ic:'📅',h:'Why Screening Matters',s:'Prevention &amp; early detection',
+    rows:[['Pap smear','Every 3 years'],['Mammogram','Every 1–2 years from 40'],['Blood pressure','Yearly'],['Cholesterol','Every 5 years']],
+    txt:'Many serious conditions are far easier to treat when caught early — often before symptoms appear. Regular screenings are one of the most powerful things you can do for your long-term health. Use SheCare to log your screening dates and results so nothing slips through.'},
+  privacy:{c:'linear-gradient(135deg,#5E2C77,#7B3F98)',ic:'🔒',h:'Privacy &amp; Data',s:'POPIA compliant',
+    rows:[['Stored','On your device'],['Shared','Only if you choose to'],['Standard','POPIA compliant']],
+    txt:'Your health information is personal. In this version of SheCare your reports are stored privately on your own device — they are not uploaded anywhere. You stay in full control of your data and can delete any report at any time.'}
+};
+function openDetail(key){
+  var d=details[key];if(!d)return;
+  var h='<div class="dhero" style="background:'+d.c+'"><div class="dh-ic">'+d.ic+'</div>'+
+    '<h3>'+d.h+'</h3><p>'+d.s+'</p></div>';
+  (d.rows||[]).forEach(function(r){
+    h+='<div class="drow"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>';});
+  h+='<p class="txt" style="margin-top:14px">'+d.txt+'</p>';
+  h+='<button class="btn btn-pink" onclick="closeSheet(\'detail-sheet\');openAI()">Ask SheCare Assistant</button>';
+  setDetail(h);
+}
+
+/* ================= TOAST / SHEETS ================= */
 var toastT;
 function toast(msg){
   var t=document.getElementById('toast');
   t.innerHTML=msg;t.classList.add('show');
-  clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show')},2200);
+  clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show');},2400);
 }
-function checkRem(el){
-  el.classList.toggle('on');
-  if(el.classList.contains('on')){
-    el.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><path d="M20 6 9 17l-5-5"/></svg>';
-    toast('Marked as done &#127881;');
-  } else { el.innerHTML=''; }
-}
+function closeSheet(id){document.getElementById(id).classList.remove('open');}
+['ai-sheet','detail-sheet','add-sheet'].forEach(function(id){
+  document.getElementById(id).addEventListener('click',function(e){
+    if(e.target===this)this.classList.remove('open');});
+});
 
-/* ---------- AI assistant ---------- */
-function openAI(){ document.getElementById('ai-sheet').classList.add('open'); }
-function closeAI(){ document.getElementById('ai-sheet').classList.remove('open'); }
-var aiReplies={
-  'cholesterol':'<b>Your cholesterol panel:</b> Total cholesterol is 5.4 mmol/L &mdash; slightly above the 5.0 target, and it has risen over the past 12 months.<br><br>This isn\'t alarming, but it\'s worth acting on early. Try: more fibre &amp; oily fish, 30 min activity most days, and less fried food. I\'ll suggest a re-test in 3 months &mdash; want me to set a reminder?',
-  'screening':'<b>Your next screening</b> is a <b>Pap Smear</b>, due in about 3 weeks (January 2026). Your mammogram is on track for August 2026.<br><br>Would you like me to help you book the Pap smear?',
-  'pap':'A <b>Pap smear</b> checks for early changes in cervical cells &mdash; often caused by HPV &mdash; before they can become cancer. Caught early, these changes are highly treatable. For most women it\'s recommended every 3 years. It\'s one of the most effective preventive tests there is.',
-  'default':'Great question. Based on your records your overall health summary is <b>82%</b> and on track. The one thing to watch is your cholesterol trend. Would you like lifestyle tips, or shall I explain a specific result?'
-};
+/* ================= AI ASSISTANT ================= */
+function openAI(){
+  var first=(DB.user||{}).first||'there';
+  document.getElementById('chat').innerHTML=
+    '<div class="msg ai">Hi '+esc(first)+' 👋 I’m your SheCare Assistant. '+
+    'I can help you understand your results, screenings and health trends. What would you like to know?</div>';
+  document.getElementById('chips-q').style.display='flex';
+  document.getElementById('ai-sheet').classList.add('open');
+}
 function aiAnswer(q){
   q=q.toLowerCase();
-  if(q.indexOf('cholesterol')>=0||q.indexOf('lipid')>=0)return aiReplies.cholesterol;
-  if(q.indexOf('screening')>=0||q.indexOf('next')>=0||q.indexOf('mammogram')>=0)return aiReplies.screening;
-  if(q.indexOf('pap')>=0||q.indexOf('cervical')>=0)return aiReplies.pap;
-  return aiReplies.default;
+  if(/cholesterol|lipid/.test(q)){
+    var lr=latestRecord('cholesterol');
+    if(lr){var ti=trendInfo('cholesterol');
+      return 'Your most recent cholesterol reading is <b>'+lr.value+' mmol/L</b> ('+fmtDate(lr.date)+'). '+
+        (ti?'Across your readings it is trending <b>'+ti.dir+'</b>. ':'')+
+        (metricStatus('cholesterol',lr.value)==='ok'
+          ?'That is within the healthy range — keep it up!'
+          :'It is above the target of 5.0 — more fibre, regular activity and less fried food can help.');}
+    return 'You have not added a cholesterol report yet. Tap the <b>+</b> on the Records tab and I can start tracking the trend for you.';
+  }
+  if(/latest|result|recent/.test(q)){
+    if(!DB.records.length)return 'You have not added any reports yet. Add your first one on the Records tab and I will explain it for you.';
+    var r=DB.records.slice().sort(function(a,b){return a.date<b.date?1:-1;})[0];
+    var cfg=METRICS[r.metric]||METRICS.other;
+    return 'Your latest report is <b>'+esc(r.label)+'</b> from '+fmtDate(r.date)+'. '+
+      (r.value!=null?'Result: <b>'+r.value+' '+(r.unit||'')+'</b> — '+stLabel(metricStatus(r.metric,r.value)).toLowerCase()+
+        ' (healthy range '+(cfg.ref||'see your doctor')+').':'Result: '+esc(r.result||'logged')+'.');
+  }
+  if(/trend/.test(q)){
+    var mets=trackedMetrics();
+    return mets.length
+      ?'You are currently tracking <b>'+mets.length+'</b> health metric(s). Open the Home tab to see each trend, or tap one for the full reading history.'
+      :'No trends yet — add at least two reports of the same type (e.g. two cholesterol results) and I will chart the trend for you.';
+  }
+  if(/screening|pap|mammogram|smear/.test(q)){
+    return 'General guidance: a <b>Pap smear</b> is recommended every 3 years (ages 21–65), and a <b>mammogram</b> every 1–2 years from around age 40. Log your screening dates under Records and SheCare will keep track. Always follow your own doctor’s advice.';
+  }
+  return 'I can help you understand your reports and trends. '+
+    (DB.records.length
+      ?'You have <b>'+DB.records.length+'</b> report(s) saved — ask me about a specific result or trend.'
+      :'Start by adding a report on the Records tab and I will explain what it means.');
 }
 function pushMsg(text,who){
   var c=document.getElementById('chat');
@@ -926,7 +1369,7 @@ function pushMsg(text,who){
 }
 function ask(q){
   document.getElementById('chips-q').style.display='none';
-  pushMsg(q,'me');
+  pushMsg(esc(q),'me');
   setTimeout(function(){
     pushMsg('<i style="color:#B7AEC0">SheCare is thinking...</i>','ai');
     var c=document.getElementById('chat');
@@ -941,63 +1384,6 @@ function sendAI(){
   if(!inp.value.trim())return;
   ask(inp.value.trim());inp.value='';
 }
-
-/* ---------- detail sheet ---------- */
-var details={
-  pap:{c:'linear-gradient(135deg,#E6357A,#C71F63)',ic:'&#129658;',h:'Pap Smear',s:'Cervical screening &middot; due Jan 2026',
-    rows:[['Status','Due in 3 weeks'],['Last done','January 2023'],['Frequency','Every 3 years'],['Type','Preventive screening']],
-    txt:'A Pap smear detects early changes in cervical cells before they can develop into cancer. It is quick, routine and one of the most effective preventive screenings available to women.'},
-  mammo:{c:'linear-gradient(135deg,#7B3F98,#5E2C77)',ic:'&#129658;',h:'Mammogram',s:'Breast screening &middot; Aug 2026',
-    rows:[['Status','On track'],['Last done','August 2024 &mdash; Clear'],['Frequency','Every 1&ndash;2 years'],['Type','Breast cancer screening']],
-    txt:'A mammogram is an X-ray of the breast used to detect cancer early, often before it can be felt. Early detection dramatically improves treatment outcomes.'},
-  vitd:{c:'linear-gradient(135deg,#D98324,#E6357A)',ic:'&#9728;&#65039;',h:'Vitamin D',s:'Last result &middot; 02 Feb 2026',
-    rows:[['Result','38 nmol/L'],['Reference','50&ndash;125 nmol/L'],['Status','Slightly low'],['Action','Re-test in Feb 2026']],
-    txt:'Your Vitamin D is a little below range. This is common and easily improved with sunlight, diet or a supplement. SheCare has scheduled a follow-up test for you.'},
-  chol:{c:'linear-gradient(135deg,#E6357A,#C71F63)',ic:'&#128201;',h:'Cholesterol Trend',s:'Lipid panel &middot; rising 12 months',
-    rows:[['Total cholesterol','5.4 mmol/L'],['Target','Below 5.0 mmol/L'],['12-month trend','&#9650; Increasing'],['Status','Review recommended']],
-    txt:'Your cholesterol has gradually risen over the past year. It is not yet high, which means small, early lifestyle changes &mdash; more fibre, regular activity, less fried food &mdash; can make a real difference. A re-test in 3 months is recommended.'},
-  bloodrec:{c:'linear-gradient(135deg,#3F9E6A,#7B3F98)',ic:'&#128138;',h:'Full Blood Count',s:'Lancet Labs &middot; 14 Mar 2026',
-    rows:[['Haemoglobin','13.2 g/dL'],['White cells','Normal'],['Platelets','Normal'],['Overall','&#9989; All within range']],
-    txt:'Your full blood count is normal across all measures. This rules out anaemia and infection markers. No action needed &mdash; nicely done.'},
-  mammorec:{c:'linear-gradient(135deg,#7B3F98,#5E2C77)',ic:'&#129658;',h:'Mammogram Imaging',s:'Netcare Radiology &middot; Aug 2024',
-    rows:[['Finding','No abnormality'],['BI-RADS','1 &mdash; Negative'],['Status','Clear'],['Next due','Aug 2026']],
-    txt:'Your most recent mammogram was clear with no abnormal findings. Continue routine screening as scheduled.'},
-  checkup:{c:'linear-gradient(135deg,#9B3590,#7B3F98)',ic:'&#128209;',h:'Annual Wellness Report',s:'Dr. M. Khumalo &middot; Jan 2026',
-    rows:[['Blood pressure','118/76 &mdash; Normal'],['BMI','Healthy range'],['General','Good health'],['Notes','Monitor cholesterol']],
-    txt:'Your annual wellness check was positive overall. Your doctor noted to keep an eye on cholesterol &mdash; SheCare is already tracking that trend for you.'},
-  hpv:{c:'linear-gradient(135deg,#7B3F98,#9B3590)',ic:'&#128300;',h:'HPV &amp; Pap Smears',s:'Education &middot; 5 min read',
-    rows:[['Topic','Cervical health'],['Reviewed by','Gynaecologist'],['Reading time','5 minutes']],
-    txt:'HPV (human papillomavirus) is a very common infection, and certain types can cause changes in cervical cells over time. Regular Pap smears detect these changes early &mdash; long before they could become cancer &mdash; when they are simple to treat. Together with the HPV vaccine, screening is the most powerful protection against cervical cancer. Knowing your status today protects your tomorrow.'},
-  breast:{c:'linear-gradient(135deg,#E6357A,#F178A8)',ic:'&#129658;',h:'Breast Self-Examination',s:'Education &middot; 4 min read',
-    rows:[['Topic','Early detection'],['How often','Monthly'],['Best time','A few days after your period']],
-    txt:'A monthly breast self-exam helps you learn what is normal for you, so you notice changes early. In 5 steps: look in the mirror, raise your arms, check for discharge, then feel each breast in a circular motion &mdash; lying down and standing. Report any new lump, change or skin dimpling to your doctor. Self-exams support, but do not replace, mammograms.'},
-  nutrition:{c:'linear-gradient(135deg,#3F9E6A,#7B3F98)',ic:'&#129382;',h:'Eating for Hormonal Balance',s:'Education &middot; 6 min read',
-    rows:[['Topic','Nutrition'],['Focus','Hormonal health'],['Reading time','6 minutes']],
-    txt:'A balanced diet supports steady hormones, energy and long-term wellness. Prioritise fibre-rich vegetables, whole grains, healthy fats (avocado, nuts, oily fish), and enough protein and iron &mdash; especially important for women. Limit ultra-processed foods and added sugar, and stay hydrated. Small consistent choices matter more than perfect ones.'},
-  mental:{c:'linear-gradient(135deg,#7B3F98,#5E2C77)',ic:'&#129504;',h:'Stress &amp; Mental Wellness',s:'Education &middot; 5 min read',
-    rows:[['Topic','Mental health'],['Focus','Stress management'],['Reading time','5 minutes']],
-    txt:'Mental wellness is part of your overall health. Simple daily habits help: regular sleep, movement, time outdoors, and staying connected to people who support you. Breathing exercises and short mindfulness breaks calm the nervous system. If stress, low mood or anxiety persist, reaching out for professional support is a strength, not a weakness.'}
-};
-function openDetail(key){
-  var d=details[key];if(!d)return;
-  var html='<div class="dhero" style="background:'+d.c+'">'+
-    '<div class="dh-ic">'+d.ic+'</div><h3>'+d.h+'</h3><p>'+d.s+'</p></div>';
-  d.rows.forEach(function(r){
-    html+='<div class="drow"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>';
-  });
-  html+='<p class="txt" style="margin-top:14px">'+d.txt+'</p>';
-  html+='<button class="btn btn-pink" onclick="closeDetail();openAI()">Ask SheCare Assistant</button>';
-  document.getElementById('detail-body').innerHTML=html;
-  document.getElementById('detail-sheet').classList.add('open');
-}
-function closeDetail(){ document.getElementById('detail-sheet').classList.remove('open'); }
-
-/* close sheets on backdrop tap */
-['ai-sheet','detail-sheet'].forEach(function(id){
-  document.getElementById(id).addEventListener('click',function(e){
-    if(e.target===this)this.classList.remove('open');
-  });
-});
 </script>
 </body>
 </html>
