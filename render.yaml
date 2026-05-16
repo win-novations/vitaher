@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: vitaher
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
