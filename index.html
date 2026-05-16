@@ -45,7 +45,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 /* ===== SPLASH ===== */
 #v-splash{background:linear-gradient(160deg,#E6357A 0%,#A6328C 55%,#7B3F98 100%);
   flex-direction:column;align-items:center;justify-content:center;text-align:center;
-  padding:40px 34px;color:#fff;height:100%}
+  padding:44px 34px;color:#fff;min-height:100%}
 #v-splash.active{display:flex}
 .splash-logo{width:108px;height:108px;margin-bottom:6px;animation:bloom 1s ease}
 @keyframes bloom{from{opacity:0;transform:scale(.6) rotate(-12deg)}to{opacity:1;transform:none}}
@@ -65,6 +65,15 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 .splash-dots{display:flex;gap:7px;margin-top:30px}
 .splash-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35)}
 .splash-dots i.on{background:#fff;width:22px;border-radius:4px}
+.demo-link{margin-top:15px;font-size:.83rem;font-weight:700;color:rgba(255,255,255,.92);
+  cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.trust{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.24);border-radius:15px;padding:12px 14px;
+  margin-top:24px;max-width:322px;text-align:left}
+.trust .tlock{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;flex:0 0 32px;font-size:1rem}
+.trust p{font-size:.71rem;line-height:1.5;color:rgba(255,255,255,.92);font-weight:600}
+.trust p b{font-weight:800;color:#fff}
 
 /* ===== ONBOARDING ===== */
 .ob-skip{position:absolute;top:48px;right:24px;font-size:.8rem;color:var(--muted);
@@ -399,7 +408,11 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
           <button class="btn btn-white" onclick="go('v-ob')">Get Started</button>
           <button class="btn btn-glass" onclick="go('v-login')">I already have an account</button>
         </div>
-        <div class="splash-dots"><i class="on"></i><i></i><i></i></div>
+        <div class="demo-link" onclick="loadDemo()">Explore a quick demo &rarr;</div>
+        <div class="trust">
+          <div class="tlock">&#128274;</div>
+          <p><b>Your records stay on your device.</b> SheCare keeps your health data private &mdash; nothing is uploaded to a server. POPIA-aligned, so you stay in control.</p>
+        </div>
       </div>
 
       <!-- ===== ONBOARDING ===== -->
@@ -457,7 +470,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
             <button class="btn btn-pink" onclick="doSignup()">Create My Account</button>
             <div class="popia-note">
               <span>&#128737;</span>
-              <span>Your health data is encrypted and protected. SheCare is fully <b>POPIA compliant</b> &mdash; you stay in control.</span>
+              <span>Your health records are stored privately <b>on your device</b> &mdash; not on a server. SheCare is POPIA-aligned, so you stay in control.</span>
             </div>
           </div>
           <div class="auth-foot">Already have an account? <b onclick="go('v-login')">Sign in</b></div>
@@ -755,13 +768,15 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
 
 <script>
 /* ================= DATA LAYER ================= */
-var DB={user:null,records:[]};
+var DB={user:null,records:[],demo:false};
 function dbLoad(){
+  DB.demo=false;
   try{DB.user=JSON.parse(localStorage.getItem('shecare_user'))||null;}catch(e){DB.user=null;}
   try{DB.records=JSON.parse(localStorage.getItem('shecare_records'))||[];}catch(e){DB.records=[];}
 }
-function dbSaveUser(){try{localStorage.setItem('shecare_user',JSON.stringify(DB.user));}catch(e){}}
+function dbSaveUser(){if(DB.demo)return;try{localStorage.setItem('shecare_user',JSON.stringify(DB.user));}catch(e){}}
 function dbSaveRecords(){
+  if(DB.demo)return;
   try{localStorage.setItem('shecare_records',JSON.stringify(DB.records));}
   catch(e){toast('Storage full — try removing attachments');}
 }
@@ -911,14 +926,51 @@ function doLogin(){
   if(DB.user){toast('Welcome back, '+DB.user.first+'!');enterApp();}
   else{toast('No account on this device yet — let’s create one');go('v-signup');}
 }
-function signOut(){go('v-splash');}
+function signOut(){
+  if(DB.demo){DB.demo=false;dbLoad();}
+  go('v-splash');
+}
+
+/* ---- demo (showcase) data ---- */
+var demoId=0;
+function loadDemo(){
+  DB.demo=true;demoId=0;
+  DB.user={name:'Nomsa Dlamini',first:'Nomsa',initials:'ND',email:'',dob:'',joined:2025};
+  function n(metric,value,date,provider,value2){
+    var o={id:'d'+(++demoId),metric:metric,label:METRICS[metric].label,
+      provider:provider,date:date,value:value,unit:METRICS[metric].unit};
+    if(value2!=null)o.value2=value2;return o;}
+  function s(metric,result,date,provider){
+    return {id:'d'+(++demoId),metric:metric,label:METRICS[metric].label,
+      provider:provider,date:date,value:null,result:result};}
+  DB.records=[
+    n('cholesterol',4.6,'2025-08-12','Lancet Labs'),
+    n('cholesterol',5.1,'2025-12-09','Lancet Labs'),
+    n('cholesterol',5.4,'2026-04-14','Lancet Labs'),
+    n('vitd',38,'2025-09-02','Lancet Labs'),
+    n('vitd',47,'2026-01-15','Lancet Labs'),
+    n('vitd',58,'2026-04-20','Lancet Labs'),
+    n('bp',118,'2025-10-01','Self-recorded',76),
+    n('bp',124,'2026-01-20','Self-recorded',80),
+    n('bp',121,'2026-04-12','Self-recorded',78),
+    n('glucose',4.9,'2026-03-14','Lancet Labs'),
+    n('haemoglobin',13.2,'2026-03-14','Lancet Labs'),
+    n('weight',68,'2025-11-01','Self-recorded'),
+    n('weight',66.5,'2026-04-12','Self-recorded'),
+    s('pap','Normal / Clear','2026-01-18','Dr M. Khumalo'),
+    s('mammogram','Normal / Clear','2024-08-09','Netcare Radiology')
+  ];
+  toast('Demo loaded — explore freely 🌸');
+  enterApp();
+}
 
 /* ================= HOME ================= */
 function renderHome(){
   var u=DB.user||{first:'there',initials:'👋'};
   var hr=new Date().getHours();
-  document.getElementById('ab-greet').textContent=
-    (hr<12?'Good morning':hr<18?'Good afternoon':'Good evening')+' 🌸';
+  document.getElementById('ab-greet').textContent= DB.demo
+    ? '✨ Demo preview'
+    : (hr<12?'Good morning':hr<18?'Good afternoon':'Good evening')+' 🌸';
   document.getElementById('ab-name').innerHTML=esc(u.first)+' 👋';
   document.getElementById('ab-av').textContent=u.initials||'👤';
 
