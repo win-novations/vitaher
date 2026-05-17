@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#E6357A">
-<title>SheCare - Your Health. Your Story.</title>
+<title>VitaHer - Your Health. Your Story.</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -401,7 +401,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
             <circle cx="50" cy="72" r="6" fill="#FFD9E8"/>
           </g>
         </svg>
-        <div class="splash-name">She<b>Care</b></div>
+        <div class="splash-name">Vita<b>Her</b></div>
         <div class="splash-tag">Know &middot; Prevent &middot; Thrive</div>
         <p class="splash-sub">Your smart, all-in-one women's health companion &mdash; for prevention, early detection &amp; lifelong wellness.</p>
         <div class="splash-cta">
@@ -411,7 +411,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
         <div class="demo-link" onclick="loadDemo()">Explore a quick demo &rarr;</div>
         <div class="trust">
           <div class="tlock">&#128274;</div>
-          <p><b>Your records stay on your device.</b> SheCare keeps your health data private &mdash; nothing is uploaded to a server. POPIA-aligned, so you stay in control.</p>
+          <p><b>Your records stay on your device.</b> VitaHer keeps your health data private &mdash; nothing is uploaded to a server. POPIA-aligned, so you stay in control.</p>
         </div>
       </div>
 
@@ -444,7 +444,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
               <div class="bio-btn" onclick="doLogin()">&#128070; Fingerprint</div>
             </div>
           </div>
-          <div class="auth-foot">New to SheCare? <b onclick="go('v-signup')">Create account</b></div>
+          <div class="auth-foot">New to VitaHer? <b onclick="go('v-signup')">Create account</b></div>
         </div>
       </div>
 
@@ -470,7 +470,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
             <button class="btn btn-pink" onclick="doSignup()">Create My Account</button>
             <div class="popia-note">
               <span>&#128737;</span>
-              <span>Your health records are stored privately <b>on your device</b> &mdash; not on a server. SheCare is POPIA-aligned, so you stay in control.</span>
+              <span>Your health records are stored privately <b>on your device</b> &mdash; not on a server. VitaHer is POPIA-aligned, so you stay in control.</span>
             </div>
           </div>
           <div class="auth-foot">Already have an account? <b onclick="go('v-login')">Sign in</b></div>
@@ -675,7 +675,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
           </div>
           <button class="btn btn-soft" style="margin-top:14px" onclick="signOut()">Sign Out</button>
           <p style="text-align:center;font-size:.68rem;color:var(--soft);margin-top:14px">
-            SheCare v2.0 &middot; Know Today. Prevent Tomorrow. Thrive Always.</p>
+            VitaHer v2.0 &middot; Know Today. Prevent Tomorrow. Thrive Always.</p>
         </div>
       </div>
 
@@ -715,7 +715,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="4"/></svg>
           </div>
           <div>
-            <h3>SheCare Assistant</h3>
+            <h3>VitaHer Assistant</h3>
             <p>&#9679; Online &middot; reads your records</p>
           </div>
           <div class="x" onclick="closeSheet('ai-sheet')">&#10005;</div>
@@ -867,7 +867,7 @@ var obSlides=[
   {art:'📊',h:'All your health <em>in one place</em>',
    p:'Lab results, scans and doctor reports — collected securely so nothing gets lost across labs, clinics and emails.'},
   {art:'📈',h:'Spot the <em>trends</em> early',
-   p:'SheCare tracks your results over time, highlights what matters, and helps you catch issues before they become serious.'},
+   p:'VitaHer tracks your results over time, highlights what matters, and helps you catch issues before they become serious.'},
   {art:'🔔',h:'Never miss a <em>screening</em>',
    p:'Smart reminders keep you on track with Pap smears, mammograms and check-ups — prevention made simple.'}
 ];
@@ -919,7 +919,7 @@ function doSignup(){
     dob:(document.getElementById('su-dob').value||'').trim(),
     joined:new Date().getFullYear()};
   dbSaveUser();
-  toast('Welcome to SheCare, '+DB.user.first+'! 🌸');
+  toast('Welcome to VitaHer, '+DB.user.first+'! 🌸');
   enterApp();
 }
 function doLogin(){
@@ -982,7 +982,7 @@ function renderHome(){
       '<circle cx="48" cy="48" r="40" fill="none" stroke="#F1E3EC" stroke-width="11" stroke-dasharray="3 8"/>'+
       '</svg><div class="ring-num"><b style="font-size:2rem;color:var(--pink)">+</b></div></div>'+
       '<div class="score-info"><h4>Start your health story</h4>'+
-      '<p>Add your first report and SheCare builds your health score and trends.</p>'+
+      '<p>Add your first report and VitaHer builds your health score and trends.</p>'+
       '<span class="score-pill" style="background:var(--pink-l);color:var(--pink-d)">Tap to add a report</span>'+
       '</div></div>';
   }else{
@@ -1044,7 +1044,7 @@ function renderHome(){
       '<div class="insight good"><div class="ghost-ico">✨</div>'+
       '<div class="tag">✅ Looking good</div>'+
       '<h4>Your tracked results are in range</h4>'+
-      '<p>Nice work, '+esc((DB.user||{}).first||'there')+'. Keep logging your reports so SheCare can keep watching the trends for you.</p></div>';
+      '<p>Nice work, '+esc((DB.user||{}).first||'there')+'. Keep logging your reports so VitaHer can keep watching the trends for you.</p></div>';
   }else{
     iEl.innerHTML='';
   }
@@ -1071,7 +1071,7 @@ function renderRecords(){
   if(!DB.records.length){
     el.innerHTML='<div class="empty"><div class="ei">📋</div>'+
       '<h3>No reports yet</h3>'+
-      '<p>Add your lab results, scans and check-ups. SheCare keeps them safe and turns them into trends.</p>'+
+      '<p>Add your lab results, scans and check-ups. VitaHer keeps them safe and turns them into trends.</p>'+
       '<button class="btn btn-pink btn-inline" onclick="openAddReport()">+ Add Your First Report</button></div>';
     return;
   }
@@ -1295,7 +1295,7 @@ function openTrend(m){
   }else{
     h+='<div class="drow"><span>Latest</span><b>'+lr.value+' '+cfg.unit+'</b></div>'+
        '<p class="txt" style="margin-top:12px">Add one more '+cfg.label+
-       ' report and SheCare will chart the trend direction for you.</p>';
+       ' report and VitaHer will chart the trend direction for you.</p>';
   }
   h+='<h4 class="dh">All readings</h4>';
   a.slice().reverse().forEach(function(r){
@@ -1317,10 +1317,10 @@ var details={
     txt:'HPV (human papillomavirus) is a very common infection, and certain types can cause changes in cervical cells over time. Regular Pap smears detect these changes early — long before they could become cancer — when they are simple to treat. Together with the HPV vaccine, screening is the most powerful protection against cervical cancer.'},
   pap:{c:'linear-gradient(135deg,#E6357A,#C71F63)',ic:'🩺',h:'Pap Smear',s:'Cervical screening',
     rows:[['Checks for','Early cervical cell changes'],['Recommended','Every 3 years, ages 21–65'],['Linked to','HPV infection'],['Procedure','Quick &amp; routine, in-clinic']],
-    txt:'A Pap smear detects early changes in cervical cells before they can develop into cancer. It is quick, routine, and one of the most effective preventive screenings available to women. Log your screening dates in SheCare to stay on schedule.'},
+    txt:'A Pap smear detects early changes in cervical cells before they can develop into cancer. It is quick, routine, and one of the most effective preventive screenings available to women. Log your screening dates in VitaHer to stay on schedule.'},
   mammo:{c:'linear-gradient(135deg,#7B3F98,#5E2C77)',ic:'🩺',h:'Mammogram',s:'Breast screening',
     rows:[['Checks for','Early breast changes'],['Recommended','Every 1–2 years from age 40'],['Procedure','Low-dose breast X-ray']],
-    txt:'A mammogram is an X-ray of the breast used to detect cancer early, often before it can be felt. Early detection dramatically improves treatment outcomes. Speak to your doctor about the right schedule for you, and log each mammogram in SheCare.'},
+    txt:'A mammogram is an X-ray of the breast used to detect cancer early, often before it can be felt. Early detection dramatically improves treatment outcomes. Speak to your doctor about the right schedule for you, and log each mammogram in VitaHer.'},
   vitd:{c:'linear-gradient(135deg,#D98324,#E6357A)',ic:'☀️',h:'Vitamin D',s:'Bone &amp; immune health',
     rows:[['Supports','Bones, muscles, immunity'],['Healthy range','50–125 nmol/L'],['Sources','Sunlight, diet, supplements']],
     txt:'Vitamin D supports strong bones, muscle function and a healthy immune system. Low levels are common, especially with limited sun exposure, and are easily improved with sunlight, diet or a supplement. Add your Vitamin D test results to track them over time.'},
@@ -1329,7 +1329,7 @@ var details={
     txt:'Blood pressure is a key indicator of heart health. High blood pressure often has no symptoms, so regular checks matter. Healthy habits — movement, less salt, good sleep and managing stress — all help. Log your readings to watch the trend.'},
   cholesterolEdu:{c:'linear-gradient(135deg,#3F9E6A,#5E8C73)',ic:'❤️',h:'Cholesterol',s:'Education · 4 min read',
     rows:[['Healthy target','Below 5.0 mmol/L'],['Check','Every 5 years'],['Influenced by','Diet, activity, genetics']],
-    txt:'Cholesterol is a fatty substance in your blood. Higher levels raise the risk of heart disease over time. Lifestyle steps make a real difference: more fibre and oily fish, regular activity, less fried and processed food. Track your results in SheCare to see your progress.'},
+    txt:'Cholesterol is a fatty substance in your blood. Higher levels raise the risk of heart disease over time. Lifestyle steps make a real difference: more fibre and oily fish, regular activity, less fried and processed food. Track your results in VitaHer to see your progress.'},
   breast:{c:'linear-gradient(135deg,#E6357A,#F178A8)',ic:'🩺',h:'Breast Self-Examination',s:'Education · 4 min read',
     rows:[['Topic','Early detection'],['How often','Monthly'],['Best time','A few days after your period']],
     txt:'A monthly breast self-exam helps you learn what is normal for you, so you notice changes early. In 5 steps: look in the mirror, raise your arms, check for discharge, then feel each breast in a circular motion — lying down and standing. Report any new lump, change or skin dimpling to your doctor. Self-exams support, but do not replace, mammograms.'},
@@ -1341,10 +1341,10 @@ var details={
     txt:'Mental wellness is part of your overall health. Simple daily habits help: regular sleep, movement, time outdoors, and staying connected to people who support you. Breathing exercises and short mindfulness breaks calm the nervous system. If stress, low mood or anxiety persist, reaching out for professional support is a strength, not a weakness.'},
   screening:{c:'linear-gradient(135deg,#7B3F98,#9B3590)',ic:'📅',h:'Why Screening Matters',s:'Prevention &amp; early detection',
     rows:[['Pap smear','Every 3 years'],['Mammogram','Every 1–2 years from 40'],['Blood pressure','Yearly'],['Cholesterol','Every 5 years']],
-    txt:'Many serious conditions are far easier to treat when caught early — often before symptoms appear. Regular screenings are one of the most powerful things you can do for your long-term health. Use SheCare to log your screening dates and results so nothing slips through.'},
+    txt:'Many serious conditions are far easier to treat when caught early — often before symptoms appear. Regular screenings are one of the most powerful things you can do for your long-term health. Use VitaHer to log your screening dates and results so nothing slips through.'},
   privacy:{c:'linear-gradient(135deg,#5E2C77,#7B3F98)',ic:'🔒',h:'Privacy &amp; Data',s:'POPIA compliant',
     rows:[['Stored','On your device'],['Shared','Only if you choose to'],['Standard','POPIA compliant']],
-    txt:'Your health information is personal. In this version of SheCare your reports are stored privately on your own device — they are not uploaded anywhere. You stay in full control of your data and can delete any report at any time.'}
+    txt:'Your health information is personal. In this version of VitaHer your reports are stored privately on your own device — they are not uploaded anywhere. You stay in full control of your data and can delete any report at any time.'}
 };
 function openDetail(key){
   var d=details[key];if(!d)return;
@@ -1353,7 +1353,7 @@ function openDetail(key){
   (d.rows||[]).forEach(function(r){
     h+='<div class="drow"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>';});
   h+='<p class="txt" style="margin-top:14px">'+d.txt+'</p>';
-  h+='<button class="btn btn-pink" onclick="closeSheet(\'detail-sheet\');openAI()">Ask SheCare Assistant</button>';
+  h+='<button class="btn btn-pink" onclick="closeSheet(\'detail-sheet\');openAI()">Ask VitaHer Assistant</button>';
   setDetail(h);
 }
 
@@ -1374,7 +1374,7 @@ function closeSheet(id){document.getElementById(id).classList.remove('open');}
 function openAI(){
   var first=(DB.user||{}).first||'there';
   document.getElementById('chat').innerHTML=
-    '<div class="msg ai">Hi '+esc(first)+' 👋 I’m your SheCare Assistant. '+
+    '<div class="msg ai">Hi '+esc(first)+' 👋 I’m your VitaHer Assistant. '+
     'I can help you understand your results, screenings and health trends. What would you like to know?</div>';
   document.getElementById('chips-q').style.display='flex';
   document.getElementById('ai-sheet').classList.add('open');
@@ -1406,7 +1406,7 @@ function aiAnswer(q){
       :'No trends yet — add at least two reports of the same type (e.g. two cholesterol results) and I will chart the trend for you.';
   }
   if(/screening|pap|mammogram|smear/.test(q)){
-    return 'General guidance: a <b>Pap smear</b> is recommended every 3 years (ages 21–65), and a <b>mammogram</b> every 1–2 years from around age 40. Log your screening dates under Records and SheCare will keep track. Always follow your own doctor’s advice.';
+    return 'General guidance: a <b>Pap smear</b> is recommended every 3 years (ages 21–65), and a <b>mammogram</b> every 1–2 years from around age 40. Log your screening dates under Records and VitaHer will keep track. Always follow your own doctor’s advice.';
   }
   return 'I can help you understand your reports and trends. '+
     (DB.records.length
@@ -1423,7 +1423,7 @@ function ask(q){
   document.getElementById('chips-q').style.display='none';
   pushMsg(esc(q),'me');
   setTimeout(function(){
-    pushMsg('<i style="color:#B7AEC0">SheCare is thinking...</i>','ai');
+    pushMsg('<i style="color:#B7AEC0">VitaHer is thinking...</i>','ai');
     var c=document.getElementById('chat');
     setTimeout(function(){
       c.lastChild.innerHTML=aiAnswer(q);
