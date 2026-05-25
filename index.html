@@ -129,6 +129,29 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
   padding:13px 14px;background:var(--pink-xl);font-size:.8rem;font-weight:700;color:var(--pink-d);
   cursor:pointer;margin-bottom:15px}
 .filein input{display:none}
+.drop{border:2px dashed var(--rose);border-radius:18px;padding:24px 18px;background:var(--pink-xl);
+  text-align:center;cursor:pointer;transition:transform .15s,background .2s,border-color .2s;
+  margin-bottom:14px;position:relative}
+.drop:hover,.drop.drag{background:#fff;border-color:var(--pink);transform:translateY(-2px)}
+.drop.busy{cursor:wait}
+.drop .di{font-size:2.4rem;margin-bottom:6px;display:block}
+.drop h4{font-size:1rem;font-weight:900;margin-bottom:4px;color:var(--pink-d)}
+.drop p{font-size:.75rem;color:var(--muted);line-height:1.5}
+.drop .dname{font-size:.78rem;color:var(--purple-d);font-weight:700;margin-top:6px;
+  background:var(--purple-l);padding:5px 11px;border-radius:14px;display:inline-block;max-width:100%;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.drop input{display:none}
+.parsed{padding:13px 14px;border-radius:14px;margin-bottom:14px;font-size:.82rem;line-height:1.5;color:#fff}
+.parsed.ok{background:linear-gradient(135deg,#3F9E6A,#5E8C73)}
+.parsed.warn{background:linear-gradient(135deg,#D98324,#E6357A)}
+.parsed.err{background:linear-gradient(135deg,#7B3F98,#5E2C77)}
+.parsed b{font-weight:900}
+.parsed .pi{font-size:1.05rem;margin-right:5px}
+.or-line{text-align:center;font-size:.7rem;color:var(--muted);font-weight:700;
+  text-transform:uppercase;letter-spacing:1px;margin:6px 0 12px;position:relative}
+.or-line::before,.or-line::after{content:'';position:absolute;top:50%;width:35%;height:1px;
+  background:var(--line)}
+.or-line::before{left:0}.or-line::after{right:0}
 
 /* ===== APP HEADER ===== */
 .appbar{padding:6px 20px 16px;color:#fff;
@@ -1148,7 +1171,16 @@ function openAddReport(preMetric){
   document.getElementById('add-body').innerHTML=
     '<div class="dhero" style="background:linear-gradient(135deg,#E6357A,#7B3F98)">'+
     '<div class="dh-ic">📤</div><h3>Add a Report</h3>'+
-    '<p>Your data is stored privately on this device</p></div>'+
+    '<p>We read your PDF and fill in the rest</p></div>'+
+    '<label class="drop" id="ar-drop" ondragover="arDrag(event,1)" ondragleave="arDrag(event,0)" ondrop="arDrop(event)">'+
+      '<span class="di">📄</span>'+
+      '<h4>Attach your lab report</h4>'+
+      '<p>Tap to choose a PDF, or drag it here.<br>We will auto-fill the fields below.</p>'+
+      '<div id="ar-fname" style="display:none" class="dname"></div>'+
+      '<input type="file" id="ar-file" accept="image/*,application/pdf" onchange="arFile()">'+
+    '</label>'+
+    '<div id="ar-status"></div>'+
+    '<div class="or-line">Or enter manually</div>'+
     '<div class="field"><label>Report type</label>'+
     '<select id="ar-type" onchange="arValWrap()">'+opts+'</select></div>'+
     '<div class="field"><label>Lab / provider</label>'+
@@ -1158,14 +1190,18 @@ function openAddReport(preMetric){
     '<div id="ar-valwrap"></div>'+
     '<div class="field"><label>Notes (optional)</label>'+
     '<textarea id="ar-note" rows="2" placeholder="Anything you would like to remember"></textarea></div>'+
-    '<label class="filein">📎 <span id="ar-fname">Attach a photo or PDF (optional)</span>'+
-    '<input type="file" id="ar-file" accept="image/*,application/pdf" onchange="arFile()"></label>'+
     '<button class="btn btn-pink" onclick="saveReport()">Save Report</button>'+
     '<p style="font-size:.68rem;color:var(--soft);text-align:center;margin-top:12px">'+
-    'Tip: add the same report type twice to unlock a trend.</p>';
+    'Tip: add 2+ of the same report type to unlock a trend.</p>';
   arValWrap();
   document.getElementById('add-sheet').classList.add('open');
 }
+function arDrag(e,on){e.preventDefault();
+  document.getElementById('ar-drop').classList.toggle('drag',!!on);}
+function arDrop(e){e.preventDefault();
+  document.getElementById('ar-drop').classList.remove('drag');
+  if(e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0]){
+    document.getElementById('ar-file').files=e.dataTransfer.files;arFile();}}
 function arValWrap(){
   var m=document.getElementById('ar-type').value,cfg=METRICS[m],h='';
   if(cfg.screening){
@@ -1190,7 +1226,189 @@ function arValWrap(){
 }
 function arFile(){
   var f=document.getElementById('ar-file').files[0];
-  document.getElementById('ar-fname').textContent=f?f.name:'Attach a photo or PDF (optional)';
+  var nameEl=document.getElementById('ar-fname');
+  var drop=document.getElementById('ar-drop');
+  var statusEl=document.getElementById('ar-status');
+  if(!f){nameEl.style.display='none';nameEl.textContent='';statusEl.innerHTML='';return;}
+  nameEl.style.display='inline-block';nameEl.textContent='📎 '+f.name;
+  if(!/\.pdf$/i.test(f.name)){
+    statusEl.innerHTML='<div class="parsed warn"><span class="pi">📷</span>'+
+      'Image attached — please enter values manually below. (Auto-fill works on text-based PDFs.)</div>';
+    return;
+  }
+  statusEl.innerHTML='<div class="parsed err"><span class="pi">⏳</span>Reading your report…</div>';
+  drop.classList.add('busy');
+  parsePdf(f).then(function(res){
+    drop.classList.remove('busy');
+    if(res.error==='scanned'){
+      statusEl.innerHTML='<div class="parsed warn"><span class="pi">🔍</span>'+
+        'This PDF is a scan or photo — no readable text inside. Please enter the values manually below.</div>';
+      return;
+    }
+    if(res.error){
+      statusEl.innerHTML='<div class="parsed warn"><span class="pi">⚠️</span>'+
+        'Could not read this PDF ('+esc(res.error)+'). Please enter values manually.</div>';
+      return;
+    }
+    arApply(res);
+  }).catch(function(e){
+    drop.classList.remove('busy');
+    statusEl.innerHTML='<div class="parsed warn"><span class="pi">⚠️</span>'+
+      'Could not read this PDF — please enter values manually. <br><small>'+esc(String(e&&e.message||e))+'</small></div>';
+  });
+}
+function arApply(res){
+  var statusEl=document.getElementById('ar-status');
+  var found=[];
+  if(res.metric){
+    document.getElementById('ar-type').value=res.metric;arValWrap();
+    var cfg=METRICS[res.metric];
+    if(res.value!=null){
+      var v=document.getElementById('ar-value');if(v)v.value=res.value;
+      found.push('<b>'+cfg.label+': '+res.value+' '+cfg.unit+'</b>');
+    }
+    if(res.value2!=null){
+      var v2=document.getElementById('ar-value2');if(v2)v2.value=res.value2;
+      found[found.length-1]='<b>'+cfg.label+': '+res.value+'/'+res.value2+' '+cfg.unit+'</b>';
+    }
+  }
+  if(res.lab){document.getElementById('ar-provider').value=res.lab;found.push('lab '+esc(res.lab));}
+  if(res.date){document.getElementById('ar-date').value=res.date;found.push(fmtShort(res.date));}
+  if(!found.length){
+    statusEl.innerHTML='<div class="parsed warn"><span class="pi">🤔</span>'+
+      'I read the PDF but could not match the values automatically. Please enter them manually below — your file is still attached.</div>';
+    return;
+  }
+  statusEl.innerHTML='<div class="parsed ok"><span class="pi">✅</span>'+
+    'Found '+found.join(' &middot; ')+'. Review &amp; tap <b>Save Report</b>.</div>';
+}
+
+/* --- PDF parsing (pdf.js, lazy-loaded from cdnjs) --- */
+var _pdfjsPromise=null;
+function loadPdfJs(){
+  if(_pdfjsPromise)return _pdfjsPromise;
+  _pdfjsPromise=new Promise(function(resolve,reject){
+    if(window.pdfjsLib){resolve(window.pdfjsLib);return;}
+    var s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    s.onload=function(){
+      try{window.pdfjsLib.GlobalWorkerOptions.workerSrc=
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        resolve(window.pdfjsLib);}catch(e){reject(e);}
+    };
+    s.onerror=function(){reject(new Error('Could not load PDF reader'));};
+    document.head.appendChild(s);
+  });
+  return _pdfjsPromise;
+}
+function parsePdf(file){
+  return loadPdfJs().then(function(pdfjs){
+    return file.arrayBuffer().then(function(buf){
+      return pdfjs.getDocument({data:buf,disableWorker:false}).promise;
+    });
+  }).then(function(doc){
+    var pages=[];
+    for(var p=1;p<=Math.min(doc.numPages,8);p++)pages.push(p);
+    return Promise.all(pages.map(function(p){
+      return doc.getPage(p).then(function(page){
+        return page.getTextContent().then(function(c){
+          return c.items.map(function(i){return i.str;}).join(' ');
+        });
+      });
+    }));
+  }).then(function(parts){
+    var text=parts.join('\n');
+    if((text.replace(/\s/g,'').length)<25)return {error:'scanned'};
+    return extractFromText(text);
+  });
+}
+/* metric patterns — order matters: try the most specific first */
+var PARSERS=[
+  {metric:'cholesterol',unit:'mmol/L',patterns:[
+    /total\s+cholesterol[^\d\n]{0,40}?(\d{1,2}\.\d{1,2})\s*mmol\/?l/i,
+    /cholesterol[^a-z\n]{0,12}total[^\d\n]{0,40}?(\d{1,2}\.\d{1,2})\s*mmol\/?l/i,
+    /\bcholesterol\b[^\d\n]{0,40}?(\d{1,2}\.\d{1,2})\s*mmol\/?l/i
+  ]},
+  {metric:'glucose',unit:'mmol/L',patterns:[
+    /(?:fasting\s+)?glucose[^\d\n]{0,40}?(\d{1,2}\.\d{1,2})\s*mmol\/?l/i
+  ]},
+  {metric:'vitd',unit:'nmol/L',patterns:[
+    /(?:25[\s-]*(?:oh|hydroxy)\s*)?vitamin\s*d3?\b[^\d\n]{0,40}?(\d{1,3}\.?\d*)\s*nmol\/?l/i,
+    /(?:25[\s-]*(?:oh|hydroxy)\s*)?vitamin\s*d3?\b[^\d\n]{0,40}?(\d{1,3}\.?\d*)\s*ng\/?ml/i
+  ],convert:function(v,text){
+    return /ng\/?ml/i.test(text)?Math.round(v*2.5*10)/10:v;
+  }},
+  {metric:'haemoglobin',unit:'g/dL',patterns:[
+    /h(?:a)?emoglobin[^\d\n]{0,40}?(\d{1,2}\.\d{1,2})\s*g\/?dl/i,
+    /\bhb\b[^\d\n]{0,40}?(\d{1,2}\.\d{1,2})\s*g\/?dl/i
+  ]},
+  {metric:'bp',unit:'mmHg',dual:true,patterns:[
+    /(?:blood\s+pressure|\bbp\b)[^\d\n]{0,20}?(\d{2,3})\s*\/\s*(\d{2,3})\s*mm\s*hg/i,
+    /systolic[^\d\n]{0,12}?(\d{2,3})[\s\S]{0,80}?diastolic[^\d\n]{0,12}?(\d{2,3})/i
+  ]}
+];
+var LAB_NAMES=['Lancet Laboratories','Lancet Labs','Lancet','Ampath','PathCare','Pathcare','Path Care',
+  'Vermaak Partners','Drs Du Buisson','Toga Laboratories'];
+var MONTHS={jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,sept:9,oct:10,nov:11,dec:12};
+function pad2(n){n=String(n);return n.length<2?'0'+n:n;}
+function normalizeDate(s){
+  if(!s)return null;s=s.trim();
+  var m;
+  if((m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/)))return m[1]+'-'+pad2(m[2])+'-'+pad2(m[3]);
+  if((m=s.match(/^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{2,4})$/))){
+    var d=parseInt(m[1],10),mo=parseInt(m[2],10),y=parseInt(m[3],10);
+    if(y<100)y+=2000;
+    if(d>12&&mo<=12){/*OK day first*/}
+    else if(mo>12&&d<=12){var t=d;d=mo;mo=t;}
+    return y+'-'+pad2(mo)+'-'+pad2(d);
+  }
+  if((m=s.match(/^(\d{1,2})\s+([A-Za-z]{3,9})\s+(\d{4})$/))){
+    var mn=MONTHS[m[2].slice(0,3).toLowerCase()];
+    if(mn)return m[3]+'-'+pad2(mn)+'-'+pad2(m[1]);
+  }
+  if((m=s.match(/^([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(\d{4})$/))){
+    var mn2=MONTHS[m[1].slice(0,3).toLowerCase()];
+    if(mn2)return m[3]+'-'+pad2(mn2)+'-'+pad2(m[2]);
+  }
+  return null;
+}
+function extractFromText(text){
+  var out={metric:null,value:null,value2:null,lab:null,date:null};
+  /* metric + value */
+  for(var i=0;i<PARSERS.length;i++){
+    var p=PARSERS[i];
+    for(var j=0;j<p.patterns.length;j++){
+      var m=text.match(p.patterns[j]);
+      if(m){
+        out.metric=p.metric;
+        var v=parseFloat(m[1]);
+        if(p.convert)v=p.convert(v,m[0]);
+        out.value=v;
+        if(p.dual&&m[2])out.value2=parseFloat(m[2]);
+        break;
+      }
+    }
+    if(out.metric)break;
+  }
+  /* lab */
+  for(var k=0;k<LAB_NAMES.length;k++){
+    var re=new RegExp('\\b'+LAB_NAMES[k].replace(/\s+/g,'\\s+')+'\\b','i');
+    if(re.test(text)){out.lab=LAB_NAMES[k];break;}
+  }
+  /* date — prefer 'collected/specimen/sample/report' contexts */
+  var dateMatch=text.match(/(?:date\s+collected|specimen\s+date|sample\s+date|collection\s+date|date\s+of\s+report|reported|date)[^\d\n]{0,12}((?:\d{4}-\d{1,2}-\d{1,2})|(?:\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4})|(?:\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4})|(?:[A-Za-z]{3,9}\s+\d{1,2},?\s+\d{4}))/i);
+  if(dateMatch)out.date=normalizeDate(dateMatch[1]);
+  if(!out.date){
+    var any=text.match(/\b(\d{4}-\d{2}-\d{2})\b/)||text.match(/\b(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4})\b/)||text.match(/\b(\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{4})\b/);
+    if(any)out.date=normalizeDate(any[1]);
+  }
+  /* sanity: don't accept implausible values */
+  if(out.value!=null){
+    var ranges={cholesterol:[1,15],glucose:[1,30],vitd:[1,500],haemoglobin:[3,25],bp:[60,260]};
+    var r=ranges[out.metric];
+    if(r&&(out.value<r[0]||out.value>r[1])){out.value=null;out.metric=null;}
+  }
+  return out;
 }
 function saveReport(){
   var m=document.getElementById('ar-type').value,cfg=METRICS[m];
@@ -1218,7 +1436,7 @@ function saveReport(){
   }
   if(f){
     rec.fileName=f.name;
-    if(f.size<900000){
+    if(f.size<2500000){
       var fr=new FileReader();
       fr.onload=function(){rec.fileData=fr.result;finish();};
       fr.onerror=function(){finish();};
