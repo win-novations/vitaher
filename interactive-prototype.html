@@ -512,6 +512,54 @@ transition:all .15s var(--ease);
 @media(max-width:1100px){.region-cards{grid-template-columns:repeat(3,1fr)}.intel-hero{grid-template-columns:1fr}.trend-cards{grid-template-columns:1fr}}
 @media(max-width:768px){.region-cards{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.region-cards{grid-template-columns:1fr}}
+
+/* ── AI Audit Planning ── */
+.ap-summary{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px}
+.ap-stat{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:box-shadow .2s}
+.ap-stat:hover{box-shadow:var(--shadow)}
+.ap-stat .aps-val{font-size:28px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1}
+.ap-stat .aps-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text4);margin-top:4px}
+.ap-stat .aps-sub{font-size:11px;color:var(--text3);margin-top:4px}
+@media(max-width:1100px){.ap-summary{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.ap-summary{grid-template-columns:1fr 1fr}}
+.ap-timeline{position:relative;padding-left:40px;margin-bottom:24px}
+.ap-timeline::before{content:'';position:absolute;left:18px;top:0;bottom:0;width:2px;background:var(--border)}
+.ap-tl-month{position:relative;margin-bottom:24px}
+.ap-tl-month .ap-tl-label{position:absolute;left:-40px;top:0;width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;letter-spacing:.02em;z-index:2;text-align:center;line-height:1.1}
+.ap-tl-month h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;padding-top:6px}
+.ap-rec{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);margin-bottom:10px;overflow:hidden;transition:box-shadow .2s var(--ease);cursor:pointer}
+.ap-rec:hover{box-shadow:var(--shadow-md)}
+.ap-rec .apr-head{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--border-subtle)}
+.ap-rec .apr-centre{font-size:15px;font-weight:800;color:var(--text);letter-spacing:-.01em}
+.ap-rec .apr-score{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;margin-left:auto}
+.ap-rec .apr-body{padding:16px 18px;display:none}
+.ap-rec.expanded .apr-body{display:block}
+.ap-rec.expanded .apr-chevron{transform:rotate(180deg)}
+.ap-rec .apr-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:14px}
+@media(max-width:900px){.ap-rec .apr-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.ap-rec .apr-grid{grid-template-columns:1fr}}
+.ap-rec .apr-cell{background:var(--surface2);border-radius:var(--radius);padding:10px 12px;border:1px solid var(--border-subtle)}
+.ap-rec .apr-cell .apc-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text4);margin-bottom:4px}
+.ap-rec .apr-cell .apc-val{font-size:13px;font-weight:600;color:var(--text)}
+.ap-rec .apr-reason{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:12px}
+.ap-rec .apr-reason strong{color:var(--text)}
+.ap-rec .apr-factors{margin-bottom:14px}
+.ap-rec .apr-factor{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12px}
+.ap-rec .apr-factor .apf-name{width:130px;color:var(--text3);flex-shrink:0}
+.ap-rec .apr-factor .apf-bar{flex:1;height:6px;background:var(--surface3);border-radius:3px;overflow:hidden}
+.ap-rec .apr-factor .apf-fill{height:100%;border-radius:3px}
+.ap-rec .apr-factor .apf-val{width:32px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.ap-rec .apr-impact{background:var(--surface2);border:1px solid var(--border-subtle);border-radius:var(--radius);padding:12px;margin-bottom:12px;font-size:12px;color:var(--text2);line-height:1.6}
+.ap-rec .apr-impact strong{color:var(--text)}
+.ap-rec .apr-actions{display:flex;gap:8px}
+.ap-cap{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+@media(max-width:900px){.ap-cap{grid-template-columns:1fr 1fr}}
+.ap-cap-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:16px;text-align:center}
+.ap-cap-card .apcc-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px}
+.ap-cap-card .apcc-ring{display:inline-block;position:relative;width:60px;height:60px}
+.ap-cap-card .apcc-ring canvas{display:block}
+.ap-cap-card .apcc-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;font-variant-numeric:tabular-nums}
+.ap-cap-card .apcc-load{font-size:11px;color:var(--text4);margin-top:6px}
 </style>
 
 <!-- ═══════ TOPBAR ═══════ -->
@@ -908,11 +956,60 @@ transition:all .15s var(--ease);
   <div id="aiCards"></div>
 </div>
 
-<!-- AUDIT PLANNING -->
+<!-- AI AUDIT PLANNING -->
 <div class="page" id="page-auditplan">
-  <div class="page-header"><div class="ph-left"><div class="breadcrumb"><span>Home</span> / <span>Audit Planning</span></div><h1>Intelligent Audit Planning</h1><div class="ph-sub">AI-driven risk-based audit prioritisation and resource allocation</div></div><div class="ph-actions"><button class="btn btn-primary btn-sm">Apply Recommendations</button></div></div>
-  <div class="section-desc">The AI engine analyses centre health scores, NC trends, CAPA performance, complaints, and risk profiles to recommend audit priorities. Recommendations are updated weekly.</div>
-  <div id="auditRecs"></div>
+  <div class="page-header">
+    <div class="ph-left">
+      <div class="breadcrumb"><span>Home</span> / <span>Audit Planning</span></div>
+      <h1>AI-Driven Audit Planning</h1>
+      <div class="ph-sub">Audits recommended by enterprise data — health scores, CAPAs, NCs, complaints, risks, training, supplier quality, and prior findings</div>
+    </div>
+    <div class="ph-actions">
+      <button class="btn btn-outline btn-sm" onclick="showToast('info','Report Queued','Audit Programme Report generating — PDF available in 2 minutes')">Export Programme</button>
+      <button class="btn btn-primary btn-sm" onclick="showToast('success','Recommendations Applied','14 audit slots updated in the programme calendar. 4 auditors notified via Teams.')"><svg class="icon-svg sm" viewBox="0 0 20 20" style="stroke:#fff"><path d="M7 10l2 2 4-4"/><circle cx="10" cy="10" r="8"/></svg>Apply All Recommendations</button>
+    </div>
+  </div>
+
+  <!-- Summary Metrics -->
+  <div class="ap-summary" id="apSummary"></div>
+
+  <!-- AI Reasoning Banner -->
+  <div class="card" style="margin-bottom:24px;border-left:4px solid var(--purple)">
+    <div class="card-body" style="display:flex;gap:14px;align-items:flex-start">
+      <div style="width:36px;height:36px;border-radius:var(--radius);background:var(--purple-light);color:var(--purple);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg class="icon-svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="3"/><circle cx="10" cy="10" r="7"/><line x1="10" y1="1" x2="10" y2="3"/><line x1="10" y1="17" x2="10" y2="19"/><line x1="1" y1="10" x2="3" y2="10"/><line x1="17" y1="10" x2="19" y2="10"/></svg></div>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">AI Recommendation Engine</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.6">This programme is generated by the AI engine, which analyses <strong>8 data signals</strong> across all 25 centres: Centre Health Score, CAPA ageing, repeat non-conformances, customer complaints, risk register, supplier issues, training compliance, and previous audit findings. Each recommendation includes the specific data points that triggered it and the expected business impact of conducting the audit. Recommendations refresh weekly as new data enters the platform.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auditor Capacity -->
+  <div class="section-title">Auditor Capacity & Allocation</div>
+  <div class="section-desc">Current auditor workload and availability for the recommended programme.</div>
+  <div class="ap-cap" id="apCapacity"></div>
+
+  <!-- Priority Distribution Chart + Clause Focus -->
+  <div class="grid-2" style="margin-bottom:24px">
+    <div class="card">
+      <div class="card-header"><h3>Priority Distribution</h3><span class="card-badge st-red">Risk-weighted</span></div>
+      <div class="card-body"><div class="chart-container"><canvas id="chartAuditPriority"></canvas></div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>ISO Clause Focus Areas</h3><span class="card-badge st-blue">AI recommended</span></div>
+      <div class="card-body"><div class="chart-container"><canvas id="chartAuditClauses"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- Timeline View -->
+  <div class="section-title">Recommended Audit Programme — Timeline</div>
+  <div class="section-desc">Audits ordered by AI-calculated priority. Click any recommendation to see the full data-driven reasoning.</div>
+  <div class="tabs" id="apTabs">
+    <div class="tab active" onclick="apTabSwitch(this,'timeline')">Timeline View</div>
+    <div class="tab" onclick="apTabSwitch(this,'table')">Table View</div>
+  </div>
+  <div id="apTimeline"></div>
+  <div id="apTable" style="display:none"></div>
 </div>
 
 <!-- EXECUTIVE DECISION CENTRE -->
@@ -1037,13 +1134,76 @@ const AI_INSIGHTS=[
 {type:'Prediction',sev:'low',title:'Port Elizabeth Predicted to Improve to Green',body:'Port Elizabeth\'s quality trajectory suggests a 76% probability of reaching the 85-point threshold within the next 90 days.',why:'This is a recovery pattern. The centre invested in a focused improvement programme after dropping to 73 in Q4 2025. Leading indicators (CAPA closure velocity, training completion, complaint reduction) now match the recovery pattern seen at three other centres that successfully returned to Green status.',confidence:76,cat:'predictions'},
 ];
 
+const AUDITORS=[
+  {name:'J. van der Merwe',role:'Lead Auditor',region:'Gauteng / Eastern Cape',allocated:14,capacity:20,certs:['ISO 9001','ISO 14001','ISO 45001']},
+  {name:'T. Dlamini',role:'Lead Auditor',region:'KwaZulu-Natal / Free State',allocated:12,capacity:20,certs:['ISO 9001','ISO 14001']},
+  {name:'A. Nkosi',role:'Auditor',region:'KwaZulu-Natal / Gauteng',allocated:10,capacity:18,certs:['ISO 9001']},
+  {name:'S. Botha',role:'Auditor',region:'Western Cape / Free State',allocated:8,capacity:18,certs:['ISO 9001','ISO 14001']},
+  {name:'M. Pillay',role:'Auditor',region:'Eastern Cape / Gauteng',allocated:11,capacity:18,certs:['ISO 9001']},
+  {name:'R. Joubert',role:'Junior Auditor',region:'Free State / NW',allocated:6,capacity:15,certs:['ISO 9001']},
+];
+
 const AUDIT_RECS=[
-{centre:'East London',priority:'Critical',score:72,clauses:['8.5.1','10.2','7.2'],duration:'3 days',team:'Lead: J. van der Merwe + A. Nkosi',reason:'Quality score 72 (Red). 8 open NCs, 5 overdue CAPAs. Declining for 2 consecutive quarters. Last audit scored 64%. Clause 8.5.1 findings in last 3 audits.'},
-{centre:'Polokwane',priority:'Critical',score:71,clauses:['8.5.1','6.1','8.4'],duration:'3 days',team:'Lead: T. Dlamini + S. Botha',reason:'Lowest quality score in the enterprise (71). 9 open NCs including 3 Critical. Supplier-related NCs account for 40% of total. Risk register has 6 high/critical risks.'},
-{centre:'Bloemfontein',priority:'High',score:74,clauses:['10.2','7.5','9.1'],duration:'2 days',team:'Lead: M. Pillay + R. Joubert',reason:'Quality score 74 (Red). 7 open NCs. CAPA effectiveness rate at 68% — well below the 85% target. Document control compliance at 89%.'},
-{centre:'Richards Bay',priority:'High',score:79,clauses:['8.5.1','8.4'],duration:'2 days',team:'Lead: J. van der Merwe',reason:'Trending downward from 84 to 79 over two quarters. Complaint volume increased 60% MoM. Process deviation NCs recurring in the same service area.'},
-{centre:'Durban',priority:'Medium',score:85,clauses:['8.5.1','8.4'],duration:'1.5 days',team:'Lead: A. Nkosi',reason:'Currently Green but trending toward Amber. Incoming goods NCs linked to Supplier XYZ. 2 overdue CAPAs. Recommend focused scope on Clause 8.4 (external providers).'},
-{centre:'Cape Town',priority:'Low',score:94,clauses:['9.2','9.3'],duration:'1 day',team:'Lead: S. Botha',reason:'Consistently top performer. Recommend reducing to annual frequency. Release auditor capacity for higher-risk centres.'},
+{centre:'Polokwane',priority:'Critical',score:71,month:'Aug',dates:'12–14 Aug',clauses:['8.5.1','6.1','8.4'],duration:'3 days',type:'Full System',team:['T. Dlamini','S. Botha'],
+ signals:{health:71,ncOpen:9,ncCritical:3,capaOverdue:6,capaAge:'48 days avg',complaints:10,risks:6,supplierNCs:4,training:84,sopCompliance:86,prevAuditScore:58,repeatFindings:3},
+ reason:'Polokwane has the lowest quality score in the enterprise at 71, declining for 3 consecutive months (77→75→74→72→71). The AI engine flagged 5 compounding risk signals: 9 open NCs including 3 Critical severity, 6 overdue CAPAs with an average age of 48 days, 10 customer complaints this month (highest in the enterprise), 4 supplier-related NCs linked to Supplier XYZ, and training compliance at 84% — 11 points below target.',
+ impact:'Polokwane accounts for 18% of all enterprise NCs and 25% of overdue CAPAs. Without audit intervention, the AI model predicts the quality score will decline to 67 within 60 days, triggering non-compliance at the October certification audit. Estimated cost of non-intervention: R420K in continued quality failures and potential certification risk.',
+ clauseReason:'Clause 8.5.1: 3 repeat findings in last 3 audits — process control failures. Clause 6.1: Risk register has 6 high/critical items, none reviewed in 90 days. Clause 8.4: 40% of NCs are supplier-related, requiring external provider control review.'},
+{centre:'East London',priority:'Critical',score:72,month:'Aug',dates:'5–7 Aug',clauses:['8.5.1','10.2','7.2'],duration:'3 days',type:'Full System',team:['J. van der Merwe','A. Nkosi'],
+ signals:{health:72,ncOpen:8,ncCritical:2,capaOverdue:5,capaAge:'42 days avg',complaints:9,risks:5,supplierNCs:2,training:85,sopCompliance:88,prevAuditScore:64,repeatFindings:4},
+ reason:'East London has been below the 75-point threshold for 2 consecutive quarters with a consistent downward trajectory (78→76→75→73→72). The centre has 8 open NCs, 5 overdue CAPAs with an average age of 42 days, and 4 repeat audit findings — the highest repeat rate in the enterprise. Previous audit scored 64%, the lowest result recorded this financial year. CAPA effectiveness is at 62%, indicating corrective actions are not addressing root causes.',
+ impact:'The repeat finding pattern indicates systemic root cause analysis failure. Each repeat finding costs an estimated R35K in rework and re-audit. Addressing these through a comprehensive 3-day audit with root cause verification is projected to save R280K over the next 2 quarters and reduce the NC volume by 40%.',
+ clauseReason:'Clause 8.5.1: Process deviation is the top NC category — same finding in last 3 audits. Clause 10.2: CAPA effectiveness at 62% indicates corrective action process is broken. Clause 7.2: Training compliance at 85% with 3 competency gaps identified.'},
+{centre:'Bloemfontein',priority:'High',score:74,month:'Aug',dates:'19–20 Aug',clauses:['10.2','7.5','9.1'],duration:'2 days',type:'Focused',team:['M. Pillay','R. Joubert'],
+ signals:{health:74,ncOpen:7,ncCritical:1,capaOverdue:4,capaAge:'38 days avg',complaints:8,risks:5,supplierNCs:1,training:86,sopCompliance:89,prevAuditScore:71,repeatFindings:2},
+ reason:'Bloemfontein is at 74 (Red status) with 7 open NCs and a CAPA effectiveness rate of 68% — well below the 85% enterprise target. Document control compliance at 89% indicates 11% of controlled documents are overdue for review. The centre has 2 repeat audit findings from the previous cycle that remain unresolved. Training compliance at 86% has declined 4 points in 2 months.',
+ impact:'The CAPA effectiveness gap is the primary risk. Centres with CAPA effectiveness below 70% show a 3x higher rate of repeat NCs in the following quarter. A focused 2-day audit on corrective action processes and document control is projected to improve CAPA effectiveness by 15 points within 90 days, preventing an estimated R180K in repeat failure costs.',
+ clauseReason:'Clause 10.2: CAPA effectiveness at 68% — root cause analysis quality needs evaluation. Clause 7.5: 16 documents overdue for review — risk of obsolete procedures in use. Clause 9.1: Performance monitoring data not being used to drive improvement.'},
+{centre:'Richards Bay',priority:'High',score:79,month:'Sep',dates:'2–3 Sep',clauses:['8.5.1','8.4'],duration:'2 days',type:'Focused',team:['J. van der Merwe'],
+ signals:{health:79,ncOpen:6,ncCritical:1,capaOverdue:4,capaAge:'34 days avg',complaints:7,risks:4,supplierNCs:3,training:88,sopCompliance:90,prevAuditScore:76,repeatFindings:2},
+ reason:'Richards Bay is trending downward from 84 to 79 over two quarters (84→83→82→80→79). Complaint volume increased 60% month-on-month. Process deviation NCs are recurring in the same service area for the 3rd consecutive quarter. 3 of 6 open NCs are supplier-related, linked to the Supplier XYZ pattern identified across the enterprise.',
+ impact:'The declining trajectory matches the pattern seen at East London 6 months before it dropped below 75. Early intervention at this stage has a 78% probability of reversing the decline based on historical data from 4 similar centre recoveries. Estimated cost of delayed intervention: R220K in continued quality deterioration plus potential Red status escalation.',
+ clauseReason:'Clause 8.5.1: Same process deviation recurring — indicates SOP adequacy issue. Clause 8.4: Supplier-related NCs require external provider control verification.'},
+{centre:'Soweto',priority:'High',score:82,month:'Sep',dates:'9–10 Sep',clauses:['7.2','8.5.1','10.2'],duration:'2 days',type:'Focused',team:['A. Nkosi','M. Pillay'],
+ signals:{health:82,ncOpen:5,ncCritical:0,capaOverdue:3,capaAge:'30 days avg',complaints:5,risks:3,supplierNCs:1,training:91,sopCompliance:92,prevAuditScore:74,repeatFindings:1},
+ reason:'Soweto has been Amber for 5 consecutive months with a flat trajectory (80→81→80→81→82). Previous audit scored 74%. Training compliance at 91% is the lowest in Gauteng and dragging the regional average down. The centre has 3 overdue CAPAs and 1 repeat finding from the previous audit cycle. While not declining, the inability to break into Green status indicates persistent systemic issues.',
+ impact:'Soweto is the only Amber centre in Gauteng, preventing the region from achieving full Green status. Addressing the training and CAPA gaps through a focused audit is projected to lift the score to 86+ within 90 days, which would make Gauteng the first fully-Green region — a benchmark achievement for the Quality Maturity Programme.',
+ clauseReason:'Clause 7.2: Training compliance 5 points below regional average — competency gaps in service delivery team. Clause 8.5.1: 1 repeat finding on process control. Clause 10.2: 3 overdue CAPAs indicate follow-through gap.'},
+{centre:'Durban',priority:'Medium',score:85,month:'Sep',dates:'16–17 Sep',clauses:['8.4','8.5.1'],duration:'1.5 days',type:'Focused',team:['T. Dlamini'],
+ signals:{health:85,ncOpen:4,ncCritical:0,capaOverdue:2,capaAge:'22 days avg',complaints:6,risks:3,supplierNCs:3,training:93,sopCompliance:95,prevAuditScore:82,repeatFindings:1},
+ reason:'Durban is currently Green at 85 but trending toward Amber (87→86→86→85→85). 3 of 4 open NCs are incoming goods issues linked to Supplier XYZ. Complaint volume at 6 is above average for a Green centre. The centre has 2 overdue CAPAs. The AI engine flags this as an "early warning" centre — currently healthy but showing leading indicators of decline.',
+ impact:'Intervening while a centre is still Green costs 50% less in auditor days than waiting until it drops to Amber. A focused 1.5-day audit on supplier controls is projected to stabilise the score and prevent the estimated R140K cost of a full-system re-audit if the centre declines to Amber.',
+ clauseReason:'Clause 8.4: 75% of open NCs are supplier-related — focused review of incoming goods inspection and supplier evaluation process. Clause 8.5.1: Verify service delivery controls remain effective.'},
+{centre:'George',priority:'Medium',score:83,month:'Sep',dates:'23–24 Sep',clauses:['7.1.5','8.5.1'],duration:'1.5 days',type:'Focused',team:['S. Botha'],
+ signals:{health:83,ncOpen:5,ncCritical:0,capaOverdue:2,capaAge:'26 days avg',complaints:4,risks:3,supplierNCs:0,training:91,sopCompliance:93,prevAuditScore:78,repeatFindings:1},
+ reason:'George has a persistent equipment/calibration NC pattern — the top NC category for 3 consecutive quarters. Quality score at 83 is flat (81→82→82→82→83). Training compliance at 91% is 4 points below target. Previous audit scored 78%, the lowest in the Western Cape region.',
+ impact:'The recurring calibration issue represents a containable problem. A focused audit on measurement equipment management and calibration scheduling is projected to eliminate this NC category within 1 quarter, improving the centre score by 3–4 points and saving R60K annually in calibration-related rework.',
+ clauseReason:'Clause 7.1.5: Calibration non-conformances recurring quarterly — schedule frequency and scope review needed. Clause 8.5.1: Verify process controls where calibration findings occurred.'},
+{centre:'Queenstown',priority:'Medium',score:81,month:'Oct',dates:'7–8 Oct',clauses:['8.5.1','9.1'],duration:'1.5 days',type:'Focused',team:['M. Pillay'],
+ signals:{health:81,ncOpen:5,ncCritical:0,capaOverdue:3,capaAge:'28 days avg',complaints:5,risks:3,supplierNCs:0,training:90,sopCompliance:92,prevAuditScore:75,repeatFindings:1},
+ reason:'Queenstown at 81 has a flat trajectory that has not improved despite a regional improvement plan initiated 4 months ago. Service delivery NCs are the top category. Training compliance at 90% is the lowest in Eastern Cape excluding East London. The centre has 3 overdue CAPAs suggesting follow-through challenges.',
+ impact:'The stalled improvement trajectory suggests the regional plan is not addressing root causes at this centre. A focused audit will identify specific barriers to improvement. Historical data shows centres that receive a targeted audit after a stalled improvement plan recover 2x faster than those that continue without audit intervention.',
+ clauseReason:'Clause 8.5.1: Service delivery NCs indicate process execution gaps. Clause 9.1: Evaluate whether performance data is being analysed and acted upon.'},
+{centre:'Welkom',priority:'Medium',score:80,month:'Oct',dates:'14–15 Oct',clauses:['7.1.5','7.2'],duration:'1.5 days',type:'Focused',team:['R. Joubert'],
+ signals:{health:80,ncOpen:5,ncCritical:0,capaOverdue:3,capaAge:'25 days avg',complaints:4,risks:3,supplierNCs:0,training:90,sopCompliance:93,prevAuditScore:77,repeatFindings:0},
+ reason:'Welkom at 80 has equipment-related NCs as the top category, similar to the pattern at George. Training compliance at 90% is below target. The centre has been Amber for 3 quarters with minimal movement. No repeat findings from the previous audit, but 3 overdue CAPAs indicate corrective action follow-through needs assessment.',
+ impact:'Welkom and George share the same equipment/calibration NC pattern. Auditing both centres with a common scope allows the AI engine to determine whether this is a national equipment management issue or site-specific. A coordinated finding across both sites would trigger a national calibration programme review, potentially preventing similar issues at 10+ other centres.',
+ clauseReason:'Clause 7.1.5: Equipment management and calibration. Clause 7.2: Training compliance assessment — verify competency records and gap analysis.'},
+{centre:'Port Elizabeth',priority:'Low',score:78,month:'Oct',dates:'21 Oct',clauses:['8.4','9.1'],duration:'1 day',type:'Follow-up',team:['M. Pillay'],
+ signals:{health:78,ncOpen:6,ncCritical:0,capaOverdue:3,capaAge:'20 days avg',complaints:6,risks:4,supplierNCs:2,training:89,sopCompliance:91,prevAuditScore:73,repeatFindings:0},
+ reason:'Port Elizabeth is on an upward recovery trajectory (73→74→75→77→78) following a focused improvement programme. The AI engine recommends a 1-day follow-up audit to verify that improvement actions are sustainable. Incoming goods NCs remain the top category but volume is decreasing. No repeat findings from the previous audit — a positive indicator.',
+ impact:'This is a verification audit, not an intervention audit. The AI engine assigns Low priority because the trajectory is positive and data indicates the improvement programme is working. The 1-day follow-up validates sustainability and provides early detection if the recovery stalls, at a fraction of the cost of a reactive full-system audit.',
+ clauseReason:'Clause 8.4: Verify incoming goods inspection improvements are sustained. Clause 9.1: Confirm performance monitoring is driving continued improvement.'},
+{centre:'Cape Town',priority:'Low',score:94,month:'Nov',dates:'4 Nov',clauses:['9.2','9.3'],duration:'1 day',type:'Surveillance',team:['S. Botha'],
+ signals:{health:94,ncOpen:1,ncCritical:0,capaOverdue:0,capaAge:'0',complaints:1,risks:1,supplierNCs:0,training:99,sopCompliance:100,prevAuditScore:92,repeatFindings:0},
+ reason:'Cape Town is consistently the top-performing centre at 94 with zero overdue CAPAs, 99% training compliance, and 100% SOP compliance. The AI engine recommends reducing to annual surveillance frequency to release auditor capacity for higher-risk centres. A 1-day surveillance audit maintains oversight without consuming resources needed elsewhere.',
+ impact:'Reducing Cape Town from quarterly to annual surveillance releases 3 auditor-days per year. This capacity is reallocated to Polokwane and East London, where the return on audit investment is 8x higher based on the ratio of projected quality improvement to auditor cost. Cape Town serves as the benchmark centre for the enterprise best-practice programme.',
+ clauseReason:'Clause 9.2: Routine surveillance of internal audit process effectiveness. Clause 9.3: Management review input quality assessment.'},
+{centre:'Sandton',priority:'Low',score:93,month:'Nov',dates:'11 Nov',clauses:['9.2','9.3'],duration:'1 day',type:'Surveillance',team:['A. Nkosi'],
+ signals:{health:93,ncOpen:1,ncCritical:0,capaOverdue:0,capaAge:'0',complaints:1,risks:1,supplierNCs:0,training:99,sopCompliance:100,prevAuditScore:91,repeatFindings:0},
+ reason:'Sandton at 93 is a Leading maturity centre with minimal risk indicators. Like Cape Town, the AI engine recommends reduced frequency. A 1-day surveillance audit is sufficient to maintain oversight. The centre can contribute to the peer audit programme, providing auditor support to lower-performing centres in other regions.',
+ impact:'Sandton and Cape Town together release 6 auditor-days annually through reduced frequency. Both centres are candidates for the peer-audit programme where their staff participate as observers in audits at developing centres, transferring best practices directly. Estimated value of knowledge transfer: R90K in avoided training costs.',
+ clauseReason:'Clause 9.2: Internal audit process confirmation. Clause 9.3: Management review adequacy verification.'},
 ];
 
 const CMD_ITEMS=[
@@ -1223,19 +1383,265 @@ function aiTab(el,cat){
 }
 
 // ═══════ AUDIT PLANNING ═══════
+function apTabSwitch(el,view){
+  document.querySelectorAll('#apTabs .tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('apTimeline').style.display=view==='timeline'?'':'none';
+  document.getElementById('apTable').style.display=view==='table'?'':'none';
+}
+
+function renderApMiniGauge(canvasId,pct,size){
+  const canvas=document.getElementById(canvasId);if(!canvas)return;
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=size*dpr;canvas.height=size*dpr;
+  canvas.style.width=size+'px';canvas.style.height=size+'px';
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const cx=size/2,cy=size/2,r=size/2-6,lw=6;
+  const cs=getComputedStyle(document.documentElement);
+  const trackCol=cs.getPropertyValue('--surface3').trim()||'#eee';
+  const col=pct<=60?cs.getPropertyValue('--danger').trim():pct<=80?cs.getPropertyValue('--warn').trim():cs.getPropertyValue('--accent').trim();
+  ctx.lineCap='round';
+  ctx.beginPath();ctx.arc(cx,cy,r,0,2*Math.PI);ctx.strokeStyle=trackCol;ctx.lineWidth=lw;ctx.stroke();
+  ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+2*Math.PI*(pct/100));ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.stroke();
+  ctx.fillStyle=cs.getPropertyValue('--text').trim()||'#111';ctx.font='700 '+(size>50?'14':'11')+'px '+cs.getPropertyValue('--font').trim();
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(pct+'%',cx,cy);
+}
+
 function renderAuditPlan(){
-  document.getElementById('auditRecs').innerHTML=AUDIT_RECS.map(r=>{
-    const pc=r.priority==='Critical'?'danger':r.priority==='High'?'warn':r.priority==='Medium'?'brand':'accent';
-    return `<div class="audit-rec">
-      <div>
-        <div class="ar-centre">${r.centre}</div>
-        <div class="ar-detail"><strong>Duration:</strong> ${r.duration} &middot; <strong>Team:</strong> ${r.team}</div>
-        <div class="ar-detail">${r.reason}</div>
-        <div class="ar-tags">${r.clauses.map(c=>`<span class="ar-tag">Clause ${c}</span>`).join('')}</div>
+  const cs=getComputedStyle(document.documentElement);
+  const critCount=AUDIT_RECS.filter(r=>r.priority==='Critical').length;
+  const highCount=AUDIT_RECS.filter(r=>r.priority==='High').length;
+  const medCount=AUDIT_RECS.filter(r=>r.priority==='Medium').length;
+  const lowCount=AUDIT_RECS.filter(r=>r.priority==='Low').length;
+  const totalDays=AUDIT_RECS.reduce((s,r)=>s+parseFloat(r.duration),0);
+  const centres=new Set(AUDIT_RECS.map(r=>r.centre)).size;
+  const avgScore=Math.round(AUDIT_RECS.reduce((s,r)=>s+r.score,0)/AUDIT_RECS.length);
+
+  // Summary metrics
+  document.getElementById('apSummary').innerHTML=[
+    {v:AUDIT_RECS.length,l:'Recommended Audits',s:'AI-computed from 25 centres',c:'brand'},
+    {v:critCount,l:'Critical Priority',s:highCount+' High · '+medCount+' Medium · '+lowCount+' Low',c:'danger'},
+    {v:totalDays,l:'Auditor Days Required',s:'Across '+AUDITORS.length+' auditors',c:'purple'},
+    {v:centres,l:'Centres Covered',s:'of 25 total centres',c:'accent'},
+    {v:'94%',l:'AI Confidence Score',s:'Based on 6 months of data',c:'brand'},
+  ].map(m=>`<div class="ap-stat">
+    <div class="aps-val" style="color:var(--${m.c})">${m.v}</div>
+    <div class="aps-label">${m.l}</div>
+    <div class="aps-sub">${m.s}</div>
+  </div>`).join('');
+
+  // Auditor capacity cards
+  document.getElementById('apCapacity').innerHTML=AUDITORS.map((a,i)=>{
+    const pct=Math.round(a.allocated/a.capacity*100);
+    const statusCol=pct>=90?'danger':pct>=70?'warn':'accent';
+    const statusLabel=pct>=90?'Near capacity':pct>=70?'Moderate':'Available';
+    const assignedAudits=AUDIT_RECS.filter(r=>r.team.includes(a.name.split(' ').pop()===a.name.split(' ').pop()?a.name.split('.')[0]+'. '+a.name.split(' ').pop():a.name)).length;
+    const teamMatch=AUDIT_RECS.filter(r=>r.team.some(t=>t===a.name));
+    return `<div class="ap-cap-card">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <canvas id="apGauge${i}" width="48" height="48"></canvas>
+        <div>
+          <div style="font-weight:700;font-size:13px;color:var(--text)">${a.name}</div>
+          <div style="font-size:11px;color:var(--text3)">${a.role}</div>
+        </div>
       </div>
-      <div class="ar-priority"><div class="pv" style="color:var(--${pc})">${r.score}</div><div class="pl" style="color:var(--${pc})">${r.priority}</div></div>
+      <div style="display:flex;flex-direction:column;gap:6px;font-size:12px">
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">Region</span><span style="color:var(--text2);font-weight:600">${a.region}</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">Allocated</span><span style="color:var(--text2);font-weight:600">${a.allocated} / ${a.capacity} days</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">Audits</span><span style="color:var(--text2);font-weight:600">${teamMatch.length} assigned</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">Status</span><span style="font-weight:700;color:var(--${statusCol})">${statusLabel}</span></div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:2px">${a.certs.map(c=>`<span style="font-size:10px;padding:2px 6px;border-radius:10px;background:var(--brand-light);color:var(--brand);font-weight:600">${c}</span>`).join('')}</div>
+      </div>
     </div>`;
   }).join('');
+
+  // Render mini gauges after DOM update
+  setTimeout(()=>{
+    AUDITORS.forEach((a,i)=>{
+      const pct=Math.round(a.allocated/a.capacity*100);
+      renderApMiniGauge('apGauge'+i,pct,48);
+    });
+  },0);
+
+  // Priority distribution chart
+  renderApPriorityChart();
+
+  // ISO clause focus chart
+  renderApClauseChart();
+
+  // Timeline view
+  renderApTimeline();
+
+  // Table view
+  renderApTable();
+}
+
+function renderApPriorityChart(){
+  const cs=getComputedStyle(document.documentElement);
+  const counts={Critical:0,High:0,Medium:0,Low:0};
+  AUDIT_RECS.forEach(r=>counts[r.priority]++);
+  const colors={
+    Critical:cs.getPropertyValue('--danger').trim(),
+    High:cs.getPropertyValue('--warn').trim(),
+    Medium:cs.getPropertyValue('--brand').trim(),
+    Low:cs.getPropertyValue('--accent').trim()
+  };
+  const labels=Object.keys(counts);
+  const data=Object.values(counts);
+  const canvas=document.getElementById('chartAuditPriority');if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const rect=canvas.parentElement.getBoundingClientRect();
+  canvas.width=rect.width*dpr;canvas.height=rect.height*dpr;
+  canvas.style.width=rect.width+'px';canvas.style.height=rect.height+'px';
+  ctx.scale(dpr,dpr);
+  const W=rect.width,H=rect.height;
+  const pad={t:20,r:20,b:36,l:40};
+  const cW=W-pad.l-pad.r,cH=H-pad.t-pad.b;
+  const max=Math.max(...data)*1.4;
+  const textCol=cs.getPropertyValue('--text4').trim()||'#999';
+  const borderCol=cs.getPropertyValue('--border-subtle').trim()||'#eee';
+  ctx.strokeStyle=borderCol;ctx.lineWidth=1;
+  for(let i=0;i<5;i++){
+    const y=pad.t+cH*(i/4);
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
+    ctx.fillStyle=textCol;ctx.font='500 10px '+cs.getPropertyValue('--font').trim();
+    ctx.textAlign='right';ctx.fillText((max*(1-i/4)).toFixed(0),pad.l-8,y+3);
+  }
+  const barW=Math.min(cW/labels.length*0.55,50);
+  labels.forEach((l,i)=>{
+    const x=pad.l+cW*((i+0.5)/labels.length)-barW/2;
+    const h=cH*(data[i]/max),y=pad.t+cH-h;
+    ctx.fillStyle=colors[l];
+    roundRect(ctx,x,y,barW,h,4);ctx.fill();
+    ctx.fillStyle=cs.getPropertyValue('--text').trim();ctx.font='700 12px '+cs.getPropertyValue('--font').trim();
+    ctx.textAlign='center';ctx.fillText(data[i],x+barW/2,y-6);
+    ctx.fillStyle=textCol;ctx.font='600 11px '+cs.getPropertyValue('--font').trim();
+    ctx.fillText(l,pad.l+cW*((i+0.5)/labels.length),H-10);
+  });
+}
+
+function renderApClauseChart(){
+  const clauseCount={};
+  AUDIT_RECS.forEach(r=>r.clauses.forEach(c=>{clauseCount[c]=(clauseCount[c]||0)+1}));
+  const sorted=Object.entries(clauseCount).sort((a,b)=>b[1]-a[1]);
+  const items=sorted.map(([k,v])=>({label:'Cl. '+k,val:v,color:getComputedStyle(document.documentElement).getPropertyValue('--brand').trim()}));
+  renderHorizBar('chartAuditClauses',items);
+}
+
+function renderApTimeline(){
+  const months=['Aug','Sep','Oct','Nov'];
+  const priorityColor=p=>p==='Critical'?'danger':p==='High'?'warn':p==='Medium'?'brand':'accent';
+
+  let html='<div class="ap-timeline">';
+  months.forEach(m=>{
+    const recs=AUDIT_RECS.filter(r=>r.month===m);
+    if(!recs.length)return;
+    html+=`<div class="ap-tl-month"><div class="ap-tl-label">${m} 2025</div></div>`;
+    recs.forEach((r,ri)=>{
+      const pc=priorityColor(r.priority);
+      const uid='apr_'+m+'_'+ri;
+      const signalBars=[
+        {k:'Health Score',v:r.signals.health,max:100},
+        {k:'Open NCs',v:r.signals.ncOpen,max:12,inv:true},
+        {k:'Critical NCs',v:r.signals.ncCritical,max:5,inv:true},
+        {k:'Overdue CAPAs',v:r.signals.capaOverdue,max:8,inv:true},
+        {k:'Complaints',v:r.signals.complaints,max:12,inv:true},
+        {k:'Risks',v:r.signals.risks,max:8,inv:true},
+        {k:'Supplier NCs',v:r.signals.supplierNCs,max:5,inv:true},
+        {k:'Training',v:r.signals.training,max:100},
+      ];
+      html+=`<div class="ap-rec" id="${uid}">
+        <div class="apr-head" onclick="document.getElementById('${uid}').classList.toggle('expanded')">
+          <div style="display:flex;align-items:center;gap:12px;flex:1;min-width:0">
+            <div style="width:38px;height:38px;border-radius:50%;background:var(--${pc}-light);color:var(--${pc});display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0">${r.score}</div>
+            <div style="min-width:0">
+              <div style="font-weight:700;font-size:14px;color:var(--text)">${r.centre}</div>
+              <div style="font-size:12px;color:var(--text3)">${r.dates} · ${r.duration} · ${r.type}</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+            <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;background:var(--${pc}-light);color:var(--${pc})">${r.priority}</span>
+            <svg class="icon-svg sm apr-chevron" viewBox="0 0 20 20" style="transition:transform .2s"><polyline points="6,8 10,12 14,8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+        </div>
+        <div class="apr-body">
+          <div class="apr-grid">
+            <div class="apr-cell"><div style="font-size:11px;font-weight:600;color:var(--text3);margin-bottom:4px">Audit Team</div><div style="font-size:13px;color:var(--text)">${r.team.join(', ')}</div></div>
+            <div class="apr-cell"><div style="font-size:11px;font-weight:600;color:var(--text3);margin-bottom:4px">ISO Clauses</div><div style="display:flex;gap:4px;flex-wrap:wrap">${r.clauses.map(c=>`<span style="font-size:11px;padding:2px 8px;border-radius:10px;background:var(--brand-light);color:var(--brand);font-weight:600">Clause ${c}</span>`).join('')}</div></div>
+            <div class="apr-cell"><div style="font-size:11px;font-weight:600;color:var(--text3);margin-bottom:4px">Previous Audit</div><div style="font-size:13px;color:var(--text)">${r.signals.prevAuditScore}% · ${r.signals.repeatFindings} repeat finding${r.signals.repeatFindings!==1?'s':''}</div></div>
+            <div class="apr-cell"><div style="font-size:11px;font-weight:600;color:var(--text3);margin-bottom:4px">SOP Compliance</div><div style="font-size:13px;color:var(--text)">${r.signals.sopCompliance}%</div></div>
+          </div>
+
+          <div class="apr-factors">
+            <div style="font-size:11px;font-weight:700;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Data Signals Driving This Recommendation</div>
+            ${signalBars.map(s=>{
+              const pct=s.inv?Math.min(s.v/s.max*100,100):Math.min(s.v/s.max*100,100);
+              const barCol=s.inv?(pct>=60?'danger':pct>=30?'warn':'accent'):(pct>=85?'accent':pct>=70?'warn':'danger');
+              return `<div class="apr-factor">
+                <div style="font-size:11px;color:var(--text3);width:100px;flex-shrink:0">${s.k}</div>
+                <div style="flex:1;height:8px;background:var(--surface3);border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:var(--${barCol});border-radius:4px;transition:width .3s"></div></div>
+                <div style="font-size:11px;font-weight:700;color:var(--text);width:40px;text-align:right">${s.v}${typeof s.v==='number'&&s.max===100?'%':''}</div>
+              </div>`;
+            }).join('')}
+          </div>
+
+          <div class="apr-reason">
+            <div style="font-size:11px;font-weight:700;color:var(--purple);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">AI Reasoning — Why This Audit</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.65">${r.reason}</div>
+          </div>
+
+          <div class="apr-impact">
+            <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Expected Business Impact</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.65">${r.impact}</div>
+          </div>
+
+          <div style="background:var(--surface2);border-radius:var(--radius);padding:12px;margin-bottom:14px">
+            <div style="font-size:11px;font-weight:700;color:var(--brand);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Clause Selection Reasoning</div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.6">${r.clauseReason}</div>
+          </div>
+
+          <div class="apr-actions">
+            <button class="btn btn-primary btn-sm" onclick="showToast('success','Audit Scheduled','${r.centre} audit added to programme calendar. Team notified via email.')">Approve & Schedule</button>
+            <button class="btn btn-outline btn-sm" onclick="showToast('info','Modified','${r.centre} audit moved to manual planning queue.')">Modify</button>
+            <button class="btn btn-outline btn-sm" onclick="showToast('warn','Deferred','${r.centre} audit deferred. AI will re-evaluate next week.')">Defer</button>
+          </div>
+        </div>
+      </div>`;
+    });
+  });
+  html+='</div>';
+  document.getElementById('apTimeline').innerHTML=html;
+}
+
+function renderApTable(){
+  const priorityColor=p=>p==='Critical'?'danger':p==='High'?'warn':p==='Medium'?'brand':'accent';
+  let html=`<div class="card" style="margin-top:16px;overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">
+    <thead><tr style="border-bottom:2px solid var(--border)">
+      <th style="text-align:left;padding:10px 12px;font-weight:700;color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Centre</th>
+      <th style="text-align:center;padding:10px 8px;font-weight:700;color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Priority</th>
+      <th style="text-align:center;padding:10px 8px;font-weight:700;color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Score</th>
+      <th style="text-align:left;padding:10px 8px;font-weight:700;color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Dates</th>
+      <th style="text-align:left;padding:10px 8px;font-weight:700;color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Duration</th>
+      <th style="text-align:left;padding:10px 8px;font-weight:700;color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Type</th>
+      <th style="text-align:left;padding:10px 8px;font-weight:700;color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Team</th>
+      <th style="text-align:left;padding:10px 8px;font-weight:700;color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Clauses</th>
+    </tr></thead><tbody>`;
+  AUDIT_RECS.forEach(r=>{
+    const pc=priorityColor(r.priority);
+    html+=`<tr style="border-bottom:1px solid var(--border-subtle);cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='transparent'">
+      <td style="padding:10px 12px;font-weight:600;color:var(--text)">${r.centre}</td>
+      <td style="padding:10px 8px;text-align:center"><span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;background:var(--${pc}-light);color:var(--${pc})">${r.priority}</span></td>
+      <td style="padding:10px 8px;text-align:center;font-weight:700;color:var(--${pc})">${r.score}</td>
+      <td style="padding:10px 8px;color:var(--text2)">${r.dates}</td>
+      <td style="padding:10px 8px;color:var(--text2)">${r.duration}</td>
+      <td style="padding:10px 8px;color:var(--text2)">${r.type}</td>
+      <td style="padding:10px 8px;color:var(--text2)">${r.team.join(', ')}</td>
+      <td style="padding:10px 8px"><div style="display:flex;gap:3px;flex-wrap:wrap">${r.clauses.map(c=>`<span style="font-size:10px;padding:1px 6px;border-radius:8px;background:var(--brand-light);color:var(--brand);font-weight:600">${c}</span>`).join('')}</div></td>
+    </tr>`;
+  });
+  html+='</tbody></table></div>';
+  document.getElementById('apTable').innerHTML=html;
 }
 
 // ═══════ EXECUTIVE DECISION CENTRE ═══════
@@ -1960,6 +2366,7 @@ window.addEventListener('resize',()=>{
   if(currentPage==='exec')renderChart('chartExecTrend','line',[82.1,83.4,84.0,84.8,85.2,85.0,85.7,86.3,86.1,86.8,87.0,86.5,87.4],['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul']);
   if(currentPage==='risk')renderMultiBar('chartRisk',[{data:[3,8,12,8,3],color:getComputedStyle(document.documentElement).getPropertyValue('--danger').trim()}],['Critical','High','Medium','Low','Very Low']);
   if(currentPage==='training')renderTrainingChart();
+  if(currentPage==='auditplan'){renderApPriorityChart();renderApClauseChart();}
 });
 init();
 </script>
