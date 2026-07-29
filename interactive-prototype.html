@@ -201,7 +201,8 @@ transition:all .2s var(--ease);cursor:default;
 .grid-1-2{display:grid;grid-template-columns:1fr 2fr;gap:16px}
 .grid-3-1{display:grid;grid-template-columns:3fr 1fr;gap:16px}
 @media(max-width:1100px){.grid-3,.grid-4{grid-template-columns:1fr 1fr}}
-@media(max-width:900px){.grid-2,.grid-2-1,.grid-1-2,.grid-3-1{grid-template-columns:1fr}.grid-3,.grid-4{grid-template-columns:1fr}}
+@media(max-width:1100px){.ex-row1{grid-template-columns:1fr 1fr!important}}
+@media(max-width:900px){.grid-2,.grid-2-1,.grid-1-2,.grid-3-1{grid-template-columns:1fr}.grid-3,.grid-4{grid-template-columns:1fr}.ex-row1{grid-template-columns:1fr!important}}
 
 /* ── Tables ── */
 .tbl-wrap{overflow-x:auto;border:1px solid var(--border2);border-radius:var(--radius-lg);background:var(--surface)}
@@ -337,6 +338,7 @@ padding:14px 16px;box-shadow:var(--shadow-lg);display:flex;align-items:flex-star
 max-width:380px;animation:toastIn .4s var(--bounce);font-size:13px;pointer-events:auto;
 }
 @keyframes toastIn{from{opacity:0;transform:translateX(40px) scale(.95)}to{opacity:1;transform:translateX(0) scale(1)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .toast .t-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:700;color:#fff}
 .toast .t-icon.info{background:var(--brand)}
 .toast .t-icon.success{background:var(--accent)}
@@ -389,6 +391,70 @@ transition:all .15s var(--ease);
 .exec-metric .em-delta{font-size:12px;font-weight:600;margin-top:6px}
 @media(max-width:1000px){.exec-hero{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.exec-hero{grid-template-columns:repeat(2,1fr)}}
+.ex-health-ring{display:flex;align-items:center;justify-content:center;gap:32px;padding:8px 0}
+.ex-region-bar{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border-subtle);font-size:13px;cursor:pointer;transition:background .12s}
+.ex-region-bar:hover{background:var(--surface2);margin:0 -20px;padding:9px 20px}
+.ex-region-bar:last-child{border-bottom:none}
+.ex-region-bar .erb-name{flex:1;font-weight:600;color:var(--text)}
+.ex-region-bar .erb-bar{flex:2;height:8px;background:var(--surface3);border-radius:4px;overflow:hidden;position:relative}
+.ex-region-bar .erb-fill{height:100%;border-radius:4px;transition:width .5s var(--ease)}
+.ex-region-bar .erb-score{width:36px;text-align:right;font-weight:800;font-variant-numeric:tabular-nums;font-size:14px}
+.ex-region-bar .erb-centres{font-size:11px;color:var(--text4);width:68px;text-align:right}
+.ex-rank{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border-subtle);font-size:13px;cursor:pointer;transition:background .12s}
+.ex-rank:hover{background:var(--surface2);margin:0 -20px;padding:8px 20px}
+.ex-rank:last-child{border-bottom:none}
+.ex-rank .exr-pos{width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ex-rank .exr-name{flex:1;font-weight:600;color:var(--text)}
+.ex-rank .exr-region{font-size:11px;color:var(--text4);width:80px;text-align:right}
+.ex-rank .exr-score{width:32px;text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+.ex-rank .exr-trend{font-size:11px;font-weight:600;width:40px;text-align:right}
+.ex-risk-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border-subtle);font-size:13px}
+.ex-risk-row:last-child{border-bottom:none}
+.ex-risk-row .exrr-sev{width:8px;height:28px;border-radius:4px;flex-shrink:0}
+.ex-risk-row .exrr-body{flex:1}
+.ex-risk-row .exrr-title{font-weight:600;color:var(--text)}
+.ex-risk-row .exrr-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.ex-obj{padding:10px 0;border-bottom:1px solid var(--border-subtle)}
+.ex-obj:last-child{border-bottom:none}
+.ex-obj .exo-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.ex-obj .exo-name{font-size:13px;font-weight:600;color:var(--text)}
+.ex-obj .exo-bar{height:6px;background:var(--surface3);border-radius:3px;overflow:hidden}
+.ex-obj .exo-fill{height:100%;border-radius:3px;transition:width .5s var(--ease)}
+.ex-alert{display:flex;align-items:flex-start;gap:10px;padding:12px;border-radius:var(--radius);margin-bottom:8px;border:1px solid var(--border-subtle);transition:background .12s}
+.ex-alert:hover{background:var(--surface2)}
+.ex-alert:last-child{margin-bottom:0}
+.ex-alert .exa-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:800;color:#fff}
+.ex-alert .exa-body{flex:1}
+.ex-alert .exa-title{font-size:13px;font-weight:700;color:var(--text)}
+.ex-alert .exa-msg{font-size:12px;color:var(--text3);line-height:1.5;margin-top:2px}
+.ex-alert .exa-time{font-size:10px;color:var(--text4);margin-top:4px}
+.ex-ai-rec{padding:12px;border-radius:var(--radius);border:1px solid var(--border-subtle);margin-bottom:8px;cursor:pointer;transition:all .15s}
+.ex-ai-rec:hover{border-color:var(--brand);box-shadow:var(--shadow-sm)}
+.ex-ai-rec:last-child{margin-bottom:0}
+.ex-ai-rec .exai-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.ex-ai-rec .exai-title{font-size:13px;font-weight:700;color:var(--text)}
+.ex-ai-rec .exai-body{font-size:12px;color:var(--text3);line-height:1.5}
+.ex-audit-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border-subtle);font-size:13px;align-items:center}
+.ex-audit-row:last-child{border-bottom:none}
+.ex-audit-row .exa-date{min-width:56px;font-weight:800;color:var(--brand);font-size:12px;font-variant-numeric:tabular-nums}
+.ex-audit-row .exa-centre{flex:1}
+.ex-audit-row .exa-centre-name{font-weight:700;color:var(--text)}
+.ex-audit-row .exa-centre-scope{font-size:11px;color:var(--text4)}
+.ex-fin-metric{text-align:center;padding:16px 8px}
+.ex-fin-metric .efm-val{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.ex-fin-metric .efm-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text4);margin-top:4px}
+.ex-fin-metric .efm-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.ex-perf-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border-subtle);font-size:13px}
+.ex-perf-row:last-child{border-bottom:none}
+.ex-perf-row .epr-label{flex:1;color:var(--text2)}
+.ex-perf-row .epr-val{font-weight:800;font-variant-numeric:tabular-nums;width:48px;text-align:right}
+.ex-perf-row .epr-bar{flex:1.5;height:6px;background:var(--surface3);border-radius:3px;overflow:hidden}
+.ex-perf-row .epr-fill{height:100%;border-radius:3px}
+.ex-perf-row .epr-target{font-size:11px;color:var(--text4);width:56px;text-align:right}
+.ex-tabs{display:flex;gap:0;margin-bottom:16px;border-bottom:2px solid var(--border-subtle)}
+.ex-tabs .ext{padding:8px 16px;font-size:12px;font-weight:600;color:var(--text4);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .12s}
+.ex-tabs .ext:hover{color:var(--text2)}
+.ex-tabs .ext.active{color:var(--brand);border-bottom-color:var(--brand);font-weight:700}
 
 /* ── Risk Matrix ── */
 .risk-matrix{display:grid;grid-template-columns:40px repeat(5,1fr);grid-template-rows:repeat(5,44px) 28px;gap:2px;font-size:11px;font-weight:700}
@@ -1014,19 +1080,113 @@ transition:all .15s var(--ease);
 
 <!-- EXECUTIVE DECISION CENTRE -->
 <div class="page" id="page-exec">
-  <div class="page-header"><div class="ph-left"><div class="breadcrumb"><span>Home</span> / <span>Decision Centre</span></div><h1>Executive Decision Centre</h1><div class="ph-sub">Board-level quality intelligence for strategic decision-making</div></div><div style="display:flex;align-items:center;gap:8px"><span class="st-dot" style="background:var(--accent);width:8px;height:8px;border-radius:50%;display:inline-block"></span><span style="font-size:12px;color:var(--text3)">Live — Updated just now</span></div></div>
+  <div class="page-header">
+    <div class="ph-left">
+      <div class="breadcrumb"><span>Home</span> / <span>Executive Cockpit</span></div>
+      <h1>Executive Decision Centre</h1>
+      <div class="ph-sub">Real-time quality intelligence for the Executive Committee</div>
+    </div>
+    <div class="ph-actions">
+      <div style="display:flex;align-items:center;gap:8px;margin-right:8px"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block;animation:pulse 2s infinite"></span><span style="font-size:12px;color:var(--text3)">Live — Real-time data</span></div>
+      <button class="btn btn-outline btn-sm" onclick="showToast('info','Export Queued','Executive Board Pack generating — PDF available in 3 minutes')">Export Board Pack</button>
+      <button class="btn btn-primary btn-sm" onclick="showToast('info','Briefing Scheduled','Executive briefing email will be sent to all ExCo members')">Schedule Briefing</button>
+    </div>
+  </div>
+
+  <!-- Hero KPIs -->
   <div class="exec-hero" id="execHero"></div>
-  <div class="grid-2" style="margin-bottom:16px">
-    <div class="card"><div class="card-header"><h3>National Centre Health Map</h3></div><div class="card-body" id="execMap"></div></div>
-    <div class="card"><div class="card-header"><h3>Top Enterprise Risks</h3></div><div class="card-body" id="execRisks"></div></div>
+
+  <!-- Row 1: Enterprise Health + Regional Performance + Centre Rankings -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px" class="ex-row1">
+    <div class="card">
+      <div class="card-header"><h3>Enterprise Health</h3><span class="card-badge st-green">Live</span></div>
+      <div class="card-body" id="execHealth"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Regional Performance</h3><span class="card-badge st-blue">5 regions</span></div>
+      <div class="card-body" id="execRegions"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Centre Rankings</h3>
+        <div class="ex-tabs" id="exRankTabs" style="border-bottom:none;margin-bottom:0">
+          <div class="ext active" onclick="exRankTab(this,'top')">Top 5</div>
+          <div class="ext" onclick="exRankTab(this,'bottom')">Bottom 5</div>
+        </div>
+      </div>
+      <div class="card-body" id="execRankings"></div>
+    </div>
   </div>
+
+  <!-- Row 2: Top Enterprise Risks + Quality Trends -->
   <div class="grid-2" style="margin-bottom:16px">
-    <div class="card"><div class="card-header"><h3>Strategic Objectives</h3></div><div class="card-body" id="execObjectives"></div></div>
-    <div class="card"><div class="card-header"><h3>AI Recommendations</h3></div><div class="card-body" id="execAi"></div></div>
+    <div class="card">
+      <div class="card-header"><h3>Top Enterprise Risks</h3><span class="card-badge st-red">5 active</span></div>
+      <div class="card-body" id="execRisks"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Quality Trends — 13 Month</h3><span class="card-badge st-blue">Trending up</span></div>
+      <div class="card-body"><div class="chart-container"><canvas id="chartExecTrend"></canvas></div></div>
+    </div>
   </div>
+
+  <!-- Row 3: Financial Impact + Strategic Objectives -->
+  <div class="grid-2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="card-header"><h3>Financial Impact of Quality</h3><span class="card-badge st-purple">FY 2025/26</span></div>
+      <div class="card-body" id="execFinancial"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Strategic Objectives</h3><span class="card-badge st-blue">5 objectives</span></div>
+      <div class="card-body" id="execObjectives"></div>
+    </div>
+  </div>
+
+  <!-- Row 4: Upcoming Audits + Audit Effectiveness -->
+  <div class="grid-2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="card-header"><h3>Upcoming Audits</h3><span class="card-badge st-amber">Next 90 days</span></div>
+      <div class="card-body" id="execAudits"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Audit Effectiveness</h3><span class="card-badge st-green">Above target</span></div>
+      <div class="card-body" id="execAuditEff"></div>
+    </div>
+  </div>
+
+  <!-- Row 5: CAPA Performance + Training Compliance -->
+  <div class="grid-2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="card-header"><h3>CAPA Performance</h3><span class="card-badge st-green">91% effective</span></div>
+      <div class="card-body" id="execCapa"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Training Compliance</h3><span class="card-badge st-amber">Below target</span></div>
+      <div class="card-body" id="execTraining"></div>
+    </div>
+  </div>
+
+  <!-- Row 6: Supplier Performance + Customer Experience -->
+  <div class="grid-2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="card-header"><h3>Supplier Performance</h3><span class="card-badge st-red">1 critical</span></div>
+      <div class="card-body" id="execSupplier"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Customer Experience</h3><span class="card-badge st-blue">Improving</span></div>
+      <div class="card-body" id="execCustomer"></div>
+    </div>
+  </div>
+
+  <!-- Row 7: Executive Alerts + AI Recommendations -->
   <div class="grid-2">
-    <div class="card"><div class="card-header"><h3>Quality Trend</h3></div><div class="card-body"><div class="chart-container"><canvas id="chartExecTrend"></canvas></div></div></div>
-    <div class="card"><div class="card-header"><h3>Audit Calendar</h3></div><div class="card-body" id="execCalendar"></div></div>
+    <div class="card">
+      <div class="card-header"><h3>Executive Alerts</h3><span class="card-badge st-red">3 critical</span></div>
+      <div class="card-body" id="execAlerts"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>AI Recommendations</h3><span class="card-badge st-purple">AI engine</span></div>
+      <div class="card-body" id="execAi"></div>
+    </div>
   </div>
 </div>
 
@@ -1645,66 +1805,295 @@ function renderApTable(){
 }
 
 // ═══════ EXECUTIVE DECISION CENTRE ═══════
+let exRankMode='top';
+function exRankTab(el,mode){
+  exRankMode=mode;
+  document.querySelectorAll('#exRankTabs .ext').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderExecRankings();
+}
+
+function renderExecRankings(){
+  const sorted=[...CENTRES].sort((a,b)=>exRankMode==='top'?b.score-a.score:a.score-b.score);
+  const top5=sorted.slice(0,5);
+  document.getElementById('execRankings').innerHTML=top5.map((c,i)=>{
+    const s=statusOf(c.score);const cv=s==='green'?'accent':s==='amber'?'warn':'danger';
+    const delta=c.trend[4]-c.trend[3];const deltaStr=delta>0?'+'+delta:delta===0?'0':''+delta;
+    const posColor=exRankMode==='top'?'accent':'danger';
+    return `<div class="ex-rank" onclick="openCentre('${c.name}')">
+      <div class="exr-pos" style="background:var(--${posColor}-light);color:var(--${posColor})">${i+1}</div>
+      <div class="exr-name">${c.name}</div>
+      <div class="exr-region">${c.region.replace('KwaZulu-Natal','KZN').replace('Western Cape','W.Cape').replace('Eastern Cape','E.Cape').replace('Free State / NW','FS/NW')}</div>
+      <div class="exr-score" style="color:var(--${cv})">${c.score}</div>
+      <div class="exr-trend ${delta>0?'mc-up':delta<0?'mc-down':'mc-neutral'}">${deltaStr}</div>
+    </div>`;
+  }).join('');
+}
+
 function renderExec(){
+  const cs=getComputedStyle(document.documentElement);
+  const eScore=getEnterpriseScore();
+  const totalNCs=CENTRES.reduce((s,c)=>s+c.ncs,0);
+  const totalCAPAs=CENTRES.reduce((s,c)=>s+c.capas,0);
+  const avgTraining=Math.round(CENTRES.reduce((s,c)=>s+c.training,0)/CENTRES.length*10)/10;
+  const greenCount=CENTRES.filter(c=>c.score>=85).length;
+  const redCount=CENTRES.filter(c=>c.score<75).length;
+
+  // Hero KPIs
   document.getElementById('execHero').innerHTML=[
-    {l:'Enterprise Quality Index',v:'87.4',d:'+2.1 vs Q1',c:'brand',dc:'mc-up'},
-    {l:'Open Major NCs',v:'12',d:'3 overdue',c:'danger',dc:'mc-down'},
-    {l:'CAPA Effectiveness',v:'91%',d:'Target: 85%',c:'accent',dc:'mc-up'},
-    {l:'Audit Programme',v:'68%',d:'On track',c:'brand',dc:'mc-neutral'},
-    {l:'Training Compliance',v:'94%',d:'+1%',c:'accent',dc:'mc-up'},
+    {l:'Enterprise Quality Index',v:eScore.toFixed(1),d:'+2.1 vs Q1 · target 90',c:'brand',dc:'mc-up'},
+    {l:'Centres at Green',v:greenCount+'/25',d:Math.round(greenCount/25*100)+'% healthy',c:'accent',dc:'mc-up'},
+    {l:'Open Non-Conformances',v:totalNCs,d:redCount>0?redCount+' centres at Red':'All above threshold',c:totalNCs>80?'danger':'warn',dc:'mc-down'},
+    {l:'CAPA Effectiveness',v:'91%',d:'Target: 85% · +3% vs Q1',c:'accent',dc:'mc-up'},
+    {l:'Cost of Quality (YTD)',v:'R2.4M',d:'-18% vs prior year',c:'brand',dc:'mc-up'},
   ].map(m=>`<div class="exec-metric"><div class="em-val" style="color:var(--${m.c})">${m.v}</div><div class="em-label">${m.l}</div><div class="em-delta ${m.dc}">${m.d}</div></div>`).join('');
 
-  const sorted=[...CENTRES].sort((a,b)=>a.score-b.score);
-  document.getElementById('execMap').innerHTML=`<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px">${sorted.map(c=>{
-    const s=statusOf(c.score);const cv=s==='green'?'accent':s==='amber'?'warn':'danger';
-    return `<div style="background:var(--${cv}-light);border-radius:var(--radius);padding:8px;text-align:center;cursor:pointer;border:1px solid var(--border-subtle);transition:transform .15s" onclick="openCentre('${c.name}')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-      <div style="font-size:11px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.name}</div>
-      <div style="font-size:20px;font-weight:800;color:var(--${cv})">${c.score}</div>
+  // Enterprise Health — gauge + factor breakdown
+  const allFactors={};
+  HEALTH_FACTORS.forEach(f=>{allFactors[f.key]=Math.round(CENTRES.reduce((s,c)=>s+getCentreFactors(c)[f.key],0)/CENTRES.length)});
+  document.getElementById('execHealth').innerHTML=`
+    <div class="ex-health-ring">
+      <canvas id="execGauge" width="150" height="150"></canvas>
+      <div style="flex:1">
+        ${HEALTH_FACTORS.map(f=>{
+          const v=allFactors[f.key];const col=v>=85?'accent':v>=75?'warn':'danger';
+          return `<div style="display:flex;align-items:center;gap:6px;padding:3px 0;font-size:12px">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--${f.icon});flex-shrink:0"></span>
+            <span style="flex:1;color:var(--text2)">${f.name}</span>
+            <div style="width:60px;height:5px;background:var(--surface3);border-radius:3px;overflow:hidden"><div style="height:100%;width:${v}%;background:var(--${col});border-radius:3px"></div></div>
+            <span style="width:28px;text-align:right;font-weight:700;color:var(--${col});font-variant-numeric:tabular-nums">${v}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-around;margin-top:12px;padding-top:12px;border-top:1px solid var(--border-subtle)">
+      <div style="text-align:center"><div style="font-size:18px;font-weight:800;color:var(--accent)">${greenCount}</div><div style="font-size:10px;color:var(--text4);text-transform:uppercase;font-weight:600">Green</div></div>
+      <div style="text-align:center"><div style="font-size:18px;font-weight:800;color:var(--warn)">${CENTRES.filter(c=>c.score>=75&&c.score<85).length}</div><div style="font-size:10px;color:var(--text4);text-transform:uppercase;font-weight:600">Amber</div></div>
+      <div style="text-align:center"><div style="font-size:18px;font-weight:800;color:var(--danger)">${redCount}</div><div style="font-size:10px;color:var(--text4);text-transform:uppercase;font-weight:600">Red</div></div>
     </div>`;
-  }).join('')}</div>`;
+  setTimeout(()=>renderGauge('execGauge',eScore,150),0);
 
+  // Regional Performance
+  const regions=getRegionData();
+  document.getElementById('execRegions').innerHTML=regions.sort((a,b)=>b.score-a.score).map(r=>{
+    const col=r.score>=85?'accent':r.score>=75?'warn':'danger';
+    return `<div class="ex-region-bar" onclick="navigate('intelligence')">
+      <div class="erb-name">${r.name.replace('KwaZulu-Natal','KZN').replace('Free State / NW','FS/NW')}</div>
+      <div class="erb-bar"><div class="erb-fill" style="width:${r.score}%;background:var(--${col})"></div></div>
+      <div class="erb-score" style="color:var(--${col})">${r.score}</div>
+      <div class="erb-centres">${r.green}<span style="color:var(--accent)">●</span> ${r.amber}<span style="color:var(--warn)">●</span> ${r.red}<span style="color:var(--danger)">●</span></div>
+    </div>`;
+  }).join('');
+
+  // Centre Rankings
+  renderExecRankings();
+
+  // Enterprise Risks
   document.getElementById('execRisks').innerHTML=[
-    {risk:'Clause 8.5.1 systemic failure',level:'Critical',trend:'Increasing'},
-    {risk:'Supplier XYZ quality deterioration',level:'Critical',trend:'Increasing'},
-    {risk:'Three centres below threshold',level:'Critical',trend:'Stable'},
-    {risk:'Training material currency gap',level:'High',trend:'Increasing'},
-    {risk:'CAPA backlog at regional level',level:'High',trend:'Decreasing'},
-  ].map(r=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border-subtle);font-size:13px">
-    <span style="color:var(--text);flex:1">${r.risk}</span>
-    <span class="status-pill st-${r.level==='Critical'?'red':'amber'}" style="margin-left:8px">${r.level}</span>
-  </div>`).join('');
+    {title:'ISO 8.5.1 systemic process failure',sub:'7 centres affected · 27% increase in findings · certification risk for October audit',sev:'Critical',trend:'up',impact:'R420K projected cost'},
+    {title:'Supplier XYZ quality deterioration',sub:'11 NCs across 4 centres · defect rate 2.1% → 4.8% · affects 12 centres',sev:'Critical',trend:'up',impact:'R615K total cost impact'},
+    {title:'Three centres below 75 threshold',sub:'Polokwane (71), East London (72), Bloemfontein (74) — declining for 2+ quarters',sev:'Critical',trend:'flat',impact:'12% of enterprise at Red'},
+    {title:'Training material currency gap',sub:'42% of retraining failures on changed SOP sections — materials not updated',sev:'High',trend:'up',impact:'6 centres below 90% target'},
+    {title:'CAPA backlog at regional level',sub:'Total overdue CAPAs: '+totalCAPAs+' — Eastern Cape and Free State most affected',sev:'High',trend:'down',impact:'NC recurrence elevated'},
+  ].map(r=>{
+    const sevCol=r.sev==='Critical'?'danger':'warn';
+    return `<div class="ex-risk-row" style="cursor:pointer" onclick="navigate('risk')">
+      <div class="exrr-sev" style="background:var(--${sevCol})"></div>
+      <div class="exrr-body">
+        <div class="exrr-title">${r.title}</div>
+        <div class="exrr-sub">${r.sub}</div>
+      </div>
+      <span class="status-pill st-${r.sev==='Critical'?'red':'amber'}">${r.sev}</span>
+    </div>`;
+  }).join('');
 
-  document.getElementById('execObjectives').innerHTML=[
-    {obj:'Achieve 90+ Enterprise Quality Index',status:'On Track',val:'87.4'},
-    {obj:'Zero Critical NCs unresolved >30 days',status:'At Risk',val:'2 open'},
-    {obj:'CAPA effectiveness above 85%',status:'Achieved',val:'91%'},
-    {obj:'Training compliance above 95%',status:'At Risk',val:'94%'},
-    {obj:'Reduce customer complaints by 15%',status:'On Track',val:'-12%'},
-  ].map(o=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border-subtle);font-size:13px">
-    <span style="color:var(--text);flex:1">${o.obj}</span>
-    <span class="status-pill st-${o.status==='Achieved'?'green':o.status==='On Track'?'blue':'amber'}">${o.status}</span>
-  </div>`).join('');
-
-  document.getElementById('execAi').innerHTML=AI_INSIGHTS.filter(i=>i.cat==='recommendations').slice(0,3).map(i=>`
-    <div style="padding:10px 0;border-bottom:1px solid var(--border-subtle)">
-      <div style="font-size:13px;font-weight:700;color:var(--text)">${i.title}</div>
-      <div style="font-size:12px;color:var(--text3);margin-top:2px">${i.body.substring(0,120)}...</div>
-      <div style="font-size:11px;color:var(--accent);font-weight:700;margin-top:4px">Confidence: ${i.confidence}%</div>
-    </div>`).join('');
-
-  document.getElementById('execCalendar').innerHTML=[
-    {date:'5 Aug',centre:'East London',scope:'Full (Cl. 8.5, 10.2, 7.2)',status:'Confirmed'},
-    {date:'12 Aug',centre:'Polokwane',scope:'Full (Cl. 8.5, 6.1, 8.4)',status:'Confirmed'},
-    {date:'19 Aug',centre:'Bloemfontein',scope:'Focused (Cl. 10.2, 7.5)',status:'Pending'},
-    {date:'2 Sep',centre:'Richards Bay',scope:'Focused (Cl. 8.5, 8.4)',status:'Pending'},
-    {date:'9 Sep',centre:'Durban',scope:'Focused (Cl. 8.4)',status:'Draft'},
-  ].map(a=>`<div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border-subtle);font-size:13px;align-items:center">
-    <div style="min-width:52px;font-weight:800;color:var(--brand);font-size:12px">${a.date}</div>
-    <div style="flex:1"><div style="font-weight:700;color:var(--text)">${a.centre}</div><div style="font-size:11px;color:var(--text4)">${a.scope}</div></div>
-    <span class="status-pill st-${a.status==='Confirmed'?'green':a.status==='Pending'?'amber':'blue'}">${a.status}</span>
-  </div>`).join('');
-
+  // Quality Trend chart
   renderChart('chartExecTrend','line',[82.1,83.4,84.0,84.8,85.2,85.0,85.7,86.3,86.1,86.8,87.0,86.5,87.4],['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul']);
+
+  // Financial Impact
+  document.getElementById('execFinancial').innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px">
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--danger)">R2.4M</div><div class="efm-label">Cost of Quality YTD</div><div class="efm-sub">-18% vs prior year</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--accent)">R840K</div><div class="efm-label">Savings from CAPAs</div><div class="efm-sub">+22% improvement</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--warn)">R615K</div><div class="efm-label">Supplier Quality Cost</div><div class="efm-sub">Supplier XYZ: R340K</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--brand)">R1.2M</div><div class="efm-label">Projected Annual Savings</div><div class="efm-sub">If current trend holds</div></div>
+    </div>
+    <div style="font-size:11px;font-weight:600;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Cost Breakdown by Category</div>
+    ${[
+      {l:'Rework & Scrap',v:'R820K',pct:34,col:'danger'},
+      {l:'Customer Complaints',v:'R540K',pct:23,col:'warn'},
+      {l:'Supplier Defects',v:'R615K',pct:26,col:'orange'},
+      {l:'Audit & Compliance',v:'R425K',pct:17,col:'brand'},
+    ].map(c=>`<div style="display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px">
+      <span style="width:110px;color:var(--text2)">${c.l}</span>
+      <div style="flex:1;height:6px;background:var(--surface3);border-radius:3px;overflow:hidden"><div style="height:100%;width:${c.pct}%;background:var(--${c.col});border-radius:3px"></div></div>
+      <span style="width:52px;text-align:right;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums">${c.v}</span>
+    </div>`).join('')}`;
+
+  // Strategic Objectives
+  document.getElementById('execObjectives').innerHTML=[
+    {obj:'Achieve Enterprise Quality Index of 90+',target:90,current:eScore,status:'On Track',detail:'Currently '+eScore.toFixed(1)+' — need +2.6 points'},
+    {obj:'Zero Critical NCs unresolved beyond 30 days',target:0,current:2,status:'At Risk',detail:'2 Critical NCs at Polokwane and East London over 30 days'},
+    {obj:'CAPA effectiveness above 85%',target:85,current:91,status:'Achieved',detail:'91% effectiveness — exceeding target by 6 points'},
+    {obj:'All regions at Green status average',target:85,current:Math.round(regions.reduce((s,r)=>s+r.score,0)/regions.length),status:'At Risk',detail:'2 regions below 85 — Eastern Cape (80.6) and Free State (78.4)'},
+    {obj:'Reduce customer complaints by 15% YoY',target:15,current:12,status:'On Track',detail:'Currently at -12% — on trajectory to reach -15% by Q4'},
+  ].map(o=>{
+    const pct=o.status==='Achieved'?100:Math.min(Math.round(o.current/o.target*100),100);
+    const col=o.status==='Achieved'?'accent':o.status==='On Track'?'brand':'warn';
+    return `<div class="ex-obj">
+      <div class="exo-head">
+        <div class="exo-name">${o.obj}</div>
+        <span class="status-pill st-${o.status==='Achieved'?'green':o.status==='On Track'?'blue':'amber'}">${o.status}</span>
+      </div>
+      <div class="exo-bar"><div class="exo-fill" style="width:${pct}%;background:var(--${col})"></div></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px">${o.detail}</div>
+    </div>`;
+  }).join('');
+
+  // Upcoming Audits
+  document.getElementById('execAudits').innerHTML=AUDIT_RECS.slice(0,6).map(a=>{
+    const pc=a.priority==='Critical'?'danger':a.priority==='High'?'warn':a.priority==='Medium'?'brand':'accent';
+    return `<div class="ex-audit-row" style="cursor:pointer" onclick="navigate('auditplan')">
+      <div class="exa-date">${a.dates.split('–')[0]||a.dates.split(' ')[0]}</div>
+      <div class="exa-centre">
+        <div class="exa-centre-name">${a.centre}</div>
+        <div class="exa-centre-scope">${a.type} · ${a.duration} · ${a.clauses.map(c=>'Cl. '+c).join(', ')}</div>
+      </div>
+      <span class="status-pill st-${a.priority==='Critical'?'red':a.priority==='High'?'amber':'blue'}">${a.priority}</span>
+    </div>`;
+  }).join('')+`<div style="text-align:center;padding:8px 0"><button class="btn btn-ghost btn-sm" onclick="navigate('auditplan')">View full audit programme →</button></div>`;
+
+  // Audit Effectiveness
+  document.getElementById('execAuditEff').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--accent)">78%</div><div class="efm-label">Finding Closure Rate</div><div class="efm-sub">Target: 75%</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--brand)">68%</div><div class="efm-label">Programme Completion</div><div class="efm-sub">8 of 12 planned</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--warn)">14%</div><div class="efm-label">Repeat Finding Rate</div><div class="efm-sub">Target: <10%</div></div>
+    </div>
+    ${[
+      {l:'Audit quality score',v:'86%',pct:86,target:'80%',col:'accent'},
+      {l:'Corrective action follow-up',v:'91%',pct:91,target:'85%',col:'accent'},
+      {l:'Average audit duration variance',v:'+0.3d',pct:70,target:'±0.5d',col:'brand'},
+      {l:'Auditor competency assessments',v:'94%',pct:94,target:'90%',col:'accent'},
+    ].map(r=>`<div class="ex-perf-row">
+      <div class="epr-label">${r.l}</div>
+      <div class="epr-bar"><div class="epr-fill" style="width:${r.pct}%;background:var(--${r.col})"></div></div>
+      <div class="epr-val" style="color:var(--${r.col})">${r.v}</div>
+      <div class="epr-target">Target: ${r.target}</div>
+    </div>`).join('')}`;
+
+  // CAPA Performance
+  document.getElementById('execCapa').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:16px">
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--accent)">91%</div><div class="efm-label">Effectiveness</div><div class="efm-sub">Target: 85%</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--warn)">${totalCAPAs}</div><div class="efm-label">Open CAPAs</div><div class="efm-sub">${Math.round(totalCAPAs*0.55)} overdue</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--brand)">18d</div><div class="efm-label">Avg Closure Time</div><div class="efm-sub">Target: 21 days</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--danger)">68%</div><div class="efm-label">Red Centre Avg</div><div class="efm-sub">vs 91% enterprise</div></div>
+    </div>
+    ${[
+      {l:'Root cause analysis quality',v:'87%',pct:87,target:'85%',col:'accent'},
+      {l:'Preventive action implementation',v:'82%',pct:82,target:'80%',col:'brand'},
+      {l:'Recurrence prevention rate',v:'89%',pct:89,target:'85%',col:'accent'},
+      {l:'Stakeholder notification compliance',v:'96%',pct:96,target:'90%',col:'accent'},
+    ].map(r=>`<div class="ex-perf-row">
+      <div class="epr-label">${r.l}</div>
+      <div class="epr-bar"><div class="epr-fill" style="width:${r.pct}%;background:var(--${r.col})"></div></div>
+      <div class="epr-val" style="color:var(--${r.col})">${r.v}</div>
+      <div class="epr-target">Target: ${r.target}</div>
+    </div>`).join('')}`;
+
+  // Training Compliance
+  document.getElementById('execTraining').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:16px">
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--warn)">${avgTraining}%</div><div class="efm-label">National Average</div><div class="efm-sub">Target: 95%</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--danger)">6</div><div class="efm-label">Centres Below 90%</div><div class="efm-sub">Requires intervention</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--warn)">89%</div><div class="efm-label">Assessment Pass Rate</div><div class="efm-sub">Was 94% last quarter</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--brand)">142</div><div class="efm-label">Pending Certifications</div><div class="efm-sub">68 expire in 90 days</div></div>
+    </div>
+    ${[
+      {l:'Mandatory training completion',v:avgTraining+'%',pct:avgTraining,target:'95%',col:avgTraining>=95?'accent':'warn'},
+      {l:'SOP retraining compliance',v:'88%',pct:88,target:'90%',col:'warn'},
+      {l:'New employee onboarding',v:'96%',pct:96,target:'90%',col:'accent'},
+      {l:'Competency assessment currency',v:'91%',pct:91,target:'90%',col:'accent'},
+    ].map(r=>`<div class="ex-perf-row">
+      <div class="epr-label">${r.l}</div>
+      <div class="epr-bar"><div class="epr-fill" style="width:${r.pct}%;background:var(--${r.col})"></div></div>
+      <div class="epr-val" style="color:var(--${r.col})">${r.v}</div>
+      <div class="epr-target">Target: ${r.target}</div>
+    </div>`).join('')}`;
+
+  // Supplier Performance
+  document.getElementById('execSupplier').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--accent)">94%</div><div class="efm-label">Supplier Compliance</div><div class="efm-sub">32 of 34 approved</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--danger)">1</div><div class="efm-label">Critical Suppliers</div><div class="efm-sub">Supplier XYZ</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--warn)">4.8%</div><div class="efm-label">Incoming Defect Rate</div><div class="efm-sub">Target: <2%</div></div>
+    </div>
+    ${[
+      {name:'Supplier XYZ',score:62,ncs:11,status:'Conditional',col:'danger'},
+      {name:'Supplier ABC',score:91,ncs:2,status:'Approved',col:'accent'},
+      {name:'Supplier DEF',score:88,ncs:3,status:'Approved',col:'accent'},
+      {name:'Supplier GHI',score:85,ncs:1,status:'Approved',col:'accent'},
+      {name:'Supplier JKL',score:79,ncs:4,status:'Probation',col:'warn'},
+    ].map(s=>`<div class="ex-perf-row" style="cursor:pointer" onclick="navigate('suppliers')">
+      <div class="epr-label" style="font-weight:600">${s.name}</div>
+      <div class="epr-bar"><div class="epr-fill" style="width:${s.score}%;background:var(--${s.col})"></div></div>
+      <div class="epr-val" style="color:var(--${s.col})">${s.score}%</div>
+      <span class="status-pill st-${s.status==='Approved'?'green':s.status==='Conditional'?'red':'amber'}" style="font-size:10px;padding:2px 8px">${s.status}</span>
+    </div>`).join('')}`;
+
+  // Customer Experience
+  document.getElementById('execCustomer').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--brand)">4.2<span style="font-size:14px;color:var(--text4)">/5</span></div><div class="efm-label">Satisfaction Score</div><div class="efm-sub">+0.3 vs prior quarter</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--warn)">${CENTRES.reduce((s,c)=>s+c.complaints,0)}</div><div class="efm-label">Complaints MTD</div><div class="efm-sub">-12% vs same month LY</div></div>
+      <div class="ex-fin-metric"><div class="efm-val" style="color:var(--accent)">94%</div><div class="efm-label">Resolution Rate</div><div class="efm-sub">Within SLA target</div></div>
+    </div>
+    <div style="font-size:11px;font-weight:600;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Complaint Categories</div>
+    ${[
+      {l:'Service delivery',v:38,col:'danger'},
+      {l:'Product quality (incoming goods)',v:28,col:'warn'},
+      {l:'Response time',v:18,col:'brand'},
+      {l:'Documentation',v:10,col:'teal'},
+      {l:'Other',v:6,col:'text4'},
+    ].map(c=>`<div style="display:flex;align-items:center;gap:8px;padding:3px 0;font-size:12px">
+      <span style="width:140px;color:var(--text2)">${c.l}</span>
+      <div style="flex:1;height:6px;background:var(--surface3);border-radius:3px;overflow:hidden"><div style="height:100%;width:${c.v}%;background:var(--${c.col});border-radius:3px"></div></div>
+      <span style="width:28px;text-align:right;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums">${c.v}%</span>
+    </div>`).join('')}`;
+
+  // Executive Alerts
+  document.getElementById('execAlerts').innerHTML=[
+    {sev:'critical',icon:'!',title:'Polokwane quality score at 71 — lowest in enterprise',msg:'Score has declined for 5 consecutive months. 9 open NCs including 3 Critical. Executive intervention recommended.',time:'2 hours ago'},
+    {sev:'critical',icon:'!',title:'Supplier XYZ defect rate exceeds 4.8%',msg:'11 incoming goods NCs in 60 days. Manufacturing process change identified as root cause. Conditional status recommended.',time:'4 hours ago'},
+    {sev:'critical',icon:'!',title:'October certification audit — 2 clauses at risk',msg:'Clause 8.5.1 findings up 27%. Clause 7.2 training gaps at 6 centres. Remediation required before October.',time:'1 day ago'},
+    {sev:'high',icon:'⚠',title:'Training compliance below target nationally',msg:'National average at '+avgTraining+'% vs 95% target. Post-assessment pass rates declining. SOP change workflow gap identified.',time:'1 day ago'},
+    {sev:'high',icon:'⚠',title:'CAPA backlog growing in Eastern Cape region',msg:'Average CAPA age 38 days in EC region vs 18 days enterprise. Resource constraint flagged by regional manager.',time:'2 days ago'},
+    {sev:'medium',icon:'i',title:'Port Elizabeth on recovery trajectory — Green status predicted',msg:'Quality score improving: 73→78 over 5 months. 76% probability of reaching 85+ within 90 days.',time:'3 days ago'},
+  ].map(a=>{
+    const col=a.sev==='critical'?'danger':a.sev==='high'?'warn':'brand';
+    return `<div class="ex-alert">
+      <div class="exa-icon" style="background:var(--${col})">${a.icon}</div>
+      <div class="exa-body">
+        <div class="exa-title">${a.title}</div>
+        <div class="exa-msg">${a.msg}</div>
+        <div class="exa-time">${a.time}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // AI Recommendations
+  document.getElementById('execAi').innerHTML=AI_INSIGHTS.map(i=>{
+    const col=i.sev==='critical'?'danger':i.sev==='high'?'warn':i.sev==='medium'?'brand':'accent';
+    return `<div class="ex-ai-rec" onclick="navigate('ai')">
+      <div class="exai-head">
+        <span class="status-pill st-${i.sev==='critical'?'red':i.sev==='high'?'amber':i.sev==='medium'?'blue':'green'}">${i.type}</span>
+        <span style="font-size:11px;font-weight:700;color:var(--accent)"><svg class="icon-svg sm" viewBox="0 0 20 20" style="color:var(--accent);vertical-align:middle"><circle cx="10" cy="10" r="8"/><path d="M7 10l2 2 4-4"/></svg> ${i.confidence}%</span>
+      </div>
+      <div class="exai-title">${i.title}</div>
+      <div class="exai-body">${i.body}</div>
+    </div>`;
+  }).join('');
 }
 
 // ═══════ RISK MATRIX ═══════
@@ -2363,7 +2752,7 @@ window.addEventListener('resize',()=>{
   renderChart('chartTrend','line',[82.1,83.4,84.0,84.8,85.2,85.0,85.7,86.3,86.1,86.8,87.0,86.5,87.4],['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul']);
   if(currentPage==='analytics')renderAnalytics();
   if(currentPage==='intelligence')renderRegionCharts();
-  if(currentPage==='exec')renderChart('chartExecTrend','line',[82.1,83.4,84.0,84.8,85.2,85.0,85.7,86.3,86.1,86.8,87.0,86.5,87.4],['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul']);
+  if(currentPage==='exec'){renderChart('chartExecTrend','line',[82.1,83.4,84.0,84.8,85.2,85.0,85.7,86.3,86.1,86.8,87.0,86.5,87.4],['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul']);renderGauge('execGauge',getEnterpriseScore(),150);}
   if(currentPage==='risk')renderMultiBar('chartRisk',[{data:[3,8,12,8,3],color:getComputedStyle(document.documentElement).getPropertyValue('--danger').trim()}],['Critical','High','Medium','Low','Very Low']);
   if(currentPage==='training')renderTrainingChart();
   if(currentPage==='auditplan'){renderApPriorityChart();renderApClauseChart();}
