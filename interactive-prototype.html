@@ -1,0 +1,1287 @@
+<title>ABC Enterprise Quality Platform</title>
+<style>
+@font-face{font-family:'Segoe';src:local('Segoe UI Variable'),local('Segoe UI'),local('SF Pro Display'),local('Inter'),local('system-ui');font-weight:100 900}
+:root{
+--bg:#f5f5f5;--surface:#fff;--surface2:#fafafa;--surface3:#f0f0f0;
+--border:#e0e0e0;--border2:#ebebeb;
+--text:#1b1b1b;--text2:#424242;--text3:#616161;--text4:#9e9e9e;
+--brand:#0f6cbd;--brand-hover:#115ea3;--brand-bg:#eff6fc;--brand-text:#0f548c;
+--accent:#0e7a0d;--accent-bg:#f1faf1;
+--warn:#d4a72c;--warn-bg:#fff8e6;--warn-text:#8a6914;
+--danger:#c4314b;--danger-bg:#fdf3f4;--danger-text:#a4262c;
+--purple:#7c3aed;--purple-bg:#f5f3ff;
+--teal:#0e7a7a;--teal-bg:#f0fafa;
+--nav-w:260px;--nav-w-collapsed:52px;
+--radius:8px;--radius-lg:12px;
+--shadow:0 2px 8px rgba(0,0,0,.08);
+--shadow-lg:0 8px 32px rgba(0,0,0,.12);
+--font:'Segoe',system-ui,-apple-system,sans-serif;
+--mono:'Cascadia Code',Consolas,monospace;
+--transition:0.2s cubic-bezier(.4,0,.2,1);
+}
+@media(prefers-color-scheme:dark){:root{
+--bg:#1a1a1a;--surface:#2b2b2b;--surface2:#242424;--surface3:#333;
+--border:#404040;--border2:#363636;
+--text:#e0e0e0;--text2:#bbb;--text3:#999;--text4:#666;
+--brand:#4da6ff;--brand-hover:#60b0ff;--brand-bg:#1a2a3a;--brand-text:#7dbdff;
+--accent:#4caf50;--accent-bg:#1a2e1a;
+--warn:#f0c040;--warn-bg:#2a2412;--warn-text:#f0c040;
+--danger:#e57373;--danger-bg:#2a1515;--danger-text:#ef9a9a;
+--purple:#a78bfa;--purple-bg:#1e1630;
+--teal:#4dd0e1;--teal-bg:#122828;
+--shadow:0 2px 8px rgba(0,0,0,.3);--shadow-lg:0 8px 32px rgba(0,0,0,.4);
+}}
+:root[data-theme="dark"]{
+--bg:#1a1a1a;--surface:#2b2b2b;--surface2:#242424;--surface3:#333;
+--border:#404040;--border2:#363636;
+--text:#e0e0e0;--text2:#bbb;--text3:#999;--text4:#666;
+--brand:#4da6ff;--brand-hover:#60b0ff;--brand-bg:#1a2a3a;--brand-text:#7dbdff;
+--accent:#4caf50;--accent-bg:#1a2e1a;
+--warn:#f0c040;--warn-bg:#2a2412;--warn-text:#f0c040;
+--danger:#e57373;--danger-bg:#2a1515;--danger-text:#ef9a9a;
+--purple:#a78bfa;--purple-bg:#1e1630;
+--teal:#4dd0e1;--teal-bg:#122828;
+--shadow:0 2px 8px rgba(0,0,0,.3);--shadow-lg:0 8px 32px rgba(0,0,0,.4);
+}
+:root[data-theme="light"]{
+--bg:#f5f5f5;--surface:#fff;--surface2:#fafafa;--surface3:#f0f0f0;
+--border:#e0e0e0;--border2:#ebebeb;
+--text:#1b1b1b;--text2:#424242;--text3:#616161;--text4:#9e9e9e;
+--brand:#0f6cbd;--brand-hover:#115ea3;--brand-bg:#eff6fc;--brand-text:#0f548c;
+--accent:#0e7a0d;--accent-bg:#f1faf1;
+--warn:#d4a72c;--warn-bg:#fff8e6;--warn-text:#8a6914;
+--danger:#c4314b;--danger-bg:#fdf3f4;--danger-text:#a4262c;
+--purple:#7c3aed;--purple-bg:#f5f3ff;
+--teal:#0e7a7a;--teal-bg:#f0fafa;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition-duration:0.01ms!important;animation-duration:0.01ms!important}}
+body{font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden;height:100vh}
+a{color:var(--brand);text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:4px}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+/* ── App Shell ── */
+.app{display:flex;height:100vh;overflow:hidden}
+
+/* ── Top Bar ── */
+.topbar{
+height:48px;display:flex;align-items:center;padding:0 16px;gap:12px;
+background:var(--surface);border-bottom:1px solid var(--border2);
+position:fixed;top:0;left:0;right:0;z-index:200;
+}
+.topbar .hamburger{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:18px;color:var(--text2)}
+.topbar .hamburger:hover{background:var(--surface3)}
+.topbar .logo{font-weight:700;font-size:14px;color:var(--brand);letter-spacing:-0.01em;white-space:nowrap}
+.topbar .logo span{color:var(--text4);font-weight:400;margin-left:4px}
+.topbar .spacer{flex:1}
+.topbar .search{
+display:flex;align-items:center;gap:8px;background:var(--surface3);border:1px solid var(--border2);
+border-radius:6px;padding:6px 12px;font-size:13px;color:var(--text3);min-width:240px;cursor:pointer;
+}
+.topbar .search:hover{border-color:var(--border)}
+.topbar .search kbd{font-family:var(--font);font-size:11px;color:var(--text4);background:var(--surface);border:1px solid var(--border);padding:1px 5px;border-radius:3px}
+.topbar .tb-btn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:16px;color:var(--text2);position:relative}
+.topbar .tb-btn:hover{background:var(--surface3)}
+.topbar .tb-btn .badge{position:absolute;top:4px;right:4px;width:8px;height:8px;background:var(--danger);border-radius:50%;border:2px solid var(--surface)}
+.topbar .avatar{width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
+
+/* ── Sidebar ── */
+.sidebar{
+width:var(--nav-w);min-width:var(--nav-w);height:calc(100vh - 48px);
+background:var(--surface);border-right:1px solid var(--border2);
+position:fixed;top:48px;left:0;z-index:150;
+overflow-y:auto;overflow-x:hidden;
+transition:width var(--transition),min-width var(--transition),transform var(--transition);
+display:flex;flex-direction:column;
+}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.sidebar .nav-section{padding:8px;flex:1}
+.sidebar .nav-section .section-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text4);padding:12px 12px 6px;white-space:nowrap}
+
+.nav-item{
+display:flex;align-items:center;gap:10px;padding:7px 12px;
+border-radius:6px;font-size:13px;color:var(--text2);
+cursor:pointer;white-space:nowrap;transition:all var(--transition);
+position:relative;
+}
+.nav-item:hover{background:var(--surface3);color:var(--text)}
+.nav-item.active{background:var(--brand-bg);color:var(--brand-text);font-weight:600}
+.nav-item.active::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:3px;border-radius:0 2px 2px 0;background:var(--brand)}
+.nav-item .icon{width:20px;text-align:center;font-size:15px;flex-shrink:0}
+.nav-item .count{margin-left:auto;font-size:11px;font-weight:600;background:var(--danger-bg);color:var(--danger-text);padding:1px 6px;border-radius:10px}
+.nav-item .count.info{background:var(--brand-bg);color:var(--brand-text)}
+
+.sidebar .nav-footer{padding:12px;border-top:1px solid var(--border2)}
+
+/* ── Main Content ── */
+.main-area{
+margin-left:var(--nav-w);margin-top:48px;
+height:calc(100vh - 48px);overflow-y:auto;overflow-x:hidden;
+background:var(--bg);transition:margin-left var(--transition);
+}
+
+/* ── Page views ── */
+.page{display:none;padding:24px;animation:fadeIn .3s ease}
+.page.visible{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.page-header h1{font-size:22px;font-weight:700;letter-spacing:-0.02em;color:var(--text)}
+.page-header .breadcrumb{font-size:12px;color:var(--text4);display:flex;gap:6px;align-items:center}
+.page-header .breadcrumb span{color:var(--text3)}
+
+/* ── Buttons ── */
+.btn{
+display:inline-flex;align-items:center;gap:6px;padding:7px 16px;
+border-radius:6px;font-size:13px;font-weight:600;
+transition:all var(--transition);white-space:nowrap;
+}
+.btn-primary{background:var(--brand);color:#fff}
+.btn-primary:hover{background:var(--brand-hover)}
+.btn-outline{border:1px solid var(--border);color:var(--text2);background:var(--surface)}
+.btn-outline:hover{background:var(--surface3);border-color:var(--text4)}
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover{opacity:0.9}
+.btn-success{background:var(--accent);color:#fff}
+.btn-success:hover{opacity:0.9}
+
+/* ── Cards ── */
+.card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);overflow:hidden}
+.card-header{padding:14px 18px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between}
+.card-header h3{font-size:13px;font-weight:600;color:var(--text)}
+.card-header .card-badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px}
+.card-body{padding:18px}
+
+/* ── Metric cards ── */
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px}
+.metric-card{
+background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);
+padding:16px 18px;display:flex;flex-direction:column;gap:4px;
+transition:box-shadow var(--transition);cursor:default;
+}
+.metric-card:hover{box-shadow:var(--shadow)}
+.metric-card .mc-label{font-size:12px;color:var(--text3);font-weight:500}
+.metric-card .mc-value{font-size:28px;font-weight:800;letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+.metric-card .mc-delta{font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px}
+.mc-up{color:var(--accent)}
+.mc-down{color:var(--danger)}
+.mc-neutral{color:var(--text4)}
+
+/* ── Grid layouts ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.grid-2-1{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+.grid-1-2{display:grid;grid-template-columns:1fr 2fr;gap:16px}
+@media(max-width:1024px){.grid-2,.grid-3,.grid-2-1,.grid-1-2{grid-template-columns:1fr}}
+
+/* ── Centres grid ── */
+.centres-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:16px}
+.centre-card{
+background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);
+padding:12px 14px;cursor:pointer;transition:all var(--transition);position:relative;overflow:hidden;
+}
+.centre-card:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+.centre-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.centre-card.green::before{background:var(--accent)}
+.centre-card.amber::before{background:var(--warn)}
+.centre-card.red::before{background:var(--danger)}
+.centre-card .cc-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+.centre-card .cc-region{font-size:11px;color:var(--text4)}
+.centre-card .cc-score{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:6px}
+.centre-card.green .cc-score{color:var(--accent)}
+.centre-card.amber .cc-score{color:var(--warn)}
+.centre-card.red .cc-score{color:var(--danger)}
+.centre-card .cc-bar{height:3px;background:var(--surface3);border-radius:2px;margin-top:8px;overflow:hidden}
+.centre-card .cc-bar-fill{height:100%;border-radius:2px;transition:width .6s ease}
+
+/* ── Centre detail modal ── */
+.modal-overlay{
+position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:500;
+display:flex;align-items:center;justify-content:center;
+opacity:0;pointer-events:none;transition:opacity .2s ease;
+}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal{
+background:var(--surface);border-radius:var(--radius-lg);
+width:90%;max-width:700px;max-height:85vh;overflow-y:auto;
+box-shadow:var(--shadow-lg);transform:scale(0.96);
+transition:transform .25s cubic-bezier(.4,0,.2,1);
+}
+.modal-overlay.open .modal{transform:scale(1)}
+.modal-header{padding:18px 22px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--surface);z-index:10}
+.modal-header h2{font-size:18px;font-weight:700}
+.modal-close{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text3)}
+.modal-close:hover{background:var(--surface3)}
+.modal-body{padding:22px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.detail-item{background:var(--surface2);border-radius:var(--radius);padding:14px;border:1px solid var(--border2)}
+.detail-item .di-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text4);margin-bottom:4px}
+.detail-item .di-value{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.detail-item .di-sub{font-size:12px;color:var(--text3);margin-top:2px}
+
+/* ── Tables ── */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border2);border-radius:var(--radius);margin-top:12px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:var(--text4);padding:10px 14px;border-bottom:1px solid var(--border2);background:var(--surface2);white-space:nowrap;position:sticky;top:0}
+tbody td{padding:10px 14px;border-bottom:1px solid var(--border2);color:var(--text2);vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface2)}
+.status-badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;white-space:nowrap;display:inline-block}
+.status-green{background:var(--accent-bg);color:var(--accent)}
+.status-amber{background:var(--warn-bg);color:var(--warn-text)}
+.status-red{background:var(--danger-bg);color:var(--danger-text)}
+.status-blue{background:var(--brand-bg);color:var(--brand-text)}
+.status-purple{background:var(--purple-bg);color:var(--purple)}
+
+/* ── AI Cards ── */
+.ai-card{background:var(--surface);border:1px solid var(--border2);border-left:3px solid var(--warn);border-radius:0 var(--radius) var(--radius) 0;padding:16px 18px;margin-bottom:12px;transition:box-shadow var(--transition)}
+.ai-card:hover{box-shadow:var(--shadow)}
+.ai-card .ai-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--warn-text);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.ai-card .ai-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.ai-card .ai-body{font-size:13px;color:var(--text2);line-height:1.6}
+.ai-card .ai-why{font-size:12px;color:var(--text3);margin-top:8px;padding-top:8px;border-top:1px solid var(--border2);font-style:italic}
+.ai-card .ai-confidence{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--accent);margin-top:6px}
+
+/* ── Workflow stepper ── */
+.wf-stepper{display:flex;flex-direction:column;gap:0;position:relative;padding-left:28px;margin:16px 0}
+.wf-stepper::before{content:'';position:absolute;left:11px;top:12px;bottom:12px;width:2px;background:var(--border)}
+.wf-step{position:relative;padding:10px 0 10px 16px}
+.wf-step::before{content:'';position:absolute;left:-21px;top:14px;width:12px;height:12px;border-radius:50%;border:2px solid var(--border);background:var(--surface);z-index:2;transition:all .3s ease}
+.wf-step.done::before{background:var(--accent);border-color:var(--accent)}
+.wf-step.active::before{background:var(--brand);border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-bg)}
+.wf-step.pending::before{background:var(--surface3);border-color:var(--border)}
+.wf-step-title{font-size:13px;font-weight:600;color:var(--text)}
+.wf-step-desc{font-size:12px;color:var(--text3);margin-top:2px}
+.wf-step-time{font-size:11px;color:var(--text4);margin-top:4px}
+.wf-step.done .wf-step-title{color:var(--text3)}
+
+/* ── Charts (simple canvas-based) ── */
+.chart-container{position:relative;width:100%;aspect-ratio:2/1;min-height:160px}
+.chart-container canvas{width:100%!important;height:100%!important}
+
+/* ── Notification toast ── */
+.toast-container{position:fixed;top:60px;right:16px;z-index:600;display:flex;flex-direction:column;gap:8px}
+.toast{
+background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);
+padding:12px 16px;box-shadow:var(--shadow-lg);display:flex;align-items:flex-start;gap:10px;
+max-width:380px;animation:slideIn .3s ease;font-size:13px;
+}
+@keyframes slideIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+.toast .toast-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.toast .toast-body{flex:1}
+.toast .toast-title{font-weight:600;color:var(--text);margin-bottom:2px}
+.toast .toast-msg{color:var(--text3);font-size:12px}
+.toast .toast-close{width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:4px;font-size:14px;color:var(--text4);flex-shrink:0}
+.toast .toast-close:hover{background:var(--surface3)}
+
+/* ── NC Form ── */
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:5px}
+.form-group input,.form-group select,.form-group textarea{
+width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:6px;
+font-size:13px;font-family:var(--font);color:var(--text);background:var(--surface);
+transition:border-color var(--transition);
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 2px var(--brand-bg)}
+.form-group textarea{min-height:80px;resize:vertical}
+
+/* ── Tabs ── */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border2);margin-bottom:16px}
+.tab{padding:10px 18px;font-size:13px;font-weight:500;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all var(--transition)}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--brand);border-bottom-color:var(--brand);font-weight:600}
+
+/* ── Sparkline ── */
+.sparkline{display:inline-flex;align-items:end;gap:2px;height:24px}
+.sparkline .bar{width:4px;border-radius:1px;transition:height .4s ease}
+
+/* ── Progress bar ── */
+.progress{height:6px;background:var(--surface3);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width .8s ease}
+
+/* ── Pill filters ── */
+.filters{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.pill{padding:5px 14px;font-size:12px;font-weight:500;border:1px solid var(--border);border-radius:20px;color:var(--text3);cursor:pointer;transition:all var(--transition)}
+.pill:hover{border-color:var(--text4);color:var(--text2)}
+.pill.active{background:var(--brand);border-color:var(--brand);color:#fff}
+
+/* ── Responsive ── */
+@media(max-width:768px){
+.sidebar{transform:translateX(-100%)}
+.sidebar.mobile-open{transform:translateX(0)}
+.main-area{margin-left:0!important}
+.topbar .search{display:none}
+.metrics-grid{grid-template-columns:repeat(2,1fr)}
+.detail-grid{grid-template-columns:1fr}
+}
+
+/* ── Audit planning table ── */
+.audit-rec{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:14px 18px;margin-bottom:10px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}
+.audit-rec .ar-centre{font-weight:700;font-size:14px;color:var(--text)}
+.audit-rec .ar-detail{font-size:12px;color:var(--text3);margin-top:4px;line-height:1.6}
+.audit-rec .ar-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.audit-rec .ar-tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;background:var(--brand-bg);color:var(--brand-text)}
+.audit-rec .ar-priority{text-align:right}
+.audit-rec .ar-priority .priority-val{font-size:20px;font-weight:800}
+.audit-rec .ar-priority .priority-label{font-size:10px;text-transform:uppercase;letter-spacing:0.06em;font-weight:600}
+
+/* ── Exec Decision Centre ── */
+.exec-hero{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px}
+.exec-metric{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:18px;text-align:center}
+.exec-metric .em-val{font-size:32px;font-weight:800;font-variant-numeric:tabular-nums}
+.exec-metric .em-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text4);margin-top:4px}
+.exec-metric .em-delta{font-size:12px;font-weight:600;margin-top:4px}
+@media(max-width:900px){.exec-hero{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.exec-hero{grid-template-columns:repeat(2,1fr)}}
+</style>
+
+<!-- ═══════ TOP BAR ═══════ -->
+<div class="topbar">
+  <button class="hamburger" onclick="toggleSidebar()" title="Toggle navigation">☰</button>
+  <div class="logo">ABC Quality Platform <span>Enterprise</span></div>
+  <div class="spacer"></div>
+  <div class="search"><span>⌕</span> Search modules, centres, records... <kbd>⌘K</kbd></div>
+  <button class="tb-btn" title="Notifications" onclick="showToast('info','New Notification','You have 3 pending approvals')">🔔<span class="badge"></span></button>
+  <button class="tb-btn" title="Help">❓</button>
+  <div class="avatar">SM</div>
+</div>
+
+<!-- ═══════ SIDEBAR ═══════ -->
+<div class="sidebar" id="sidebar">
+  <div class="nav-section">
+    <div class="section-label">Main</div>
+    <div class="nav-item active" data-page="dashboard" onclick="navigate('dashboard')"><span class="icon">📊</span>Dashboard</div>
+    <div class="nav-item" data-page="centres" onclick="navigate('centres')"><span class="icon">🏢</span>Centre Health</div>
+    <div class="nav-item" data-page="documents" onclick="navigate('documents')"><span class="icon">📄</span>Document Control</div>
+    <div class="nav-item" data-page="audits" onclick="navigate('audits')"><span class="icon">🔍</span>Internal Audits</div>
+    <div class="nav-item" data-page="nc" onclick="navigate('nc')"><span class="icon">⚠️</span>Non-Conformances<span class="count">12</span></div>
+    <div class="nav-item" data-page="capa" onclick="navigate('capa')"><span class="icon">🔧</span>CAPA<span class="count">4</span></div>
+    <div class="nav-item" data-page="risk" onclick="navigate('risk')"><span class="icon">🛡️</span>Risk Management</div>
+    <div class="nav-item" data-page="training" onclick="navigate('training')"><span class="icon">🎓</span>Training</div>
+    <div class="nav-item" data-page="complaints" onclick="navigate('complaints')"><span class="icon">💬</span>Complaints<span class="count info">5</span></div>
+    <div class="nav-item" data-page="suppliers" onclick="navigate('suppliers')"><span class="icon">🏭</span>Suppliers</div>
+    <div class="nav-item" data-page="review" onclick="navigate('review')"><span class="icon">📋</span>Management Review</div>
+
+    <div class="section-label" style="margin-top:8px">Intelligence</div>
+    <div class="nav-item" data-page="analytics" onclick="navigate('analytics')"><span class="icon">📈</span>Executive Analytics</div>
+    <div class="nav-item" data-page="ai" onclick="navigate('ai')"><span class="icon">🤖</span>AI Intelligence</div>
+    <div class="nav-item" data-page="auditplan" onclick="navigate('auditplan')"><span class="icon">📅</span>Audit Planning</div>
+    <div class="nav-item" data-page="exec" onclick="navigate('exec')"><span class="icon">🏛️</span>Decision Centre</div>
+
+    <div class="section-label" style="margin-top:8px">System</div>
+    <div class="nav-item" data-page="workflow" onclick="navigate('workflow')"><span class="icon">⚡</span>Workflow Demo</div>
+    <div class="nav-item" data-page="settings" onclick="navigate('settings')"><span class="icon">⚙️</span>Settings</div>
+  </div>
+</div>
+
+<!-- ═══════ MAIN CONTENT ═══════ -->
+<div class="main-area" id="mainArea">
+
+<!-- ═══════ DASHBOARD PAGE ═══════ -->
+<div class="page visible" id="page-dashboard">
+  <div class="page-header">
+    <div><div class="breadcrumb"><span>Home</span></div><h1>Enterprise Dashboard</h1></div>
+    <div style="display:flex;gap:8px"><button class="btn btn-outline btn-sm">Export</button><button class="btn btn-primary btn-sm" onclick="navigate('workflow')">+ Raise NC</button></div>
+  </div>
+
+  <div class="metrics-grid" id="dashMetrics"></div>
+
+  <div class="grid-2-1" style="margin-bottom:16px">
+    <div class="card">
+      <div class="card-header"><h3>Quality Trend — Enterprise Health Index</h3><span class="card-badge status-blue">13 months</span></div>
+      <div class="card-body"><div class="chart-container"><canvas id="chartTrend"></canvas></div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>AI Insights</h3><span class="card-badge status-amber">3 active</span></div>
+      <div class="card-body" id="dashAiInsights" style="max-height:300px;overflow-y:auto"></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="card-header"><h3>NC Trend by Severity</h3></div>
+      <div class="card-body"><div class="chart-container"><canvas id="chartNC"></canvas></div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>CAPA Ageing</h3></div>
+      <div class="card-body"><div class="chart-container"><canvas id="chartCAPA"></canvas></div></div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-header"><h3>Audit Programme</h3></div>
+      <div class="card-body" style="text-align:center">
+        <div style="font-size:42px;font-weight:800;color:var(--brand)">68%</div>
+        <div style="font-size:12px;color:var(--text3);margin-top:4px">Programme completion</div>
+        <div class="progress" style="margin-top:12px"><div class="progress-fill" style="width:68%;background:var(--brand)"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--text4)"><span>17 completed</span><span>8 remaining</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Training Compliance</h3></div>
+      <div class="card-body" style="text-align:center">
+        <div style="font-size:42px;font-weight:800;color:var(--accent)">94%</div>
+        <div style="font-size:12px;color:var(--text3);margin-top:4px">National average</div>
+        <div class="progress" style="margin-top:12px"><div class="progress-fill" style="width:94%;background:var(--accent)"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--text4)"><span>Target: 95%</span><span>14 expiring</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Supplier Performance</h3></div>
+      <div class="card-body" style="text-align:center">
+        <div style="font-size:42px;font-weight:800;color:var(--teal)">87%</div>
+        <div style="font-size:12px;color:var(--text3);margin-top:4px">Average supplier score</div>
+        <div class="progress" style="margin-top:12px"><div class="progress-fill" style="width:87%;background:var(--teal)"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--text4)"><span>42 suppliers</span><span>3 on watch</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ CENTRE HEALTH PAGE ═══════ -->
+<div class="page" id="page-centres">
+  <div class="page-header">
+    <div><div class="breadcrumb"><span>Home</span> / <span>Centre Health</span></div><h1>Centre Health Map</h1></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-outline btn-sm">Export</button>
+    </div>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="mc-label">Total Centres</div><div class="mc-value" style="color:var(--brand)">25</div><div class="mc-delta mc-neutral">Across 5 regions</div></div>
+    <div class="metric-card"><div class="mc-label">Green (85+)</div><div class="mc-value" style="color:var(--accent)">16</div><div class="mc-delta mc-up">↑ 2 vs last quarter</div></div>
+    <div class="metric-card"><div class="mc-label">Amber (75–84)</div><div class="mc-value" style="color:var(--warn)">6</div><div class="mc-delta mc-neutral">→ stable</div></div>
+    <div class="metric-card"><div class="mc-label">Red (below 75)</div><div class="mc-value" style="color:var(--danger)">3</div><div class="mc-delta mc-down">↑ 1 vs last quarter</div></div>
+  </div>
+
+  <div class="filters">
+    <button class="pill active" onclick="filterCentres('all',this)">All</button>
+    <button class="pill" onclick="filterCentres('green',this)">Green</button>
+    <button class="pill" onclick="filterCentres('amber',this)">Amber</button>
+    <button class="pill" onclick="filterCentres('red',this)">Red</button>
+    <button class="pill" onclick="filterCentres('gauteng',this)">Gauteng</button>
+    <button class="pill" onclick="filterCentres('kwazulu-natal',this)">KwaZulu-Natal</button>
+    <button class="pill" onclick="filterCentres('western-cape',this)">Western Cape</button>
+    <button class="pill" onclick="filterCentres('eastern-cape',this)">Eastern Cape</button>
+    <button class="pill" onclick="filterCentres('free-state',this)">Free State / NW</button>
+  </div>
+
+  <div class="centres-grid" id="centresGrid"></div>
+</div>
+
+<!-- ═══════ NON-CONFORMANCES PAGE ═══════ -->
+<div class="page" id="page-nc">
+  <div class="page-header">
+    <div><div class="breadcrumb"><span>Home</span> / <span>Non-Conformances</span></div><h1>Non-Conformance Register</h1></div>
+    <button class="btn btn-primary btn-sm" onclick="navigate('workflow')">+ Raise NC</button>
+  </div>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="mc-label">Open NCs</div><div class="mc-value" style="color:var(--danger)">12</div><div class="mc-delta mc-down">↑ 3 this month</div></div>
+    <div class="metric-card"><div class="mc-label">Overdue</div><div class="mc-value" style="color:var(--danger)">4</div><div class="mc-delta mc-down">2 critical</div></div>
+    <div class="metric-card"><div class="mc-label">Closed MTD</div><div class="mc-value" style="color:var(--accent)">8</div><div class="mc-delta mc-up">↑ from 5</div></div>
+    <div class="metric-card"><div class="mc-label">Avg Days to Close</div><div class="mc-value" style="color:var(--brand)">18</div><div class="mc-delta mc-up">↓ 3 days improvement</div></div>
+  </div>
+  <div class="tbl-wrap" id="ncTable"></div>
+</div>
+
+<!-- ═══════ CAPA PAGE ═══════ -->
+<div class="page" id="page-capa">
+  <div class="page-header"><div><div class="breadcrumb"><span>Home</span> / <span>CAPA</span></div><h1>Corrective & Preventive Actions</h1></div></div>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="mc-label">Open CAPAs</div><div class="mc-value" style="color:var(--warn)">9</div></div>
+    <div class="metric-card"><div class="mc-label">Overdue</div><div class="mc-value" style="color:var(--danger)">4</div></div>
+    <div class="metric-card"><div class="mc-label">Effectiveness Rate</div><div class="mc-value" style="color:var(--accent)">91%</div></div>
+    <div class="metric-card"><div class="mc-label">Avg Closure Days</div><div class="mc-value" style="color:var(--brand)">42</div></div>
+  </div>
+  <div class="tbl-wrap" id="capaTable"></div>
+</div>
+
+<!-- ═══════ DOCUMENT CONTROL PAGE ═══════ -->
+<div class="page" id="page-documents">
+  <div class="page-header"><div><div class="breadcrumb"><span>Home</span> / <span>Document Control</span></div><h1>Controlled Documents</h1></div><button class="btn btn-primary btn-sm">+ New Document</button></div>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="mc-label">Total Documents</div><div class="mc-value" style="color:var(--brand)">148</div></div>
+    <div class="metric-card"><div class="mc-label">Pending Review</div><div class="mc-value" style="color:var(--warn)">7</div></div>
+    <div class="metric-card"><div class="mc-label">Overdue Review</div><div class="mc-value" style="color:var(--danger)">2</div></div>
+    <div class="metric-card"><div class="mc-label">Acknowledgement Rate</div><div class="mc-value" style="color:var(--accent)">96%</div></div>
+  </div>
+  <div class="tbl-wrap" id="docTable"></div>
+</div>
+
+<!-- ═══════ AUDITS PAGE ═══════ -->
+<div class="page" id="page-audits">
+  <div class="page-header"><div><div class="breadcrumb"><span>Home</span> / <span>Internal Audits</span></div><h1>Audit Register</h1></div></div>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="mc-label">Scheduled</div><div class="mc-value" style="color:var(--brand)">25</div></div>
+    <div class="metric-card"><div class="mc-label">Completed</div><div class="mc-value" style="color:var(--accent)">17</div></div>
+    <div class="metric-card"><div class="mc-label">In Progress</div><div class="mc-value" style="color:var(--warn)">3</div></div>
+    <div class="metric-card"><div class="mc-label">Avg Score</div><div class="mc-value" style="color:var(--brand)">82%</div></div>
+  </div>
+  <div class="tbl-wrap" id="auditTable"></div>
+</div>
+
+<!-- ═══════ RISK PAGE ═══════ -->
+<div class="page" id="page-risk">
+  <div class="page-header"><div><div class="breadcrumb"><span>Home</span> / <span>Risk Management</span></div><h1>Enterprise Risk Register</h1></div><button class="btn btn-primary btn-sm">+ New Risk</button></div>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="mc-label">Total Risks</div><div class="mc-value" style="color:var(--brand)">34</div></div>
+    <div class="metric-card"><div class="mc-label">Critical</div><div class="mc-value" style="color:var(--danger)">3</div></div>
+    <div class="metric-card"><div class="mc-label">High</div><div class="mc-value" style="color:var(--warn)">8</div></div>
+    <div class="metric-card"><div class="mc-label">Review Overdue</div><div class="mc-value" style="color:var(--danger)">2</div></div>
+  </div>
+  <div class="tbl-wrap" id="riskTable"></div>
+</div>
+
+<!-- ═══════ TRAINING PAGE ═══════ -->
+<div class="page" id="page-training">
+  <div class="page-header"><div><div class="breadcrumb"><span>Home</span> / <span>Training</span></div><h1>Training & Competency</h1></div></div>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="mc-label">National Compliance</div><div class="mc-value" style="color:var(--accent)">94%</div></div>
+    <div class="metric-card"><div class="mc-label">Expiring (30 days)</div><div class="mc-value" style="color:var(--warn)">14</div></div>
+    <div class="metric-card"><div class="mc-label">Overdue Renewals</div><div class="mc-value" style="color:var(--danger)">6</div></div>
+    <div class="metric-card"><div class="mc-label">Training Hours MTD</div><div class="mc-value" style="color:var(--brand)">342</div></div>
+  </div>
+  <div class="tbl-wrap" id="trainingTable"></div>
+</div>
+
+<!-- ═══════ COMPLAINTS PAGE ═══════ -->
+<div class="page" id="page-complaints">
+  <div class="page-header"><div><div class="breadcrumb"><span>Home</span> / <span>Complaints</span></div><h1>Customer Complaints</h1></div><button class="btn btn-primary btn-sm">+ Log Complaint</button></div>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="mc-label">Open</div><div class="mc-value" style="color:var(--warn)">5</div></div>
+    <div class="metric-card"><div class="mc-label">MTD</div><div class="mc-value" style="color:var(--brand)">23</div></div>
+    <div class="metric-card"><div class="mc-label">Avg Resolution</div><div class="mc-value" style="color:var(--accent)">4.2d</div></div>
+    <div class="metric-card"><div class="mc-label">Satisfaction</div><div class="mc-value" style="color:var(--accent)">88%</div></div>
+  </div>
+  <div class="tbl-wrap" id="complaintsTable"></div>
+</div>
+
+<!-- ═══════ SUPPLIERS PAGE ═══════ -->
+<div class="page" id="page-suppliers">
+  <div class="page-header"><div><div class="breadcrumb"><span>Home</span> / <span>Suppliers</span></div><h1>Supplier Quality</h1></div></div>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="mc-label">Approved Suppliers</div><div class="mc-value" style="color:var(--accent)">38</div></div>
+    <div class="metric-card"><div class="mc-label">Conditional</div><div class="mc-value" style="color:var(--warn)">4</div></div>
+    <div class="metric-card"><div class="mc-label">Under Review</div><div class="mc-value" style="color:var(--brand)">3</div></div>
+    <div class="metric-card"><div class="mc-label">Avg Score</div><div class="mc-value" style="color:var(--brand)">87%</div></div>
+  </div>
+  <div class="tbl-wrap" id="supplierTable"></div>
+</div>
+
+<!-- ═══════ MANAGEMENT REVIEW PAGE ═══════ -->
+<div class="page" id="page-review">
+  <div class="page-header"><div><div class="breadcrumb"><span>Home</span> / <span>Management Review</span></div><h1>Management Review</h1></div></div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-header"><h3>Next Scheduled Review</h3><span class="card-badge status-blue">In 18 days</span></div>
+    <div class="card-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="di-label">Date</div><div class="di-value" style="font-size:16px">16 Aug 2026</div><div class="di-sub">Q3 Enterprise Review</div></div>
+        <div class="detail-item"><div class="di-label">Preparation Status</div><div class="di-value" style="font-size:16px;color:var(--accent)">78%</div><div class="di-sub">7 of 9 inputs assembled</div></div>
+        <div class="detail-item"><div class="di-label">Outstanding Inputs</div><div class="di-value" style="font-size:16px;color:var(--warn)">2</div><div class="di-sub">Supplier performance, Training analysis</div></div>
+        <div class="detail-item"><div class="di-label">Previous Actions</div><div class="di-value" style="font-size:16px;color:var(--accent)">5 of 6 closed</div><div class="di-sub">1 action carried forward</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card"><div class="card-header"><h3>AI-Generated Executive Summary (Draft)</h3><span class="card-badge status-purple">AI Generated</span></div>
+    <div class="card-body" style="font-size:13px;color:var(--text2);line-height:1.7">
+      <p>Enterprise quality performance improved 2.1 points quarter-on-quarter, reaching an Enterprise Quality Index of 87.4. Audit programme completion is on track at 68% with 8 audits remaining. CAPA effectiveness rate increased to 91%, exceeding the 85% target.</p>
+      <p style="margin-top:12px"><strong>Key concerns requiring executive attention:</strong></p>
+      <ul style="padding-left:18px;margin-top:6px">
+        <li>Three centres (East London, Bloemfontein, Polokwane) remain below the 75-point threshold with declining trajectories.</li>
+        <li>Clause 8.5.1 accounts for 28% of all Major audit findings — a disproportionate concentration requiring national process review.</li>
+        <li>Supplier XYZ has contributed to recurring incoming goods NCs across four centres. Conditional status recommended.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ EXECUTIVE ANALYTICS PAGE ═══════ -->
+<div class="page" id="page-analytics">
+  <div class="page-header"><div><div class="breadcrumb"><span>Home</span> / <span>Executive Analytics</span></div><h1>Executive Analytics</h1></div></div>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="mc-label">Enterprise Quality Index</div><div class="mc-value" style="color:var(--brand)">87.4</div><div class="mc-delta mc-up">↑ 2.1 vs Q1</div></div>
+    <div class="metric-card"><div class="mc-label">ISO Compliance</div><div class="mc-value" style="color:var(--accent)">96%</div><div class="mc-delta mc-up">↑ 1%</div></div>
+    <div class="metric-card"><div class="mc-label">Customer Satisfaction</div><div class="mc-value" style="color:var(--accent)">88%</div><div class="mc-delta mc-up">↑ 3%</div></div>
+    <div class="metric-card"><div class="mc-label">Cost of Quality</div><div class="mc-value" style="color:var(--brand)">2.1%</div><div class="mc-delta mc-up">↓ 0.3%</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><div class="card-header"><h3>Regional Comparison</h3></div><div class="card-body"><div class="chart-container"><canvas id="chartRegion"></canvas></div></div></div>
+    <div class="card"><div class="card-header"><h3>ISO Clause Performance</h3></div><div class="card-body"><div class="chart-container"><canvas id="chartClause"></canvas></div></div></div>
+  </div>
+</div>
+
+<!-- ═══════ AI INTELLIGENCE PAGE ═══════ -->
+<div class="page" id="page-ai">
+  <div class="page-header"><div><div class="breadcrumb"><span>Home</span> / <span>AI Intelligence</span></div><h1>AI Intelligence Centre</h1></div></div>
+  <div class="tabs"><div class="tab active" onclick="aiTab(this,'all')">All Insights</div><div class="tab" onclick="aiTab(this,'patterns')">Patterns</div><div class="tab" onclick="aiTab(this,'predictions')">Predictions</div><div class="tab" onclick="aiTab(this,'recommendations')">Recommendations</div></div>
+  <div id="aiCards"></div>
+</div>
+
+<!-- ═══════ INTELLIGENT AUDIT PLANNING PAGE ═══════ -->
+<div class="page" id="page-auditplan">
+  <div class="page-header"><div><div class="breadcrumb"><span>Home</span> / <span>Audit Planning</span></div><h1>Intelligent Audit Planning</h1></div><button class="btn btn-primary btn-sm">Apply Recommendations</button></div>
+  <p style="font-size:13px;color:var(--text3);margin-bottom:16px">The AI engine analyses centre health scores, NC trends, CAPA performance, complaints, and risk profiles to recommend audit priorities. Recommendations are updated weekly.</p>
+  <div id="auditRecs"></div>
+</div>
+
+<!-- ═══════ EXECUTIVE DECISION CENTRE ═══════ -->
+<div class="page" id="page-exec">
+  <div class="page-header"><div><div class="breadcrumb"><span>Home</span> / <span>Decision Centre</span></div><h1>Executive Decision Centre</h1></div><div style="font-size:12px;color:var(--text4)">Live — Updated just now</div></div>
+  <div class="exec-hero" id="execHero"></div>
+  <div class="grid-2" style="margin-bottom:16px">
+    <div class="card"><div class="card-header"><h3>National Centre Health Map</h3></div><div class="card-body" id="execMap"></div></div>
+    <div class="card"><div class="card-header"><h3>Top Enterprise Risks</h3></div><div class="card-body" id="execRisks"></div></div>
+  </div>
+  <div class="grid-2" style="margin-bottom:16px">
+    <div class="card"><div class="card-header"><h3>Strategic Objectives</h3></div><div class="card-body" id="execObjectives"></div></div>
+    <div class="card"><div class="card-header"><h3>AI Recommendations</h3></div><div class="card-body" id="execAi"></div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><div class="card-header"><h3>Quality Trend</h3></div><div class="card-body"><div class="chart-container"><canvas id="chartExecTrend"></canvas></div></div></div>
+    <div class="card"><div class="card-header"><h3>Upcoming Audit Calendar</h3></div><div class="card-body" id="execCalendar"></div></div>
+  </div>
+</div>
+
+<!-- ═══════ WORKFLOW DEMO PAGE ═══════ -->
+<div class="page" id="page-workflow">
+  <div class="page-header"><div><div class="breadcrumb"><span>Home</span> / <span>Workflow Demo</span></div><h1>Raise Non-Conformance</h1></div></div>
+  <div class="grid-1-2">
+    <div>
+      <div class="card">
+        <div class="card-header"><h3>NC Form</h3></div>
+        <div class="card-body">
+          <div class="form-group"><label>Centre</label><select id="wfCentre"><option>Johannesburg</option><option>Cape Town</option><option>Durban</option><option>Pretoria</option><option>East London</option></select></div>
+          <div class="form-group"><label>Category</label><select id="wfCategory"><option>Service Delivery — Process Deviation</option><option>Incoming Goods — Specification</option><option>Documentation — SOP Non-compliance</option><option>Equipment — Calibration</option></select></div>
+          <div class="form-group"><label>Description</label><textarea id="wfDesc" placeholder="Describe the non-conformance...">During routine inspection, incoming goods from Supplier XYZ were found to be outside specification tolerances. Three batches affected.</textarea></div>
+          <div class="form-group"><label>Severity</label><select id="wfSeverity"><option>Minor</option><option selected>Major</option><option>Critical</option></select></div>
+          <div class="form-group"><label>Evidence</label><input type="file" style="font-size:12px"></div>
+          <button class="btn btn-primary" id="wfSubmit" onclick="runWorkflow()" style="width:100%">Submit Non-Conformance</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-header"><h3>Workflow Progress</h3><span class="card-badge status-blue" id="wfStatus">Ready</span></div>
+        <div class="card-body">
+          <div class="wf-stepper" id="wfStepper">
+            <div class="wf-step pending" id="ws0"><div class="wf-step-title">NC Submitted</div><div class="wf-step-desc">Record created with unique reference</div><div class="wf-step-time"></div></div>
+            <div class="wf-step pending" id="ws1"><div class="wf-step-title">AI Auto-Classification</div><div class="wf-step-desc">AI Builder analyses description and suggests ISO clause</div><div class="wf-step-time"></div></div>
+            <div class="wf-step pending" id="ws2"><div class="wf-step-title">Manager Notified</div><div class="wf-step-desc">Teams notification sent to Regional Quality Manager</div><div class="wf-step-time"></div></div>
+            <div class="wf-step pending" id="ws3"><div class="wf-step-title">Manager Approves</div><div class="wf-step-desc">Regional QM reviews and accepts the NC</div><div class="wf-step-time"></div></div>
+            <div class="wf-step pending" id="ws4"><div class="wf-step-title">CAPA Auto-Created</div><div class="wf-step-desc">Major NC triggers automatic CAPA generation</div><div class="wf-step-time"></div></div>
+            <div class="wf-step pending" id="ws5"><div class="wf-step-title">Action Owners Notified</div><div class="wf-step-desc">CAPA action assignments sent to responsible owners</div><div class="wf-step-time"></div></div>
+            <div class="wf-step pending" id="ws6"><div class="wf-step-title">Reminder Scheduled</div><div class="wf-step-desc">Automated reminder set for Day 3 if no action plan submitted</div><div class="wf-step-time"></div></div>
+            <div class="wf-step pending" id="ws7"><div class="wf-step-title">Escalation Ready</div><div class="wf-step-desc">Auto-escalation to Regional QM at Day 7 if overdue</div><div class="wf-step-time"></div></div>
+            <div class="wf-step pending" id="ws8"><div class="wf-step-title">Dashboard Updated</div><div class="wf-step-desc">All dashboards reflect the new NC and CAPA in real time</div><div class="wf-step-time"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SETTINGS PAGE ═══════ -->
+<div class="page" id="page-settings">
+  <div class="page-header"><div><div class="breadcrumb"><span>Home</span> / <span>Settings</span></div><h1>Platform Settings</h1></div></div>
+  <div class="grid-2">
+    <div class="card"><div class="card-header"><h3>User Profile</h3></div><div class="card-body">
+      <div class="form-group"><label>Name</label><input value="Sarah Mitchell" readonly></div>
+      <div class="form-group"><label>Role</label><input value="Head of Quality" readonly></div>
+      <div class="form-group"><label>Email</label><input value="s.mitchell@abcservices.co.za" readonly></div>
+      <div class="form-group"><label>Region</label><input value="All Regions (Enterprise)" readonly></div>
+    </div></div>
+    <div class="card"><div class="card-header"><h3>Notification Preferences</h3></div><div class="card-body" style="font-size:13px;color:var(--text2)">
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border2)"><span>Critical NC alerts</span><span style="color:var(--accent);font-weight:600">Email + Teams</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border2)"><span>Approval requests</span><span style="color:var(--accent);font-weight:600">Teams</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border2)"><span>Weekly digest</span><span style="color:var(--accent);font-weight:600">Email</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border2)"><span>Overdue reminders</span><span style="color:var(--accent);font-weight:600">Email + Teams</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0"><span>AI Insight alerts</span><span style="color:var(--accent);font-weight:600">Teams</span></div>
+    </div></div>
+  </div>
+</div>
+
+</div><!-- /main-area -->
+
+<!-- ═══════ CENTRE DETAIL MODAL ═══════ -->
+<div class="modal-overlay" id="centreModal">
+  <div class="modal">
+    <div class="modal-header"><h2 id="modalTitle">Centre Detail</h2><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ═══════ TOAST CONTAINER ═══════ -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ═══════ DATA ═══════
+const CENTRES = [
+  {name:'Johannesburg',region:'Gauteng',score:88,ncs:3,capas:1,training:96,sop:98,complaints:4,risks:2,topNC:'Process deviation',maturity:'Established'},
+  {name:'Pretoria',region:'Gauteng',score:91,ncs:2,capas:0,training:98,sop:100,complaints:2,risks:1,topNC:'Documentation gap',maturity:'Advanced'},
+  {name:'Centurion',region:'Gauteng',score:86,ncs:4,capas:2,training:94,sop:96,complaints:3,risks:2,topNC:'Calibration',maturity:'Established'},
+  {name:'Sandton',region:'Gauteng',score:93,ncs:1,capas:0,training:99,sop:100,complaints:1,risks:1,topNC:'None significant',maturity:'Leading'},
+  {name:'Soweto',region:'Gauteng',score:82,ncs:5,capas:3,training:91,sop:92,complaints:5,risks:3,topNC:'Training lapse',maturity:'Developing'},
+  {name:'Durban',region:'KwaZulu-Natal',score:85,ncs:4,capas:2,training:93,sop:95,complaints:6,risks:3,topNC:'Incoming goods',maturity:'Established'},
+  {name:'Pietermaritzburg',region:'KwaZulu-Natal',score:87,ncs:3,capas:1,training:95,sop:97,complaints:3,risks:2,topNC:'Service delivery',maturity:'Established'},
+  {name:'Richards Bay',region:'KwaZulu-Natal',score:79,ncs:6,capas:4,training:88,sop:90,complaints:7,risks:4,topNC:'Process deviation',maturity:'Developing'},
+  {name:'Newcastle',region:'KwaZulu-Natal',score:90,ncs:2,capas:1,training:97,sop:98,complaints:2,risks:1,topNC:'Documentation',maturity:'Advanced'},
+  {name:'Umhlanga',region:'KwaZulu-Natal',score:92,ncs:1,capas:0,training:98,sop:100,complaints:1,risks:1,topNC:'None significant',maturity:'Advanced'},
+  {name:'Cape Town',region:'Western Cape',score:94,ncs:1,capas:0,training:99,sop:100,complaints:1,risks:1,topNC:'None significant',maturity:'Leading'},
+  {name:'Stellenbosch',region:'Western Cape',score:89,ncs:3,capas:1,training:96,sop:97,complaints:2,risks:2,topNC:'Supplier quality',maturity:'Established'},
+  {name:'Paarl',region:'Western Cape',score:86,ncs:4,capas:2,training:93,sop:95,complaints:3,risks:2,topNC:'Service delivery',maturity:'Established'},
+  {name:'George',region:'Western Cape',score:83,ncs:5,capas:2,training:91,sop:93,complaints:4,risks:3,topNC:'Equipment',maturity:'Developing'},
+  {name:'Worcester',region:'Western Cape',score:88,ncs:2,capas:1,training:95,sop:98,complaints:2,risks:1,topNC:'Documentation',maturity:'Established'},
+  {name:'East London',region:'Eastern Cape',score:72,ncs:8,capas:5,training:85,sop:88,complaints:9,risks:5,topNC:'Process deviation',maturity:'Initial'},
+  {name:'Port Elizabeth',region:'Eastern Cape',score:78,ncs:6,capas:3,training:89,sop:91,complaints:6,risks:4,topNC:'Incoming goods',maturity:'Developing'},
+  {name:'Makhanda',region:'Eastern Cape',score:85,ncs:3,capas:1,training:94,sop:96,complaints:3,risks:2,topNC:'Training gap',maturity:'Established'},
+  {name:'Queenstown',region:'Eastern Cape',score:81,ncs:5,capas:3,training:90,sop:92,complaints:5,risks:3,topNC:'Service delivery',maturity:'Developing'},
+  {name:'Uitenhage',region:'Eastern Cape',score:87,ncs:3,capas:1,training:95,sop:97,complaints:2,risks:2,topNC:'Documentation',maturity:'Established'},
+  {name:'Bloemfontein',region:'Free State / NW',score:74,ncs:7,capas:4,training:86,sop:89,complaints:8,risks:5,topNC:'Process deviation',maturity:'Initial'},
+  {name:'Welkom',region:'Free State / NW',score:80,ncs:5,capas:3,training:90,sop:93,complaints:4,risks:3,topNC:'Equipment',maturity:'Developing'},
+  {name:'Kimberley',region:'Free State / NW',score:84,ncs:4,capas:2,training:92,sop:95,complaints:3,risks:2,topNC:'Service delivery',maturity:'Established'},
+  {name:'Polokwane',region:'Free State / NW',score:71,ncs:9,capas:6,training:84,sop:86,complaints:10,risks:6,topNC:'Multiple systemic',maturity:'Initial'},
+  {name:'Rustenburg',region:'Free State / NW',score:83,ncs:4,capas:2,training:91,sop:94,complaints:4,risks:3,topNC:'Supplier quality',maturity:'Developing'},
+];
+
+function statusOf(s){return s>=85?'green':s>=75?'amber':'red'}
+
+const AI_INSIGHTS = [
+  {type:'Pattern Detection',title:'Clause 8.5.1 Non-Conformances Increased 27%',body:'ISO Clause 8.5.1 (Control of production and service provision) has seen a 27% increase in Major audit findings over the past quarter across the enterprise. 7 of 25 centres have recorded findings against this clause in the last 90 days.',why:'This disproportionate concentration (28% of all Major findings) indicates a systemic issue — likely a national SOP gap or a training deficiency in the core service delivery process. The trend is accelerating: Q1 had 14 findings, Q2 had 18. If unaddressed, this clause will be the primary risk area at the next external certification audit.',confidence:94,cat:'patterns'},
+  {type:'Audit Recommendation',title:'Durban and Johannesburg Should Be Prioritised for Auditing',body:'Based on current NC trends, CAPA overdue rates, and complaint volumes, Durban and Johannesburg should receive priority audits in the next cycle. Both centres show deteriorating quality indicators despite recent Regional QM interventions.',why:'Durban: 4 open NCs (2 Major), 2 overdue CAPAs, complaints up 40% MoM. Johannesburg: 3 open NCs including the incoming goods pattern, training compliance dropped from 98% to 96%. These leading indicators match the pattern seen at East London 6 months before its quality score dropped below 75.',confidence:87,cat:'recommendations'},
+  {type:'Trend Analysis',title:'Training Effectiveness Has Reduced Nationally',body:'Post-training assessment pass rates have declined from 94% to 89% over the past two quarters. The largest drops are in centres where SOP revisions have triggered retraining — suggesting the retraining material may not adequately reflect the SOP changes.',why:'When SOPs are revised significantly, the platform triggers retraining for all affected personnel. However, the assessment results show that 42% of failures occur on questions related to the changed sections of the SOP. This suggests training materials are not being updated in parallel with SOP revisions. Recommend: mandate training material review as a step in the SOP change management workflow.',confidence:91,cat:'patterns'},
+  {type:'Supplier Alert',title:'Supplier XYZ Contributing to Recurring Defects',body:'Supplier XYZ has been linked to 11 incoming goods non-conformances across 4 centres in the past 60 days. Their defect rate has increased from 2.1% to 4.8% — more than double the threshold for approved supplier status.',why:'Cross-referencing NC data with supplier delivery records shows that Supplier XYZ changed their manufacturing process in April 2026. Since that change, specification non-compliance rates have risen consistently. The affected product line is used at 12 centres. Recommend: place Supplier XYZ on Conditional status and initiate a supplier corrective action request.',confidence:96,cat:'predictions'},
+  {type:'Executive Intervention',title:'Three Centres Require Executive Escalation',body:'East London (72), Bloemfontein (74), and Polokwane (71) have Quality Health Scores below 75 for two consecutive quarters. Regional-level improvement plans have not reversed the decline.',why:'All three centres share a common pattern: high NC volumes, low CAPA effectiveness (below 70%), declining training compliance, and above-average complaint rates. Regional managers have flagged resource constraints as a barrier. Executive intervention — direct review, resource reallocation, and accelerated audit cycle — is recommended with 89% confidence.',confidence:89,cat:'recommendations'},
+  {type:'Prediction',title:'Port Elizabeth Predicted to Improve to Green',body:'Port Elizabeth\'s quality trajectory suggests a 76% probability of reaching the 85-point threshold within the next 90 days. The centre has closed 4 of 6 overdue CAPAs, completed a retraining programme, and its NC rate has dropped 30% month-on-month.',why:'This is a recovery pattern. The centre invested in a focused improvement programme after dropping to 73 in Q4 2025. Leading indicators (CAPA closure velocity, training completion, complaint reduction) now match the recovery pattern seen at three other centres that successfully returned to Green status.',confidence:76,cat:'predictions'},
+];
+
+const AUDIT_RECS = [
+  {centre:'East London',priority:'Critical',score:72,clauses:['8.5.1','10.2','7.2'],duration:'3 days',team:'Lead: J. van der Merwe + A. Nkosi',reason:'Quality score 72 (Red). 8 open NCs, 5 overdue CAPAs. Declining for 2 consecutive quarters. Last audit scored 64%. Clause 8.5.1 findings in last 3 audits.'},
+  {centre:'Polokwane',priority:'Critical',score:71,clauses:['8.5.1','6.1','8.4'],duration:'3 days',team:'Lead: T. Dlamini + S. Botha',reason:'Lowest quality score in the enterprise (71). 9 open NCs including 3 Critical. Supplier-related NCs account for 40% of total. Risk register has 6 high/critical risks.'},
+  {centre:'Bloemfontein',priority:'High',score:74,clauses:['10.2','7.5','9.1'],duration:'2 days',team:'Lead: M. Pillay + R. Joubert',reason:'Quality score 74 (Red). 7 open NCs. CAPA effectiveness rate at 68% — well below the 85% target. Document control compliance at 89% — lowest in enterprise.'},
+  {centre:'Richards Bay',priority:'High',score:79,clauses:['8.5.1','8.4'],duration:'2 days',team:'Lead: J. van der Merwe',reason:'Trending downward from 84 to 79 over two quarters. Complaint volume increased 60% MoM. Process deviation NCs recurring in the same service area.'},
+  {centre:'Durban',priority:'Medium',score:85,clauses:['8.5.1','8.4'],duration:'1.5 days',team:'Lead: A. Nkosi',reason:'Currently Green but trending toward Amber. Incoming goods NCs linked to Supplier XYZ. 2 overdue CAPAs. Recommend focused scope on Clause 8.4 (external providers).'},
+  {centre:'Cape Town',priority:'Low',score:94,clauses:['9.2','9.3'],duration:'1 day',team:'Lead: S. Botha',reason:'Consistently top performer. Recommend reducing to annual frequency. Scope limited to management system maintenance clauses. Release auditor capacity for higher-risk centres.'},
+];
+
+// ═══════ NAVIGATION ═══════
+let currentPage='dashboard';
+function navigate(page){
+  currentPage=page;
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('visible'));
+  document.getElementById('page-'+page).classList.add('visible');
+  document.querySelectorAll('.nav-item').forEach(n=>{n.classList.toggle('active',n.dataset.page===page)});
+  document.getElementById('mainArea').scrollTop=0;
+  if(page==='centres')renderCentres();
+  if(page==='ai')renderAI('all');
+  if(page==='auditplan')renderAuditPlan();
+  if(page==='exec')renderExec();
+  if(page==='analytics')renderAnalytics();
+}
+
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('mobile-open')}
+
+// ═══════ CENTRES ═══════
+function renderCentres(filter='all'){
+  const grid=document.getElementById('centresGrid');
+  let filtered=CENTRES;
+  if(filter==='green')filtered=CENTRES.filter(c=>c.score>=85);
+  else if(filter==='amber')filtered=CENTRES.filter(c=>c.score>=75&&c.score<85);
+  else if(filter==='red')filtered=CENTRES.filter(c=>c.score<75);
+  else if(filter!=='all')filtered=CENTRES.filter(c=>c.region.toLowerCase().replace(/ \/ /g,'-').replace(/ /g,'-')===filter);
+  grid.innerHTML=filtered.map(c=>{
+    const s=statusOf(c.score);
+    return `<div class="centre-card ${s}" onclick="openCentre('${c.name}')">
+      <div class="cc-name">${c.name}</div><div class="cc-region">${c.region}</div>
+      <div class="cc-score">${c.score}</div>
+      <div class="cc-bar"><div class="cc-bar-fill" style="width:${c.score}%;background:var(--${s==='green'?'accent':s==='amber'?'warn':'danger'})"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function filterCentres(f,el){
+  document.querySelectorAll('.filters .pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  renderCentres(f);
+}
+
+function openCentre(name){
+  const c=CENTRES.find(x=>x.name===name);if(!c)return;
+  const s=statusOf(c.score);
+  document.getElementById('modalTitle').textContent=c.name+' — '+c.region;
+  document.getElementById('modalBody').innerHTML=`
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="font-size:48px;font-weight:800;color:var(--${s==='green'?'accent':s==='amber'?'warn':'danger'})">${c.score}</div>
+      <div style="font-size:12px;color:var(--text4);text-transform:uppercase;letter-spacing:0.06em;font-weight:600">Quality Health Score</div>
+      <span class="status-badge status-${s}" style="margin-top:8px">${s==='green'?'Healthy':s==='amber'?'Attention Needed':'Intervention Required'}</span>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Audit Score</div><div class="di-value" style="color:var(--brand)">${c.score-Math.floor(Math.random()*8)}%</div><div class="di-sub">Last audit: ${['Jan','Feb','Mar','Apr','May','Jun'][Math.floor(Math.random()*6)]} 2026</div></div>
+      <div class="detail-item"><div class="di-label">Open CAPAs</div><div class="di-value" style="color:${c.capas>2?'var(--danger)':'var(--warn)'}">${c.capas}</div><div class="di-sub">${c.capas>0?Math.min(c.capas,2)+' overdue':'All on track'}</div></div>
+      <div class="detail-item"><div class="di-label">Training Compliance</div><div class="di-value" style="color:${c.training>=95?'var(--accent)':'var(--warn)'}">${c.training}%</div><div class="di-sub">${c.training>=95?'On target':'Below 95% target'}</div></div>
+      <div class="detail-item"><div class="di-label">SOP Compliance</div><div class="di-value" style="color:${c.sop>=95?'var(--accent)':'var(--warn)'}">${c.sop}%</div><div class="di-sub">${100-c.sop>0?(100-c.sop)+' docs overdue for review':'All current'}</div></div>
+      <div class="detail-item"><div class="di-label">Customer Complaints</div><div class="di-value" style="color:${c.complaints>5?'var(--danger)':'var(--brand)'}">${c.complaints}</div><div class="di-sub">Month to date</div></div>
+      <div class="detail-item"><div class="di-label">Active Risks</div><div class="di-value" style="color:${c.risks>3?'var(--danger)':'var(--warn)'}">${c.risks}</div><div class="di-sub">${c.risks>3?'Includes critical risks':'All managed'}</div></div>
+      <div class="detail-item"><div class="di-label">Top Non-Conformance</div><div class="di-value" style="font-size:14px;color:var(--text)">${c.topNC}</div><div class="di-sub">Most frequent NC category</div></div>
+      <div class="detail-item"><div class="di-label">Quality Maturity</div><div class="di-value" style="font-size:14px;color:var(--${c.maturity==='Leading'||c.maturity==='Advanced'?'accent':c.maturity==='Established'?'brand':c.maturity==='Developing'?'warn':'danger'})">${c.maturity}</div><div class="di-sub">${{Leading:'Benchmark centre',Advanced:'Above average',Established:'Meeting expectations',Developing:'Improvement needed',Initial:'Significant intervention required'}[c.maturity]}</div></div>
+    </div>`;
+  document.getElementById('centreModal').classList.add('open');
+}
+
+function closeModal(){document.getElementById('centreModal').classList.remove('open')}
+document.getElementById('centreModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal()});
+
+// ═══════ AI PAGE ═══════
+function renderAI(cat){
+  const filtered=cat==='all'?AI_INSIGHTS:AI_INSIGHTS.filter(i=>i.cat===cat);
+  document.getElementById('aiCards').innerHTML=filtered.map(i=>`
+    <div class="ai-card">
+      <div class="ai-type">🤖 ${i.type}</div>
+      <div class="ai-title">${i.title}</div>
+      <div class="ai-body">${i.body}</div>
+      <div class="ai-why"><strong>Why:</strong> ${i.why}</div>
+      <div class="ai-confidence">✓ Confidence: ${i.confidence}%</div>
+    </div>`).join('');
+}
+function aiTab(el,cat){
+  document.querySelectorAll('.tabs .tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');renderAI(cat);
+}
+
+// ═══════ AUDIT PLANNING ═══════
+function renderAuditPlan(){
+  document.getElementById('auditRecs').innerHTML=AUDIT_RECS.map(r=>{
+    const pc=r.priority==='Critical'?'danger':r.priority==='High'?'warn':r.priority==='Medium'?'brand':'accent';
+    return `<div class="audit-rec">
+      <div>
+        <div class="ar-centre">${r.centre}</div>
+        <div class="ar-detail"><strong>Duration:</strong> ${r.duration} · <strong>Team:</strong> ${r.team}</div>
+        <div class="ar-detail">${r.reason}</div>
+        <div class="ar-tags">${r.clauses.map(c=>`<span class="ar-tag">Clause ${c}</span>`).join('')}</div>
+      </div>
+      <div class="ar-priority"><div class="priority-val" style="color:var(--${pc})">${r.score}</div><div class="priority-label" style="color:var(--${pc})">${r.priority}</div></div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════ EXECUTIVE DECISION CENTRE ═══════
+function renderExec(){
+  document.getElementById('execHero').innerHTML=[
+    {l:'Enterprise Quality Index',v:'87.4',d:'↑ 2.1 vs Q1',c:'brand',dc:'mc-up'},
+    {l:'Open Major NCs',v:'12',d:'3 overdue',c:'danger',dc:'mc-down'},
+    {l:'CAPA Effectiveness',v:'91%',d:'Target: 85%',c:'accent',dc:'mc-up'},
+    {l:'Audit Programme',v:'68%',d:'On track',c:'brand',dc:'mc-neutral'},
+    {l:'Training Compliance',v:'94%',d:'↑ 1%',c:'accent',dc:'mc-up'},
+  ].map(m=>`<div class="exec-metric"><div class="em-val" style="color:var(--${m.c})">${m.v}</div><div class="em-label">${m.l}</div><div class="em-delta ${m.dc}">${m.d}</div></div>`).join('');
+
+  const sorted=[...CENTRES].sort((a,b)=>a.score-b.score);
+  document.getElementById('execMap').innerHTML=`<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px">${sorted.map(c=>{
+    const s=statusOf(c.score);
+    return `<div style="background:var(--${s==='green'?'accent-bg':s==='amber'?'warn-bg':'danger-bg'});border-radius:6px;padding:8px;text-align:center;cursor:pointer;border:1px solid var(--border2)" onclick="openCentre('${c.name}')">
+      <div style="font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.name}</div>
+      <div style="font-size:18px;font-weight:800;color:var(--${s==='green'?'accent':s==='amber'?'warn':'danger'})">${c.score}</div>
+    </div>`;
+  }).join('')}</div>`;
+
+  document.getElementById('execRisks').innerHTML=[
+    {risk:'Clause 8.5.1 systemic failure',level:'Critical',trend:'↑'},
+    {risk:'Supplier XYZ quality deterioration',level:'Critical',trend:'↑'},
+    {risk:'Three centres below 75 threshold',level:'Critical',trend:'→'},
+    {risk:'Training material currency gap',level:'High',trend:'↑'},
+    {risk:'CAPA backlog at regional level',level:'High',trend:'↓'},
+  ].map(r=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px">
+    <span style="color:var(--text)">${r.risk}</span>
+    <span class="status-badge status-${r.level==='Critical'?'red':'amber'}">${r.level} ${r.trend}</span>
+  </div>`).join('');
+
+  document.getElementById('execObjectives').innerHTML=[
+    {obj:'Achieve 90+ Enterprise Quality Index',status:'On Track',val:'87.4',target:'90'},
+    {obj:'Zero Critical NCs unresolved >30 days',status:'At Risk',val:'2 open',target:'0'},
+    {obj:'CAPA effectiveness above 85%',status:'Achieved',val:'91%',target:'85%'},
+    {obj:'Training compliance above 95%',status:'At Risk',val:'94%',target:'95%'},
+    {obj:'Reduce customer complaints by 15%',status:'On Track',val:'-12%',target:'-15%'},
+  ].map(o=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px">
+    <span style="color:var(--text);flex:1">${o.obj}</span>
+    <span class="status-badge status-${o.status==='Achieved'?'green':o.status==='On Track'?'blue':'amber'}" style="margin-left:8px">${o.status}</span>
+  </div>`).join('');
+
+  document.getElementById('execAi').innerHTML=AI_INSIGHTS.filter(i=>i.cat==='recommendations').slice(0,3).map(i=>`
+    <div style="padding:8px 0;border-bottom:1px solid var(--border2)">
+      <div style="font-size:13px;font-weight:600;color:var(--text)">${i.title}</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:2px">${i.body.substring(0,120)}...</div>
+      <div style="font-size:11px;color:var(--accent);font-weight:600;margin-top:4px">Confidence: ${i.confidence}%</div>
+    </div>`).join('');
+
+  document.getElementById('execCalendar').innerHTML=[
+    {date:'5 Aug',centre:'East London',scope:'Full (Cl. 8.5, 10.2, 7.2)',status:'Confirmed'},
+    {date:'12 Aug',centre:'Polokwane',scope:'Full (Cl. 8.5, 6.1, 8.4)',status:'Confirmed'},
+    {date:'19 Aug',centre:'Bloemfontein',scope:'Focused (Cl. 10.2, 7.5)',status:'Pending'},
+    {date:'2 Sep',centre:'Richards Bay',scope:'Focused (Cl. 8.5, 8.4)',status:'Pending'},
+    {date:'9 Sep',centre:'Durban',scope:'Focused (Cl. 8.4)',status:'Draft'},
+  ].map(a=>`<div style="display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px;align-items:center">
+    <div style="min-width:50px;font-weight:700;color:var(--brand)">${a.date}</div>
+    <div style="flex:1"><div style="font-weight:600;color:var(--text)">${a.centre}</div><div style="font-size:11px;color:var(--text4)">${a.scope}</div></div>
+    <span class="status-badge status-${a.status==='Confirmed'?'green':a.status==='Pending'?'amber':'blue'}">${a.status}</span>
+  </div>`).join('');
+
+  renderChart('chartExecTrend','line',[82.1,83.4,84.0,84.8,85.2,85.0,85.7,86.3,86.1,86.8,87.0,86.5,87.4],['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul']);
+}
+
+// ═══════ WORKFLOW DEMO ═══════
+let wfRunning=false;
+function runWorkflow(){
+  if(wfRunning)return;wfRunning=true;
+  const btn=document.getElementById('wfSubmit');
+  btn.textContent='Processing...';btn.disabled=true;
+  document.getElementById('wfStatus').textContent='Running';
+  document.getElementById('wfStatus').className='card-badge status-amber';
+  const steps=document.querySelectorAll('.wf-step');
+  steps.forEach(s=>{s.className='wf-step pending';s.querySelector('.wf-step-time').textContent=''});
+  const times=['Just now','2 seconds later','3 seconds later','5 seconds later','6 seconds later','7 seconds later','8 seconds later','8 seconds later','9 seconds later'];
+  let i=0;
+  function next(){
+    if(i>0)steps[i-1].classList.replace('active','done');
+    if(i>=steps.length){
+      document.getElementById('wfStatus').textContent='Complete';
+      document.getElementById('wfStatus').className='card-badge status-green';
+      btn.textContent='Submit Non-Conformance';btn.disabled=false;wfRunning=false;
+      showToast('success','Workflow Complete','NC-2026-0847 raised. CAPA-2026-0312 auto-created. All stakeholders notified. Dashboards updated.');
+      return;
+    }
+    steps[i].className='wf-step active';
+    steps[i].querySelector('.wf-step-time').textContent=times[i];
+    if(i===2)showToast('info','Teams Notification','New Major NC raised at '+document.getElementById('wfCentre').value+' — NC-2026-0847');
+    if(i===4)showToast('info','CAPA Created','CAPA-2026-0312 automatically generated from Major NC');
+    if(i===5)showToast('info','Actions Assigned','3 action owners notified via Teams and email');
+    i++;
+    setTimeout(next,800+Math.random()*400);
+  }
+  next();
+}
+
+// ═══════ TOASTS ═══════
+function showToast(type,title,msg){
+  const container=document.getElementById('toastContainer');
+  const icons={info:'ℹ️',success:'✅',warning:'⚠️',error:'❌'};
+  const toast=document.createElement('div');
+  toast.className='toast';
+  toast.innerHTML=`<span class="toast-icon">${icons[type]||'ℹ️'}</span><div class="toast-body"><div class="toast-title">${title}</div><div class="toast-msg">${msg}</div></div><button class="toast-close" onclick="this.parentElement.remove()">✕</button>`;
+  container.appendChild(toast);
+  setTimeout(()=>{if(toast.parentElement)toast.remove()},6000);
+}
+
+// ═══════ SIMPLE CHART RENDERER ═══════
+function renderChart(id,type,data,labels,color){
+  const canvas=document.getElementById(id);if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const rect=canvas.parentElement.getBoundingClientRect();
+  canvas.width=rect.width*dpr;canvas.height=rect.height*dpr;
+  canvas.style.width=rect.width+'px';canvas.style.height=rect.height+'px';
+  ctx.scale(dpr,dpr);
+  const W=rect.width,H=rect.height;
+  const pad={t:20,r:20,b:30,l:40};
+  const cW=W-pad.l-pad.r,cH=H-pad.t-pad.b;
+  const max=Math.max(...data)*1.1,min=Math.min(...data)*0.9;
+
+  const cs=getComputedStyle(document.documentElement);
+  const textCol=cs.getPropertyValue('--text4').trim()||'#999';
+  const borderCol=cs.getPropertyValue('--border2').trim()||'#eee';
+  const brandCol=color||cs.getPropertyValue('--brand').trim()||'#0f6cbd';
+
+  ctx.strokeStyle=borderCol;ctx.lineWidth=1;
+  for(let i=0;i<5;i++){
+    const y=pad.t+cH*(i/4);
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
+    ctx.fillStyle=textCol;ctx.font='10px '+getComputedStyle(document.body).fontFamily;
+    ctx.textAlign='right';ctx.fillText((max-(max-min)*(i/4)).toFixed(0),pad.l-6,y+3);
+  }
+
+  if(labels){
+    ctx.fillStyle=textCol;ctx.textAlign='center';ctx.font='10px '+getComputedStyle(document.body).fontFamily;
+    labels.forEach((l,i)=>{
+      const x=pad.l+cW*(i/(data.length-1));
+      ctx.fillText(l,x,H-8);
+    });
+  }
+
+  if(type==='line'){
+    const gradient=ctx.createLinearGradient(0,pad.t,0,H-pad.b);
+    gradient.addColorStop(0,brandCol+'40');gradient.addColorStop(1,brandCol+'05');
+    ctx.beginPath();
+    data.forEach((v,i)=>{
+      const x=pad.l+cW*(i/(data.length-1));
+      const y=pad.t+cH*(1-(v-min)/(max-min));
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    const lastX=pad.l+cW;
+    ctx.lineTo(lastX,H-pad.b);ctx.lineTo(pad.l,H-pad.b);ctx.closePath();
+    ctx.fillStyle=gradient;ctx.fill();
+
+    ctx.beginPath();
+    data.forEach((v,i)=>{
+      const x=pad.l+cW*(i/(data.length-1));
+      const y=pad.t+cH*(1-(v-min)/(max-min));
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.strokeStyle=brandCol;ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.stroke();
+
+    const lastV=data[data.length-1];
+    const lx=pad.l+cW,ly=pad.t+cH*(1-(lastV-min)/(max-min));
+    ctx.beginPath();ctx.arc(lx,ly,4,0,Math.PI*2);ctx.fillStyle=brandCol;ctx.fill();
+    ctx.beginPath();ctx.arc(lx,ly,6,0,Math.PI*2);ctx.strokeStyle=brandCol;ctx.lineWidth=2;ctx.stroke();
+  }
+  else if(type==='bar'){
+    const barW=Math.min(cW/data.length*0.6,30);
+    data.forEach((v,i)=>{
+      const x=pad.l+cW*((i+0.5)/data.length)-barW/2;
+      const h=cH*(v/max);
+      const y=pad.t+cH-h;
+      ctx.fillStyle=brandCol;
+      roundRect(ctx,x,y,barW,h,3);ctx.fill();
+    });
+  }
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h);ctx.lineTo(x,y+h);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
+}
+
+function renderMultiBar(id,datasets,labels){
+  const canvas=document.getElementById(id);if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const rect=canvas.parentElement.getBoundingClientRect();
+  canvas.width=rect.width*dpr;canvas.height=rect.height*dpr;
+  canvas.style.width=rect.width+'px';canvas.style.height=rect.height+'px';
+  ctx.scale(dpr,dpr);
+  const W=rect.width,H=rect.height;
+  const pad={t:20,r:20,b:30,l:40};
+  const cW=W-pad.l-pad.r,cH=H-pad.t-pad.b;
+  const allVals=datasets.flatMap(d=>d.data);
+  const max=Math.max(...allVals)*1.2;
+
+  const cs=getComputedStyle(document.documentElement);
+  const textCol=cs.getPropertyValue('--text4').trim()||'#999';
+  const borderCol=cs.getPropertyValue('--border2').trim()||'#eee';
+
+  ctx.strokeStyle=borderCol;ctx.lineWidth=1;
+  for(let i=0;i<5;i++){
+    const y=pad.t+cH*(i/4);
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
+    ctx.fillStyle=textCol;ctx.font='10px '+getComputedStyle(document.body).fontFamily;
+    ctx.textAlign='right';ctx.fillText((max*(1-i/4)).toFixed(0),pad.l-6,y+3);
+  }
+
+  if(labels){
+    ctx.fillStyle=textCol;ctx.textAlign='center';ctx.font='10px '+getComputedStyle(document.body).fontFamily;
+    labels.forEach((l,i)=>{ctx.fillText(l,pad.l+cW*((i+0.5)/labels.length),H-8)});
+  }
+
+  const n=datasets.length;
+  const groupW=cW/labels.length;
+  const barW=Math.min(groupW*0.6/n,20);
+
+  datasets.forEach((ds,di)=>{
+    ds.data.forEach((v,i)=>{
+      const x=pad.l+groupW*(i+0.5)-(n*barW+(n-1)*2)/2+di*(barW+2);
+      const h=cH*(v/max);const y=pad.t+cH-h;
+      ctx.fillStyle=ds.color;
+      roundRect(ctx,x,y,barW,h,2);ctx.fill();
+    });
+  });
+}
+
+function renderHorizBar(id,items){
+  const canvas=document.getElementById(id);if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const rect=canvas.parentElement.getBoundingClientRect();
+  canvas.width=rect.width*dpr;canvas.height=rect.height*dpr;
+  canvas.style.width=rect.width+'px';canvas.style.height=rect.height+'px';
+  ctx.scale(dpr,dpr);
+  const W=rect.width,H=rect.height;
+  const cs=getComputedStyle(document.documentElement);
+  const textCol=cs.getPropertyValue('--text3').trim()||'#666';
+  const max=Math.max(...items.map(i=>i.val));
+  const barH=20;const gap=8;const labelW=60;
+  const startY=(H-items.length*(barH+gap))/2;
+
+  items.forEach((item,i)=>{
+    const y=startY+i*(barH+gap);
+    ctx.fillStyle=textCol;ctx.font='11px '+getComputedStyle(document.body).fontFamily;
+    ctx.textAlign='right';ctx.fillText(item.label,labelW-8,y+barH/2+4);
+    const bw=(W-labelW-40)*(item.val/max);
+    ctx.fillStyle=item.color||cs.getPropertyValue('--brand').trim();
+    roundRect(ctx,labelW,y,bw,barH,3);ctx.fill();
+    ctx.fillStyle=textCol;ctx.textAlign='left';ctx.fillText(item.val+'%',labelW+bw+8,y+barH/2+4);
+  });
+}
+
+// ═══════ ANALYTICS PAGE CHARTS ═══════
+function renderAnalytics(){
+  const cs=getComputedStyle(document.documentElement);
+  renderMultiBar('chartRegion',[
+    {data:[89,86,88,79,78],color:cs.getPropertyValue('--brand').trim()},
+  ],['Gauteng','KZN','W.Cape','E.Cape','FS/NW']);
+  renderHorizBar('chartClause',[
+    {label:'Cl. 4',val:92},{label:'Cl. 5',val:94},{label:'Cl. 6',val:88},
+    {label:'Cl. 7',val:91},{label:'Cl. 8',val:72,color:cs.getPropertyValue('--danger').trim()},
+    {label:'Cl. 9',val:86},{label:'Cl. 10',val:84},
+  ]);
+}
+
+// ═══════ RENDER TABLES ═══════
+function renderTables(){
+  // NC table
+  document.getElementById('ncTable').innerHTML=`<table><thead><tr><th>Reference</th><th>Centre</th><th>Category</th><th>Severity</th><th>Status</th><th>Age</th></tr></thead><tbody>
+    ${[
+      ['NC-2026-0841','East London','Process Deviation','Critical','Investigation','32d'],
+      ['NC-2026-0843','Polokwane','Incoming Goods','Major','Root Cause','28d'],
+      ['NC-2026-0844','Bloemfontein','SOP Non-compliance','Major','CAPA Pending','24d'],
+      ['NC-2026-0845','Richards Bay','Service Delivery','Major','Containment','18d'],
+      ['NC-2026-0846','Durban','Incoming Goods','Minor','Investigation','14d'],
+      ['NC-2026-0847','Johannesburg','Incoming Goods','Major','New','2d'],
+      ['NC-2026-0838','Soweto','Training Lapse','Minor','CAPA In Progress','38d'],
+      ['NC-2026-0840','George','Equipment','Minor','Verification','21d'],
+    ].map(r=>`<tr><td style="font-weight:600;color:var(--brand)">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td><span class="status-badge status-${r[3]==='Critical'?'red':r[3]==='Major'?'amber':'blue'}">${r[3]}</span></td><td>${r[4]}</td><td style="font-variant-numeric:tabular-nums">${r[5]}</td></tr>`).join('')}
+  </tbody></table>`;
+
+  // CAPA table
+  document.getElementById('capaTable').innerHTML=`<table><thead><tr><th>Reference</th><th>Source NC</th><th>Centre</th><th>Status</th><th>Effectiveness</th><th>Age</th></tr></thead><tbody>
+    ${[
+      ['CAPA-2026-0298','NC-2026-0820','East London','Overdue','Pending','68d'],
+      ['CAPA-2026-0301','NC-2026-0831','Polokwane','In Progress','Pending','52d'],
+      ['CAPA-2026-0304','NC-2026-0838','Soweto','In Progress','Pending','38d'],
+      ['CAPA-2026-0306','NC-2026-0841','East London','Planning','—','32d'],
+      ['CAPA-2026-0308','NC-2026-0843','Polokwane','Planning','—','28d'],
+      ['CAPA-2026-0310','NC-2026-0844','Bloemfontein','Awaiting Approval','—','24d'],
+      ['CAPA-2026-0311','NC-2026-0840','George','Verification','91%','21d'],
+      ['CAPA-2026-0312','NC-2026-0847','Johannesburg','New','—','2d'],
+    ].map(r=>`<tr><td style="font-weight:600;color:var(--brand)">${r[0]}</td><td style="color:var(--text3)">${r[1]}</td><td>${r[2]}</td><td><span class="status-badge status-${r[3]==='Overdue'?'red':r[3]==='New'?'blue':r[3]==='Verification'?'green':'amber'}">${r[3]}</span></td><td>${r[4]}</td><td style="font-variant-numeric:tabular-nums">${r[5]}</td></tr>`).join('')}
+  </tbody></table>`;
+
+  // Doc table
+  document.getElementById('docTable').innerHTML=`<table><thead><tr><th>Document</th><th>Type</th><th>Version</th><th>Status</th><th>Owner</th><th>Review Due</th></tr></thead><tbody>
+    ${[
+      ['QMS-POL-001 Quality Policy','Policy','4.0','Approved','S. Mitchell','Dec 2026'],
+      ['SOP-PRO-042 Incoming Goods','SOP','3.2','Approved','J. van der Merwe','Sep 2026'],
+      ['SOP-SRV-018 Service Delivery','SOP','5.1','In Review','T. Dlamini','Overdue'],
+      ['WI-TRN-006 Onboarding','Work Instruction','2.0','Approved','M. Pillay','Nov 2026'],
+      ['FRM-AUD-012 Audit Checklist','Form','1.4','Draft','A. Nkosi','—'],
+      ['SOP-CMP-003 Complaint Handling','SOP','2.3','Approved','R. Joubert','Oct 2026'],
+    ].map(r=>`<tr><td style="font-weight:600;color:var(--text)">${r[0]}</td><td>${r[1]}</td><td style="font-variant-numeric:tabular-nums">${r[2]}</td><td><span class="status-badge status-${r[3]==='Approved'?'green':r[3]==='In Review'?'amber':r[3]==='Draft'?'blue':'red'}">${r[3]}</span></td><td>${r[4]}</td><td style="color:${r[5]==='Overdue'?'var(--danger)':'var(--text3)'}">${r[5]}</td></tr>`).join('')}
+  </tbody></table>`;
+
+  // Audit table
+  document.getElementById('auditTable').innerHTML=`<table><thead><tr><th>Audit</th><th>Centre</th><th>Auditor</th><th>Status</th><th>Score</th><th>Findings</th></tr></thead><tbody>
+    ${[
+      ['AUD-2026-017','Cape Town','S. Botha','Completed','92%','1 Obs'],
+      ['AUD-2026-016','Sandton','J. van der Merwe','Completed','89%','2 Minor'],
+      ['AUD-2026-015','Newcastle','A. Nkosi','Completed','85%','1 Minor, 1 Obs'],
+      ['AUD-2026-018','Durban','T. Dlamini','In Progress','—','—'],
+      ['AUD-2026-019','East London','J. van der Merwe','Scheduled','—','—'],
+      ['AUD-2026-020','Polokwane','T. Dlamini','Scheduled','—','—'],
+    ].map(r=>`<tr><td style="font-weight:600;color:var(--brand)">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td><span class="status-badge status-${r[3]==='Completed'?'green':r[3]==='In Progress'?'amber':'blue'}">${r[3]}</span></td><td style="font-variant-numeric:tabular-nums">${r[4]}</td><td>${r[5]}</td></tr>`).join('')}
+  </tbody></table>`;
+
+  // Risk table
+  document.getElementById('riskTable').innerHTML=`<table><thead><tr><th>Risk</th><th>Category</th><th>Rating</th><th>Treatment</th><th>Owner</th><th>Review</th></tr></thead><tbody>
+    ${[
+      ['Clause 8.5.1 systemic failure','Process','Critical','Mitigate','Head of Quality','Monthly'],
+      ['Supplier XYZ quality decline','Supply Chain','Critical','Mitigate','Regional QM (KZN)','Monthly'],
+      ['Three centres below threshold','Operational','Critical','Mitigate','COO','Monthly'],
+      ['Training material currency','Competency','High','Mitigate','Quality Admin','Quarterly'],
+      ['CAPA backlog growth','Compliance','High','Mitigate','Head of Quality','Quarterly'],
+      ['Document review overdue','Documentation','Medium','Accept','Quality Admin','Quarterly'],
+      ['Customer complaint trend','Service','Medium','Mitigate','Regional QM (EC)','Quarterly'],
+      ['Auditor capacity constraint','Resource','High','Transfer','Head of Quality','Quarterly'],
+    ].map(r=>`<tr><td style="font-weight:600;color:var(--text)">${r[0]}</td><td>${r[1]}</td><td><span class="status-badge status-${r[2]==='Critical'?'red':r[2]==='High'?'amber':'blue'}">${r[2]}</span></td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td></tr>`).join('')}
+  </tbody></table>`;
+
+  // Training table
+  document.getElementById('trainingTable').innerHTML=`<table><thead><tr><th>Centre</th><th>Compliance</th><th>Expiring</th><th>Overdue</th><th>Hours MTD</th><th>Status</th></tr></thead><tbody>
+    ${CENTRES.slice(0,12).map(c=>`<tr><td style="font-weight:600">${c.name}</td><td style="font-variant-numeric:tabular-nums">${c.training}%</td><td style="font-variant-numeric:tabular-nums">${Math.floor(Math.random()*4)}</td><td style="font-variant-numeric:tabular-nums;color:${100-c.training>8?'var(--danger)':'var(--text3)'}">${Math.max(0,Math.floor((100-c.training)/3))}</td><td style="font-variant-numeric:tabular-nums">${Math.floor(20+Math.random()*30)}</td><td><span class="status-badge status-${c.training>=95?'green':c.training>=90?'amber':'red'}">${c.training>=95?'Compliant':'Below Target'}</span></td></tr>`).join('')}
+  </tbody></table>`;
+
+  // Complaints table
+  document.getElementById('complaintsTable').innerHTML=`<table><thead><tr><th>Reference</th><th>Centre</th><th>Type</th><th>Status</th><th>Age</th><th>Satisfaction</th></tr></thead><tbody>
+    ${[
+      ['CMP-2026-089','East London','Service — Timeliness','Investigation','8d','—'],
+      ['CMP-2026-090','Polokwane','Service — Quality','Investigation','6d','—'],
+      ['CMP-2026-091','Durban','Product — Defect','Pending Resolution','4d','—'],
+      ['CMP-2026-087','Bloemfontein','Service — Communication','Resolved','14d','72%'],
+      ['CMP-2026-085','Cape Town','Service — Timeliness','Resolved','18d','94%'],
+    ].map(r=>`<tr><td style="font-weight:600;color:var(--brand)">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td><span class="status-badge status-${r[3]==='Investigation'?'amber':r[3]==='Resolved'?'green':'blue'}">${r[3]}</span></td><td style="font-variant-numeric:tabular-nums">${r[4]}</td><td>${r[5]}</td></tr>`).join('')}
+  </tbody></table>`;
+
+  // Supplier table
+  document.getElementById('supplierTable').innerHTML=`<table><thead><tr><th>Supplier</th><th>Category</th><th>Score</th><th>Status</th><th>NCs</th><th>Last Eval</th></tr></thead><tbody>
+    ${[
+      ['Supplier XYZ','Raw Materials','62%','Conditional','11','Jun 2026'],
+      ['Supplier ABC','Equipment','94%','Approved','0','May 2026'],
+      ['Supplier DEF','Consumables','88%','Approved','2','Apr 2026'],
+      ['Supplier GHI','Services','91%','Approved','1','Jun 2026'],
+      ['Supplier JKL','Raw Materials','78%','Under Review','4','Jul 2026'],
+      ['Supplier MNO','IT Services','96%','Approved','0','Mar 2026'],
+    ].map(r=>`<tr><td style="font-weight:600;color:var(--text)">${r[0]}</td><td>${r[1]}</td><td style="font-variant-numeric:tabular-nums;font-weight:600;color:${parseInt(r[2])>=85?'var(--accent)':parseInt(r[2])>=75?'var(--warn)':'var(--danger)'}">${r[2]}</td><td><span class="status-badge status-${r[3]==='Approved'?'green':r[3]==='Conditional'?'red':'amber'}">${r[3]}</span></td><td style="font-variant-numeric:tabular-nums">${r[4]}</td><td>${r[5]}</td></tr>`).join('')}
+  </tbody></table>`;
+}
+
+// ═══════ DASHBOARD METRICS ═══════
+function renderDashMetrics(){
+  document.getElementById('dashMetrics').innerHTML=[
+    {l:'Enterprise Quality Index',v:'87.4',d:'↑ 2.1 vs Q1',c:'brand',dc:'mc-up'},
+    {l:'Open NCs',v:'12',d:'4 overdue',c:'danger',dc:'mc-down'},
+    {l:'CAPA Effectiveness',v:'91%',d:'↑ 4% YoY',c:'accent',dc:'mc-up'},
+    {l:'Training Compliance',v:'94%',d:'Target: 95%',c:'warn',dc:'mc-neutral'},
+    {l:'Customer Satisfaction',v:'88%',d:'↑ 3% vs H1',c:'accent',dc:'mc-up'},
+  ].map(m=>`<div class="metric-card"><div class="mc-label">${m.l}</div><div class="mc-value" style="color:var(--${m.c})">${m.v}</div><div class="mc-delta ${m.dc}">${m.d}</div></div>`).join('');
+
+  document.getElementById('dashAiInsights').innerHTML=AI_INSIGHTS.slice(0,3).map(i=>`
+    <div style="padding:8px 0;border-bottom:1px solid var(--border2)">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--warn-text)">🤖 ${i.type}</div>
+      <div style="font-size:13px;font-weight:600;color:var(--text);margin-top:4px">${i.title}</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:2px">${i.body.substring(0,100)}...</div>
+    </div>`).join('');
+}
+
+// ═══════ INIT ═══════
+function init(){
+  renderDashMetrics();
+  renderTables();
+  renderCentres();
+
+  setTimeout(()=>{
+    const cs=getComputedStyle(document.documentElement);
+    renderChart('chartTrend','line',[82.1,83.4,84.0,84.8,85.2,85.0,85.7,86.3,86.1,86.8,87.0,86.5,87.4],['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul']);
+
+    renderMultiBar('chartNC',[
+      {data:[8,12,10,14,11,18],color:cs.getPropertyValue('--danger').trim()||'#c4314b'},
+      {data:[22,19,24,20,18,16],color:cs.getPropertyValue('--warn').trim()||'#d4a72c'},
+    ],['Feb','Mar','Apr','May','Jun','Jul']);
+
+    renderMultiBar('chartCAPA',[
+      {data:[3,5,4,6,5,4],color:cs.getPropertyValue('--danger').trim()},
+      {data:[6,4,7,5,8,5],color:cs.getPropertyValue('--warn').trim()},
+      {data:[12,14,11,13,10,12],color:cs.getPropertyValue('--brand').trim()},
+    ],['Feb','Mar','Apr','May','Jun','Jul']);
+  },100);
+}
+
+window.addEventListener('resize',()=>{
+  const cs=getComputedStyle(document.documentElement);
+  renderChart('chartTrend','line',[82.1,83.4,84.0,84.8,85.2,85.0,85.7,86.3,86.1,86.8,87.0,86.5,87.4],['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul']);
+  if(currentPage==='analytics')renderAnalytics();
+  if(currentPage==='exec'){
+    renderChart('chartExecTrend','line',[82.1,83.4,84.0,84.8,85.2,85.0,85.7,86.3,86.1,86.8,87.0,86.5,87.4],['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul']);
+  }
+});
+
+init();
+</script>
