@@ -1,0 +1,2463 @@
+<title>ABC Enterprise Quality Platform — Solution Blueprint</title>
+<style>
+:root {
+  --primary: #1A5276;
+  --primary-muted: #2471A3;
+  --primary-faint: #EAF0F6;
+  --accent: #B5850A;
+  --accent-muted: #D4A017;
+  --accent-faint: #FDF6E3;
+  --ink: #1C2127;
+  --ink-2: #3D444D;
+  --ink-3: #5A6270;
+  --dim: #8891A0;
+  --surface: #F6F5F1;
+  --card: #FFFFFF;
+  --card-alt: #FAFAF7;
+  --border: #D4D0C8;
+  --border-fine: #E6E3DC;
+  --success: #1D7A47;
+  --success-bg: #E9F7EF;
+  --warning: #B7700A;
+  --warning-bg: #FEF5E7;
+  --danger: #A93226;
+  --danger-bg: #FDECEA;
+  --info-bg: #EAF0F6;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: "Cascadia Code", "SF Mono", Consolas, "Liberation Mono", monospace;
+  --gap: 2rem;
+  --radius: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #5DADE2;
+    --primary-muted: #85C1E9;
+    --primary-faint: #1A2A38;
+    --accent: #D4A017;
+    --accent-muted: #F0C040;
+    --accent-faint: #28220E;
+    --ink: #E0DDD6;
+    --ink-2: #B8B4AC;
+    --ink-3: #908C84;
+    --dim: #6E6A62;
+    --surface: #141810;
+    --card: #1E221A;
+    --card-alt: #24281F;
+    --border: #3A3830;
+    --border-fine: #2E2C24;
+    --success: #45B97C;
+    --success-bg: #152A1E;
+    --warning: #D4983F;
+    --warning-bg: #2A2112;
+    --danger: #E07060;
+    --danger-bg: #2A1815;
+    --info-bg: #1A2A38;
+  }
+}
+
+:root[data-theme="dark"] {
+  --primary: #5DADE2;
+  --primary-muted: #85C1E9;
+  --primary-faint: #1A2A38;
+  --accent: #D4A017;
+  --accent-muted: #F0C040;
+  --accent-faint: #28220E;
+  --ink: #E0DDD6;
+  --ink-2: #B8B4AC;
+  --ink-3: #908C84;
+  --dim: #6E6A62;
+  --surface: #141810;
+  --card: #1E221A;
+  --card-alt: #24281F;
+  --border: #3A3830;
+  --border-fine: #2E2C24;
+  --success: #45B97C;
+  --success-bg: #152A1E;
+  --warning: #D4983F;
+  --warning-bg: #2A2112;
+  --danger: #E07060;
+  --danger-bg: #2A1815;
+  --info-bg: #1A2A38;
+}
+
+:root[data-theme="light"] {
+  --primary: #1A5276;
+  --primary-muted: #2471A3;
+  --primary-faint: #EAF0F6;
+  --accent: #B5850A;
+  --accent-muted: #D4A017;
+  --accent-faint: #FDF6E3;
+  --ink: #1C2127;
+  --ink-2: #3D444D;
+  --ink-3: #5A6270;
+  --dim: #8891A0;
+  --surface: #F6F5F1;
+  --card: #FFFFFF;
+  --card-alt: #FAFAF7;
+  --border: #D4D0C8;
+  --border-fine: #E6E3DC;
+  --success: #1D7A47;
+  --success-bg: #E9F7EF;
+  --warning: #B7700A;
+  --warning-bg: #FEF5E7;
+  --danger: #A93226;
+  --danger-bg: #FDECEA;
+  --info-bg: #EAF0F6;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--surface);
+  line-height: 1.65;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Layout ── */
+.page-wrap {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  width: 260px;
+  min-width: 260px;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid var(--border-fine);
+  background: var(--card);
+  padding: 1.5rem 0;
+  font-size: 0.82rem;
+  z-index: 100;
+}
+
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+.sidebar .logo {
+  padding: 0 1.25rem 1.25rem;
+  border-bottom: 1px solid var(--border-fine);
+  margin-bottom: 1rem;
+}
+
+.sidebar .logo-text {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--primary);
+  letter-spacing: -0.01em;
+}
+
+.sidebar .logo-sub {
+  font-size: 0.7rem;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 0.2rem;
+}
+
+.sidebar nav a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.4rem 1.25rem;
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: color 0.15s, background 0.15s;
+  line-height: 1.4;
+}
+
+.sidebar nav a:hover {
+  color: var(--primary);
+  background: var(--primary-faint);
+}
+
+.sidebar nav a .num {
+  font-family: var(--serif);
+  font-size: 0.75rem;
+  color: var(--accent);
+  min-width: 1.5rem;
+  font-weight: 600;
+}
+
+.sidebar nav .sub {
+  padding-left: 3.25rem;
+  font-size: 0.76rem;
+  color: var(--dim);
+}
+
+.sidebar nav .sub:hover { color: var(--primary-muted); }
+
+.sidebar nav .divider {
+  height: 1px;
+  background: var(--border-fine);
+  margin: 0.75rem 1.25rem;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2.5rem 3rem 6rem;
+}
+
+/* ── Cover ── */
+.cover {
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 3.5rem 3rem 3rem;
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.cover-eyebrow {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.cover h1 {
+  font-family: var(--sans);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin: 0 0 0.25rem;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.cover .subtitle {
+  font-size: 1.1rem;
+  color: var(--ink-2);
+  font-weight: 400;
+  margin-bottom: 2rem;
+}
+
+.cover-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  font-size: 0.78rem;
+  color: var(--dim);
+  border-top: 1px solid var(--border-fine);
+  padding-top: 1.25rem;
+}
+
+.cover-meta dt {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--dim);
+  margin-bottom: 0.15rem;
+}
+
+.cover-meta dd {
+  margin: 0;
+  color: var(--ink-2);
+  font-weight: 500;
+}
+
+/* ── Section headers ── */
+.section {
+  margin-bottom: 3.5rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border-fine);
+}
+
+.section-num {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.section-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.section-intro {
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  max-width: 680px;
+  line-height: 1.7;
+}
+
+/* ── Sub-sections ── */
+h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 2.5rem 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+h3 .clause {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--dim);
+  margin-left: 0.5rem;
+}
+
+h4 {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  margin: 1.5rem 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+p {
+  margin: 0 0 1rem;
+  color: var(--ink-2);
+  font-size: 0.92rem;
+}
+
+/* ── Cards ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.35rem;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.card-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.card-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.badge-exec { background: var(--accent-faint); color: var(--accent); }
+.badge-regional { background: var(--primary-faint); color: var(--primary); }
+.badge-site { background: var(--success-bg); color: var(--success); }
+.badge-cross { background: var(--info-bg); color: var(--primary-muted); }
+.badge-iso { background: var(--accent-faint); color: var(--accent); font-family: var(--mono); font-size: 0.62rem; }
+
+.card-desc {
+  font-size: 0.82rem;
+  color: var(--ink-3);
+  margin-bottom: 0.75rem;
+  line-height: 1.55;
+}
+
+.card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--ink-2);
+}
+
+.card-list li {
+  padding: 0.2rem 0;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.card-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65rem;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.card-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--dim);
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.tag {
+  font-size: 0.68rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 3px;
+  background: var(--primary-faint);
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.tag-accent {
+  background: var(--accent-faint);
+  color: var(--accent);
+}
+
+/* ── Architecture diagram ── */
+.arch-diagram {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+
+.arch-layer {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.arch-layer-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  position: absolute;
+  top: -0.55rem;
+  left: 1rem;
+  background: var(--card);
+  padding: 0 0.4rem;
+}
+
+.arch-layer.presentation { border-color: var(--primary); }
+.arch-layer.presentation .arch-layer-label { color: var(--primary); }
+.arch-layer.process { border-color: var(--accent); }
+.arch-layer.process .arch-layer-label { color: var(--accent); }
+.arch-layer.intelligence { border-color: #7D3C98; }
+.arch-layer.intelligence .arch-layer-label { color: #7D3C98; }
+.arch-layer.data { border-color: var(--success); }
+.arch-layer.data .arch-layer-label { color: var(--success); }
+.arch-layer.security { border-color: var(--danger); }
+.arch-layer.security .arch-layer-label { color: var(--danger); }
+
+.arch-components {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.arch-comp {
+  background: var(--card-alt);
+  border: 1px solid var(--border-fine);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.76rem;
+  flex: 1;
+  min-width: 140px;
+}
+
+.arch-comp strong {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--ink);
+  margin-bottom: 0.15rem;
+}
+
+.arch-comp span {
+  font-size: 0.7rem;
+  color: var(--dim);
+}
+
+.arch-arrow {
+  text-align: center;
+  color: var(--dim);
+  font-size: 0.9rem;
+  padding: 0.15rem 0;
+  letter-spacing: 0.5rem;
+}
+
+/* ── Tables ── */
+.table-wrap {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border-fine);
+  border-radius: var(--radius);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+thead th {
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: var(--dim);
+  padding: 0.7rem 1rem;
+  border-bottom: 2px solid var(--border);
+  background: var(--card-alt);
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--border-fine);
+  color: var(--ink-2);
+  vertical-align: top;
+}
+
+tbody tr:last-child td { border-bottom: none; }
+
+tbody tr:nth-child(even) { background: var(--card-alt); }
+tbody tr:nth-child(odd) { background: var(--card); }
+
+/* ── Journey blocks ── */
+.journey {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+  overflow: hidden;
+}
+
+.journey-header {
+  padding: 1rem 1.35rem;
+  border-bottom: 1px solid var(--border-fine);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.journey-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.journey-steps {
+  padding: 1.25rem 1.35rem;
+}
+
+.journey-step {
+  display: flex;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  font-size: 0.82rem;
+}
+
+.journey-step + .journey-step {
+  border-top: 1px solid var(--border-fine);
+}
+
+.step-num {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--accent);
+  min-width: 1.6rem;
+  padding-top: 0.05rem;
+}
+
+.step-content strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.step-content {
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+
+.step-actor {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 0.2rem;
+}
+
+/* ── Dashboard widget mockups ── */
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.dash-widget {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-radius: var(--radius);
+  padding: 1rem;
+  text-align: center;
+}
+
+.dash-widget .label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--dim);
+  font-weight: 600;
+}
+
+.dash-widget .value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+  margin: 0.35rem 0 0.15rem;
+}
+
+.dash-widget .delta {
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.delta-up { color: var(--success); }
+.delta-down { color: var(--danger); }
+
+/* ── Roadmap timeline ── */
+.timeline {
+  position: relative;
+  padding-left: 2.5rem;
+  margin: 1.5rem 0;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0.85rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -1.82rem;
+  top: 0.35rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--card);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.timeline-year {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.35rem;
+}
+
+.timeline-subtitle {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-content {
+  font-size: 0.82rem;
+  color: var(--ink-2);
+}
+
+.timeline-content ul {
+  margin: 0.5rem 0;
+  padding-left: 1.1rem;
+}
+
+.timeline-content li {
+  padding: 0.15rem 0;
+}
+
+/* ── Callout boxes ── */
+.callout {
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  margin: 1rem 0;
+  border-left: 3px solid;
+}
+
+.callout-info { background: var(--info-bg); border-color: var(--primary); }
+.callout-warn { background: var(--warning-bg); border-color: var(--warning); }
+.callout-success { background: var(--success-bg); border-color: var(--success); }
+
+.callout strong { color: var(--ink); }
+
+/* ── Mermaid ── */
+pre.mermaid {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  text-align: center;
+}
+
+/* ── Module full card ── */
+.module-card {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-radius: var(--radius);
+  padding: 1.35rem 1.5rem;
+  margin: 1rem 0;
+}
+
+.module-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.module-card-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.module-caps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem 1.5rem;
+  margin: 0.75rem 0;
+}
+
+.module-caps li {
+  font-size: 0.8rem;
+  color: var(--ink-2);
+  padding: 0.15rem 0 0.15rem 0.9rem;
+  position: relative;
+  list-style: none;
+}
+
+.module-caps li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.module-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-fine);
+  font-size: 0.76rem;
+}
+
+.module-meta-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--dim);
+  margin-bottom: 0.15rem;
+}
+
+.module-meta-value {
+  color: var(--ink-3);
+}
+
+/* ── AI capability cards ── */
+.ai-card {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.35rem;
+  margin: 0.75rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 2rem;
+}
+
+.ai-card-head {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.ai-card-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.ai-card-desc {
+  grid-column: 1 / -1;
+  font-size: 0.82rem;
+  color: var(--ink-3);
+  margin-bottom: 0.25rem;
+}
+
+.ai-detail label {
+  display: block;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--dim);
+  margin-bottom: 0.15rem;
+}
+
+.ai-detail span {
+  font-size: 0.8rem;
+  color: var(--ink-2);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main { padding: 1.5rem 1.25rem 4rem; }
+  .cover { padding: 2rem 1.5rem 1.5rem; }
+  .cover h1 { font-size: 1.5rem; }
+  .module-caps { grid-template-columns: 1fr; }
+  .ai-card { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: 1fr; }
+  .cover-meta { gap: 1rem; }
+}
+
+/* ── Print ── */
+@media print {
+  .sidebar { display: none; }
+  .main { max-width: 100%; padding: 0; }
+  .cover::before { display: none; }
+}
+
+/* ── Smooth scrolling ── */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* ── Focus ── */
+a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ── Kicker ── */
+.kicker {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.stat-box {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  flex: 1;
+  min-width: 130px;
+  text-align: center;
+}
+
+.stat-box .val {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-box .lbl {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--dim);
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+</style>
+
+<div class="page-wrap">
+
+<!-- ════════════ Sidebar ════════════ -->
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-text">ABC Quality Platform</div>
+    <div class="logo-sub">Solution Blueprint v 1.0</div>
+  </div>
+  <nav>
+    <a href="#summary"><span class="num"></span> Executive Summary</a>
+    <div class="divider"></div>
+    <a href="#architecture"><span class="num">01</span> System Architecture</a>
+    <a href="#arch-logical" class="sub">Logical Architecture</a>
+    <a href="#arch-data" class="sub">Data Architecture</a>
+    <a href="#arch-integration" class="sub">Integration Architecture</a>
+    <a href="#arch-security" class="sub">Security Architecture</a>
+    <div class="divider"></div>
+    <a href="#personas"><span class="num">02</span> User Personas</a>
+    <div class="divider"></div>
+    <a href="#modules"><span class="num">03</span> Module Catalogue</a>
+    <div class="divider"></div>
+    <a href="#journeys"><span class="num">04</span> User Journeys</a>
+    <div class="divider"></div>
+    <a href="#workflows"><span class="num">05</span> Workflow Automation</a>
+    <div class="divider"></div>
+    <a href="#dashboards"><span class="num">06</span> Dashboard Strategy</a>
+    <div class="divider"></div>
+    <a href="#ai"><span class="num">07</span> AI Strategy</a>
+    <div class="divider"></div>
+    <a href="#reporting"><span class="num">08</span> Enterprise Reporting</a>
+    <div class="divider"></div>
+    <a href="#roadmap"><span class="num">09</span> Future Roadmap</a>
+  </nav>
+</aside>
+
+<!-- ════════════ Main ════════════ -->
+<main class="main">
+
+<!-- Cover -->
+<div class="cover" id="top">
+  <div class="cover-eyebrow">Solution Blueprint</div>
+  <h1>ABC Enterprise Quality Platform</h1>
+  <div class="subtitle">An AI-enabled Enterprise Quality Management System built on the Microsoft ecosystem, designed to unify quality operations across 25+ operational centres.</div>
+  <div class="cover-meta">
+    <dl><dt>Client</dt><dd>ABC Services</dd></dl>
+    <dl><dt>Version</dt><dd>1.0</dd></dl>
+    <dl><dt>Date</dt><dd>July 2026</dd></dl>
+    <dl><dt>Classification</dt><dd>Confidential</dd></dl>
+    <dl><dt>Standard</dt><dd>ISO 9001:2015</dd></dl>
+  </div>
+</div>
+
+
+<!-- ═══════ Executive Summary ═══════ -->
+<section class="section" id="summary">
+  <div class="section-header">
+    <span class="section-title">Executive Summary</span>
+  </div>
+  <p>ABC Services operates a geographically distributed service delivery network spanning more than 25 operational centres, each with its own quality processes, compliance obligations, and improvement cadence. Today, quality management across this network relies on fragmented manual processes: spreadsheet-based audit tracking, email-driven corrective actions, siloed document repositories, and regional reporting that reaches the executive layer weeks after the events it describes.</p>
+  <p>This blueprint defines a unified Enterprise Quality Platform that replaces those fragmented practices with a single, intelligent operating environment. The platform is built entirely within the Microsoft 365 ecosystem — SharePoint Online, Power Apps, Power Automate, Power BI, AI Builder, and Microsoft Copilot — so that it inherits the organisation's existing identity, security, and collaboration infrastructure without introducing new vendor dependencies.</p>
+  <p>The platform is organised around 17 integrated modules that collectively cover every clause of ISO 9001:2015, from document control and internal audits through to management review and continual improvement. It serves seven distinct user personas across three organisational tiers — Executive, Regional, and Site — each with role-appropriate dashboards, workflows, and decision-support tools.</p>
+
+  <div class="stat-row">
+    <div class="stat-box"><div class="val">25+</div><div class="lbl">Centres</div></div>
+    <div class="stat-box"><div class="val">17</div><div class="lbl">Modules</div></div>
+    <div class="stat-box"><div class="val">7</div><div class="lbl">Personas</div></div>
+    <div class="stat-box"><div class="val">3</div><div class="lbl">Org Tiers</div></div>
+    <div class="stat-box"><div class="val">42</div><div class="lbl">Workflows</div></div>
+  </div>
+
+  <div class="callout callout-info">
+    <strong>Design Principle.</strong> Every module shares a common data substrate in Dataverse, a unified notification bus through Power Automate, and a consistent Power BI semantic model. Modules are not independent applications — they are interconnected facets of a single quality operating system.
+  </div>
+</section>
+
+
+<!-- ═══════ 01 System Architecture ═══════ -->
+<section class="section" id="architecture">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-title">System Architecture</span>
+  </div>
+  <p class="section-intro">The platform follows a five-layer architecture that separates presentation, process orchestration, intelligence, data management, and security governance. Each layer maps directly to Microsoft 365 and Azure services, enabling delivery without custom code hosting while preserving the ability to extend into Azure-native services as the platform matures.</p>
+
+  <h3 id="arch-logical">Logical Architecture</h3>
+  <div class="arch-diagram">
+    <div class="arch-layer presentation">
+      <span class="arch-layer-label">Presentation Layer</span>
+      <div class="arch-components">
+        <div class="arch-comp"><strong>Power Apps (Model-Driven)</strong><span>Complex forms, data entry, case management for desktop users</span></div>
+        <div class="arch-comp"><strong>Power Apps (Canvas)</strong><span>Mobile-optimised interfaces for field auditors, site inspections</span></div>
+        <div class="arch-comp"><strong>Power BI Dashboards</strong><span>Executive, regional, and site-level analytics and reporting</span></div>
+        <div class="arch-comp"><strong>Microsoft Teams</strong><span>Embedded apps, notification channels, approval cards, Copilot chat</span></div>
+      </div>
+    </div>
+    <div class="arch-arrow">&#9660; &#9660; &#9660;</div>
+    <div class="arch-layer process">
+      <span class="arch-layer-label">Process &amp; Workflow Layer</span>
+      <div class="arch-components">
+        <div class="arch-comp"><strong>Power Automate Cloud Flows</strong><span>Approval workflows, escalation chains, notification routing, SLA monitoring</span></div>
+        <div class="arch-comp"><strong>Business Rules Engine</strong><span>Dataverse business rules for field validation, auto-classification, status transitions</span></div>
+        <div class="arch-comp"><strong>Approval Framework</strong><span>Multi-stage, parallel, and conditional approval patterns with delegation</span></div>
+        <div class="arch-comp"><strong>Scheduled Orchestration</strong><span>Recurring audit reminders, overdue escalations, periodic report generation</span></div>
+      </div>
+    </div>
+    <div class="arch-arrow">&#9660; &#9660; &#9660;</div>
+    <div class="arch-layer intelligence">
+      <span class="arch-layer-label">Intelligence Layer</span>
+      <div class="arch-components">
+        <div class="arch-comp"><strong>AI Builder</strong><span>Document processing, form extraction, classification models</span></div>
+        <div class="arch-comp"><strong>Microsoft Copilot</strong><span>Natural-language queries, management review drafting, insight generation</span></div>
+        <div class="arch-comp"><strong>Azure ML (Future)</strong><span>Predictive quality scoring, anomaly detection, risk modelling</span></div>
+        <div class="arch-comp"><strong>Cognitive Services</strong><span>Sentiment analysis on complaints, text analytics on NC descriptions</span></div>
+      </div>
+    </div>
+    <div class="arch-arrow">&#9660; &#9660; &#9660;</div>
+    <div class="arch-layer data">
+      <span class="arch-layer-label">Data Layer</span>
+      <div class="arch-components">
+        <div class="arch-comp"><strong>Dataverse</strong><span>Structured quality data — NCs, CAPAs, audits, risks, objectives, training records</span></div>
+        <div class="arch-comp"><strong>SharePoint Document Libraries</strong><span>Controlled documents, SOPs, policies, audit evidence, templates</span></div>
+        <div class="arch-comp"><strong>Dataverse File Columns</strong><span>Attachments, photos, supporting evidence linked to records</span></div>
+      </div>
+    </div>
+    <div class="arch-arrow">&#9660; &#9660; &#9660;</div>
+    <div class="arch-layer security">
+      <span class="arch-layer-label">Security &amp; Governance</span>
+      <div class="arch-components">
+        <div class="arch-comp"><strong>Entra ID (Azure AD)</strong><span>Identity, MFA, conditional access, group-based licensing</span></div>
+        <div class="arch-comp"><strong>Dataverse Security Roles</strong><span>Business unit segmentation per centre, role-based field/record access</span></div>
+        <div class="arch-comp"><strong>DLP Policies</strong><span>Data loss prevention, connector governance, environment policies</span></div>
+        <div class="arch-comp"><strong>Audit Logging</strong><span>Microsoft Purview integration for compliance audit trail</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 id="arch-data">Data Architecture</h3>
+  <p>The data model centres on Dataverse as the transactional store, with SharePoint Online providing document lifecycle management. The Dataverse schema uses a hub-and-spoke pattern: a central <strong>Centre</strong> entity connects to every operational record, enabling enterprise-wide filtering and row-level security segmentation.</p>
+
+  <h4>Core entity groups</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Domain</th><th>Primary Entities</th><th>Key Relationships</th></tr></thead>
+      <tbody>
+        <tr><td>Organisation</td><td>Centre, Region, Business Unit, Department</td><td>Hierarchical — Region contains Centres</td></tr>
+        <tr><td>Document Control</td><td>Controlled Document, Document Version, Acknowledgement</td><td>Linked to Centre, Process Owner</td></tr>
+        <tr><td>Audit</td><td>Audit Plan, Audit Schedule, Audit, Audit Finding, Audit Checklist</td><td>Audit Finding → NC → CAPA chain</td></tr>
+        <tr><td>Non-Conformance</td><td>Non-Conformance, NC Evidence, Root Cause Analysis</td><td>NC → CAPA, NC → Centre, NC → Audit Finding</td></tr>
+        <tr><td>CAPA</td><td>CAPA, CAPA Action, Effectiveness Review</td><td>CAPA → NC, CAPA → Action Tracking</td></tr>
+        <tr><td>Risk</td><td>Risk Register, Risk Assessment, Risk Treatment, Risk Review</td><td>Risk → Centre, Risk → Objective</td></tr>
+        <tr><td>Complaints</td><td>Customer Complaint, Investigation, Resolution</td><td>Complaint → NC, Complaint → CAPA</td></tr>
+        <tr><td>Training</td><td>Competency Framework, Training Record, Training Need, Assessment</td><td>Training → Person, Training → SOP</td></tr>
+        <tr><td>Supplier</td><td>Supplier, Supplier Evaluation, Supplier NC, Approved Supplier List</td><td>Supplier → NC, Supplier → Risk</td></tr>
+        <tr><td>Objectives</td><td>Quality Objective, KPI, KPI Measurement, Target</td><td>Objective → Centre, Objective → Region</td></tr>
+        <tr><td>Management Review</td><td>Review Meeting, Review Input, Review Decision, Review Action</td><td>Aggregates data from all other domains</td></tr>
+        <tr><td>Action Tracking</td><td>Action Item, Action Update, Action Evidence</td><td>Polymorphic source — CAPA, Review, Audit, etc.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-info">
+    <strong>Row-Level Security.</strong> Every transactional entity carries a <code>Centre</code> lookup field. Dataverse business units map one-to-one to operational centres. Centre Managers see only their centre's data; Regional Managers see all centres within their region; Executives see the full enterprise dataset. This is enforced at the platform layer, not the application layer.
+  </div>
+
+  <h3 id="arch-integration">Integration Architecture</h3>
+  <p>The platform integrates across three boundaries: internal module-to-module, Microsoft 365 ecosystem, and external systems.</p>
+
+  <h4>Internal module integration</h4>
+  <p>All modules share the Dataverse schema. Cross-module workflows are implemented as Power Automate cloud flows triggered by Dataverse record changes. For example, closing an Audit Finding with a severity of Major automatically creates a Non-Conformance record, which in turn triggers the CAPA workflow. These integrations are event-driven, not batch.</p>
+
+  <h4>Microsoft 365 integration</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Service</th><th>Integration Purpose</th><th>Mechanism</th></tr></thead>
+      <tbody>
+        <tr><td>Microsoft Teams</td><td>Approval cards, notification channels, embedded dashboards, Copilot chat</td><td>Adaptive Cards, Teams connector, Power BI tabs</td></tr>
+        <tr><td>Outlook</td><td>Email notifications, calendar invitations for audits, task reminders</td><td>Power Automate Office 365 connector</td></tr>
+        <tr><td>SharePoint Online</td><td>Document libraries for SOPs, policies, templates, audit evidence</td><td>Native integration via Dataverse file columns and SP connector</td></tr>
+        <tr><td>Microsoft Forms</td><td>Self-assessment questionnaires, supplier evaluation forms, training quizzes</td><td>Power Automate Forms connector → Dataverse</td></tr>
+        <tr><td>Excel Online</td><td>Bulk data import, offline audit checklists, KPI data entry</td><td>Dataverse Excel Online integration</td></tr>
+        <tr><td>Planner / To Do</td><td>Personal action item synchronisation for users who prefer task apps</td><td>Power Automate Planner connector</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>External system integration (future)</h4>
+  <p>Phase 2+ of the roadmap introduces connectors to external systems: HR platforms for employee competency data, ERP systems for supplier master data, and customer relationship management systems for complaint intake. These use Power Automate premium connectors or custom connectors backed by Azure API Management.</p>
+
+  <h3 id="arch-security">Security Architecture</h3>
+  <p>Security is enforced at four levels, each handled by a native Microsoft capability.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Layer</th><th>Mechanism</th><th>Scope</th></tr></thead>
+      <tbody>
+        <tr><td>Identity</td><td>Entra ID with MFA, Conditional Access policies</td><td>Authentication for all platform access; device compliance checks for mobile auditors</td></tr>
+        <tr><td>Authorisation</td><td>Dataverse security roles + business units</td><td>Role-based access control with centre-level data segmentation; field-level security for sensitive data</td></tr>
+        <tr><td>Data Protection</td><td>Microsoft Purview DLP policies, sensitivity labels</td><td>Prevent quality data from being shared outside the organisation; classify confidential audit reports</td></tr>
+        <tr><td>Audit Trail</td><td>Dataverse native audit logging + Purview</td><td>Immutable record of all data changes for ISO compliance evidence; 7-year retention policy</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Role-based access matrix</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Capability</th><th>Executive</th><th>Head of Quality</th><th>Regional QM</th><th>Centre Manager</th><th>Internal Auditor</th><th>Process Owner</th><th>Quality Admin</th></tr></thead>
+      <tbody>
+        <tr><td>View enterprise dashboards</td><td>Full</td><td>Full</td><td>Regional</td><td>—</td><td>—</td><td>—</td><td>Full</td></tr>
+        <tr><td>Create / edit NCs</td><td>—</td><td>Full</td><td>Regional</td><td>Own centre</td><td>Audit-linked</td><td>Own process</td><td>Full</td></tr>
+        <tr><td>Approve CAPAs</td><td>—</td><td>Full</td><td>Regional</td><td>Own centre</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Conduct audits</td><td>—</td><td>View</td><td>View</td><td>—</td><td>Full</td><td>—</td><td>Assign</td></tr>
+        <tr><td>Manage documents</td><td>—</td><td>Approve</td><td>Approve</td><td>Review</td><td>View</td><td>Author</td><td>Full</td></tr>
+        <tr><td>Configure system</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Full</td></tr>
+        <tr><td>AI insights</td><td>View</td><td>Full</td><td>Regional</td><td>Own centre</td><td>Audit scope</td><td>Own process</td><td>Full</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- ═══════ 02 User Personas ═══════ -->
+<section class="section" id="personas">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <span class="section-title">User Personas</span>
+  </div>
+  <p class="section-intro">Seven personas span the three organisational tiers. Each has distinct decision-making responsibilities, data visibility requirements, and interaction frequency with the platform.</p>
+
+  <div class="card-grid">
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Chief Operating Officer</span>
+        <span class="card-badge badge-exec">Executive</span>
+      </div>
+      <div class="card-desc">Accountable for enterprise service quality and regulatory compliance. Needs a single view of quality health across all regions and centres without operational detail.</div>
+      <div class="card-label">Primary Goals</div>
+      <ul class="card-list">
+        <li>Monitor enterprise quality health at a glance</li>
+        <li>Identify systemic quality risks before they escalate</li>
+        <li>Track strategic quality objectives against targets</li>
+        <li>Receive AI-generated executive briefings</li>
+      </ul>
+      <div class="card-label">Key Modules</div>
+      <div class="card-tags">
+        <span class="tag">Executive Analytics</span>
+        <span class="tag">AI Insights</span>
+        <span class="tag">Objectives</span>
+      </div>
+      <div class="card-label">Access Pattern</div>
+      <div class="card-desc" style="margin-bottom:0">Weekly via Power BI dashboard and Teams digest. Mobile-first.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Head of Quality</span>
+        <span class="card-badge badge-exec">Executive</span>
+      </div>
+      <div class="card-desc">Owns the quality management system, ISO certification scope, and enterprise quality strategy. The platform's power user at the strategic level.</div>
+      <div class="card-label">Primary Goals</div>
+      <ul class="card-list">
+        <li>Maintain ISO 9001 certification across all centres</li>
+        <li>Drive continual improvement enterprise-wide</li>
+        <li>Prepare and chair management review meetings</li>
+        <li>Set audit programme strategy and resource allocation</li>
+        <li>Oversee CAPA effectiveness and closure rates</li>
+      </ul>
+      <div class="card-label">Key Modules</div>
+      <div class="card-tags">
+        <span class="tag">All Modules</span>
+        <span class="tag">Management Review</span>
+        <span class="tag">AI Insights</span>
+      </div>
+      <div class="card-label">Access Pattern</div>
+      <div class="card-desc" style="margin-bottom:0">Daily on desktop. Configures system, reviews analytics, approves enterprise-level documents.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Regional Quality Manager</span>
+        <span class="card-badge badge-regional">Regional</span>
+      </div>
+      <div class="card-desc">Responsible for quality performance across a cluster of 5–8 centres. Bridges strategic intent and operational execution.</div>
+      <div class="card-label">Primary Goals</div>
+      <ul class="card-list">
+        <li>Compare centre performance within the region</li>
+        <li>Identify underperforming centres and intervene early</li>
+        <li>Ensure consistent audit coverage and findings closure</li>
+        <li>Approve regional CAPA plans and risk treatments</li>
+        <li>Escalate systemic issues to the Head of Quality</li>
+      </ul>
+      <div class="card-label">Key Modules</div>
+      <div class="card-tags">
+        <span class="tag">Dashboard</span>
+        <span class="tag">Audits</span>
+        <span class="tag">NCs</span>
+        <span class="tag">CAPA</span>
+        <span class="tag">Risk</span>
+      </div>
+      <div class="card-label">Access Pattern</div>
+      <div class="card-desc" style="margin-bottom:0">Daily on desktop and tablet. Travels between centres weekly.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Centre Manager</span>
+        <span class="card-badge badge-site">Site</span>
+      </div>
+      <div class="card-desc">Owns quality at the operational centre level. Manages day-to-day non-conformances, customer complaints, training compliance, and audit readiness.</div>
+      <div class="card-label">Primary Goals</div>
+      <ul class="card-list">
+        <li>Maintain audit readiness at all times</li>
+        <li>Resolve non-conformances within SLA targets</li>
+        <li>Ensure staff training is current and documented</li>
+        <li>Handle customer complaints end-to-end</li>
+        <li>Monitor centre-level quality KPIs</li>
+      </ul>
+      <div class="card-label">Key Modules</div>
+      <div class="card-tags">
+        <span class="tag">Dashboard</span>
+        <span class="tag">NCs</span>
+        <span class="tag">Complaints</span>
+        <span class="tag">Training</span>
+        <span class="tag">Actions</span>
+      </div>
+      <div class="card-label">Access Pattern</div>
+      <div class="card-desc" style="margin-bottom:0">Daily on desktop. Receives Teams notifications throughout the day.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Internal Auditor</span>
+        <span class="card-badge badge-cross">Cross-functional</span>
+      </div>
+      <div class="card-desc">Conducts internal audits against ISO 9001 clauses, process requirements, and regulatory standards. Works across centres as assigned.</div>
+      <div class="card-label">Primary Goals</div>
+      <ul class="card-list">
+        <li>Execute audits against the annual programme</li>
+        <li>Capture findings with evidence on-site</li>
+        <li>Raise NCs and observations in real time</li>
+        <li>Track closure of previously raised findings</li>
+        <li>Complete audit reports within 5 business days</li>
+      </ul>
+      <div class="card-label">Key Modules</div>
+      <div class="card-tags">
+        <span class="tag">Audit Planning</span>
+        <span class="tag">Internal Audits</span>
+        <span class="tag">NCs</span>
+        <span class="tag">Document Control</span>
+      </div>
+      <div class="card-label">Access Pattern</div>
+      <div class="card-desc" style="margin-bottom:0">Intensive use during audit weeks (tablet in the field, desktop for reporting). Light use between audits.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Process Owner</span>
+        <span class="card-badge badge-site">Site / Regional</span>
+      </div>
+      <div class="card-desc">Responsible for specific operational processes (e.g., service delivery, procurement, onboarding). Authors and maintains SOPs, owns process risk, and responds to process-related findings.</div>
+      <div class="card-label">Primary Goals</div>
+      <ul class="card-list">
+        <li>Keep SOPs current and properly controlled</li>
+        <li>Respond to audit findings related to their process</li>
+        <li>Manage process-level risks</li>
+        <li>Track process-specific quality objectives</li>
+      </ul>
+      <div class="card-label">Key Modules</div>
+      <div class="card-tags">
+        <span class="tag">SOP Management</span>
+        <span class="tag">Document Control</span>
+        <span class="tag">Risk</span>
+        <span class="tag">Objectives</span>
+      </div>
+      <div class="card-label">Access Pattern</div>
+      <div class="card-desc" style="margin-bottom:0">Weekly on desktop. Spikes around document review cycles and audit periods.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Quality Administrator</span>
+        <span class="card-badge badge-cross">Central Support</span>
+      </div>
+      <div class="card-desc">Configures and maintains the platform. Manages reference data, user access, report distribution, and system health. The operational backbone of the QMS.</div>
+      <div class="card-label">Primary Goals</div>
+      <ul class="card-list">
+        <li>Maintain reference data (categories, clause mappings, templates)</li>
+        <li>Manage user access and security role assignments</li>
+        <li>Monitor workflow health and resolve stuck approvals</li>
+        <li>Generate and distribute periodic reports</li>
+        <li>Support users with platform queries</li>
+      </ul>
+      <div class="card-label">Key Modules</div>
+      <div class="card-tags">
+        <span class="tag">All Modules</span>
+        <span class="tag">System Config</span>
+      </div>
+      <div class="card-label">Access Pattern</div>
+      <div class="card-desc" style="margin-bottom:0">Daily, full-day on desktop. Primary system administrator.</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════ 03 Module Catalogue ═══════ -->
+<section class="section" id="modules">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <span class="section-title">Module Catalogue</span>
+  </div>
+  <p class="section-intro">Seventeen modules cover the full scope of ISO 9001:2015 and enterprise quality operations. Each module is implemented as a Dataverse-backed Model-Driven Power App area, with Canvas App companions for mobile use cases and Power BI pages for analytics.</p>
+
+  <!-- Module 1 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">Enterprise Dashboard</span>
+      <span class="card-badge badge-iso">ISO 9.1</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">The primary landing experience for every user. Displays a role-filtered view of quality health, overdue actions, pending approvals, and AI-generated alerts. Each persona sees a dashboard tailored to their organisational level and responsibilities.</p>
+    <ul class="module-caps">
+      <li>Role-based landing page with configurable widget layout</li>
+      <li>Real-time overdue action counter with drill-through to source records</li>
+      <li>Pending approval queue with one-click approve/reject</li>
+      <li>AI-generated quality health score per centre, region, and enterprise</li>
+      <li>Recent activity feed showing actions taken across the user's scope</li>
+      <li>Quick-create shortcuts for NCs, complaints, and action items</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">Dashboard Config, Widget Preference, Alert</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">All modules (read), Power BI Embedded, AI Insights</div></div>
+    </div>
+  </div>
+
+  <!-- Module 2 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">Document Control</span>
+      <span class="card-badge badge-iso">ISO 7.5</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">Manages the full lifecycle of controlled documents: creation, review, approval, distribution, acknowledgement, and retirement. Documents are stored in SharePoint with metadata synchronised to Dataverse for workflow and reporting.</p>
+    <ul class="module-caps">
+      <li>Version-controlled document lifecycle with major/minor versioning</li>
+      <li>Multi-stage review and approval workflow with parallel reviewer support</li>
+      <li>Mandatory acknowledgement tracking with automated reminders</li>
+      <li>Periodic review scheduling with configurable review periods per document type</li>
+      <li>Automated obsolescence management and archive workflow</li>
+      <li>Full audit trail of all document actions (view, edit, approve, download)</li>
+      <li>Template library for standardised document creation</li>
+      <li>Clause-to-document mapping for ISO traceability</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">Controlled Document, Document Version, Acknowledgement, Review Cycle</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">SharePoint Libraries, SOP Management, Training, Change Management</div></div>
+    </div>
+  </div>
+
+  <!-- Module 3 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">SOP Management</span>
+      <span class="card-badge badge-iso">ISO 7.5 / 8.1</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">A specialised extension of Document Control for Standard Operating Procedures. Provides process mapping, procedure authoring, step-by-step formatting, and linkage to competency requirements and associated risks.</p>
+    <ul class="module-caps">
+      <li>Structured SOP authoring with numbered steps, decision points, and role assignments</li>
+      <li>Process-to-SOP mapping showing which processes are covered</li>
+      <li>Competency linkage — each SOP defines required training before a user can perform the procedure</li>
+      <li>Risk linkage — associate SOPs with risk register entries</li>
+      <li>Impact assessment workflow triggered when SOPs are revised</li>
+      <li>Read-and-understood confirmation with quiz option</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">SOP, SOP Step, Process Map, Competency Link</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">Document Control, Training, Risk Management, Change Management</div></div>
+    </div>
+  </div>
+
+  <!-- Module 4 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">Internal Audit Management</span>
+      <span class="card-badge badge-iso">ISO 9.2</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">Supports the full audit lifecycle from preparation through reporting. Auditors use a mobile-optimised Canvas App in the field and a Model-Driven App for report writing and finding management.</p>
+    <ul class="module-caps">
+      <li>Configurable audit checklists mapped to ISO 9001 clauses and internal requirements</li>
+      <li>Mobile audit execution with photo evidence capture, voice notes, and offline support</li>
+      <li>Scoring framework: Conforming, Observation, Minor NC, Major NC</li>
+      <li>Automated finding creation — Major/Minor findings generate NCs and trigger CAPA</li>
+      <li>Audit report generation with executive summary, findings detail, and evidence attachments</li>
+      <li>Auditee response workflow with acceptance/rejection of findings</li>
+      <li>Historical comparison — view audit scores for the same centre/clause over time</li>
+      <li>Auditor competency tracking and independence verification</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">Audit, Audit Checklist Item, Audit Finding, Audit Evidence, Audit Report</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">Audit Planning, NCs, CAPA, Document Control, Action Tracking</div></div>
+    </div>
+  </div>
+
+  <!-- Module 5 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">Audit Planning &amp; Scheduling</span>
+      <span class="card-badge badge-iso">ISO 9.2</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">Manages the annual audit programme, scheduling individual audits across centres, assigning auditors, and ensuring complete coverage of all ISO clauses and processes within the audit cycle.</p>
+    <ul class="module-caps">
+      <li>Annual audit programme builder with clause coverage matrix</li>
+      <li>Risk-based scheduling — centres with more NCs or complaints receive more frequent audits</li>
+      <li>Auditor assignment with independence validation (auditors cannot audit their own centre)</li>
+      <li>Calendar integration — audit dates pushed to auditor and auditee Outlook calendars</li>
+      <li>Coverage gap analysis — highlights clauses or centres not yet scheduled</li>
+      <li>AI-recommended scheduling based on historical performance and risk profiles</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">Audit Programme, Audit Schedule, Auditor Assignment, Coverage Matrix</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">Internal Audits, Risk Management, AI Insights, Outlook Calendar</div></div>
+    </div>
+  </div>
+
+  <!-- Module 6 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">Non-Conformance Management</span>
+      <span class="card-badge badge-iso">ISO 10.2</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">Captures, classifies, investigates, and resolves non-conformances from any source — audits, complaints, process observations, or self-reported issues. Forms the foundation of the corrective action chain.</p>
+    <ul class="module-caps">
+      <li>Multi-source NC intake: audit findings, complaints, supplier issues, self-reported, management observations</li>
+      <li>Severity classification: Minor, Major, Critical — with configurable criteria per NC type</li>
+      <li>Immediate containment action recording</li>
+      <li>Root cause analysis tools: 5 Whys template, Fishbone (Ishikawa) guided form</li>
+      <li>Automatic CAPA generation for Major and Critical NCs</li>
+      <li>Trend analysis — recurring NC categories by centre, region, clause, and time period</li>
+      <li>SLA-driven status tracking with escalation on overdue NCs</li>
+      <li>Evidence attachments: photos, documents, correspondence</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">Non-Conformance, NC Evidence, Root Cause Analysis, Containment Action</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">CAPA, Audits, Complaints, Supplier Quality, Action Tracking, AI Insights</div></div>
+    </div>
+  </div>
+
+  <!-- Module 7 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">CAPA — Corrective &amp; Preventive Actions</span>
+      <span class="card-badge badge-iso">ISO 10.2 / 10.3</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">Manages the full corrective and preventive action cycle: planning, approval, implementation, verification, and effectiveness review. Linked to non-conformances as the formal mechanism for eliminating root causes and preventing recurrence.</p>
+    <ul class="module-caps">
+      <li>CAPA creation from NCs, audit findings, management review decisions, or proactive risk treatment</li>
+      <li>Multi-step action planning with responsible owners, target dates, and resource requirements</li>
+      <li>Approval workflow — CAPA plans require Regional QM or Head of Quality approval before implementation</li>
+      <li>Implementation tracking with progress updates and evidence of completion</li>
+      <li>Effectiveness review at 30, 60, and 90 days post-implementation</li>
+      <li>Effectiveness scoring: Effective, Partially Effective, Ineffective — with reopen workflow for failures</li>
+      <li>Preventive action capability for identified risks that have not yet resulted in an NC</li>
+      <li>CAPA aging report with automatic escalation for overdue items</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">CAPA, CAPA Action, Effectiveness Review, Evidence of Completion</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">NCs, Audits, Risk Management, Action Tracking, Management Review</div></div>
+    </div>
+  </div>
+
+  <!-- Module 8 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">Risk Management</span>
+      <span class="card-badge badge-iso">ISO 6.1</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">Maintains a living risk register at centre, regional, and enterprise levels. Supports risk identification, assessment (likelihood × impact), treatment planning, and periodic review. Feeds risk intelligence into audit scheduling and management review.</p>
+    <ul class="module-caps">
+      <li>Hierarchical risk register — centre risks aggregate to regional and enterprise views</li>
+      <li>Risk assessment matrix with configurable likelihood and impact scales (e.g., 5×5)</li>
+      <li>Risk treatment plans with four options: Mitigate, Accept, Transfer, Avoid</li>
+      <li>Residual risk scoring after treatment implementation</li>
+      <li>Risk review scheduling with configurable frequency per risk rating</li>
+      <li>Risk-to-objective mapping showing which quality objectives are threatened</li>
+      <li>AI-powered risk prediction based on NC trends, complaint volumes, and audit scores</li>
+      <li>Heat map visualisation by centre, region, and risk category</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">Risk, Risk Assessment, Risk Treatment, Risk Review</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">Audit Planning, NCs, Objectives, Management Review, AI Insights</div></div>
+    </div>
+  </div>
+
+  <!-- Module 9 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">Customer Complaints</span>
+      <span class="card-badge badge-iso">ISO 9.1.2</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">Manages the complete complaint handling lifecycle from intake through investigation, resolution, customer communication, and trend analysis. Complaints that indicate systemic issues automatically generate NCs.</p>
+    <ul class="module-caps">
+      <li>Multi-channel intake: web form, email parsing, phone log, Teams submission</li>
+      <li>Auto-classification by complaint type, severity, and service area using AI Builder</li>
+      <li>Investigation workflow with assignment to the responsible centre and individual</li>
+      <li>Customer communication log with response templates and SLA tracking</li>
+      <li>Resolution recording with root cause, corrective actions, and customer satisfaction outcome</li>
+      <li>Automatic NC creation when complaints meet severity thresholds</li>
+      <li>Trend analysis by complaint type, centre, time period, and customer segment</li>
+      <li>Customer satisfaction follow-up survey triggered on resolution</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">Complaint, Investigation, Resolution, Communication Log, Survey Response</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">NCs, CAPA, Action Tracking, AI Insights, Microsoft Forms</div></div>
+    </div>
+  </div>
+
+  <!-- Module 10 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">Training &amp; Competency</span>
+      <span class="card-badge badge-iso">ISO 7.2</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">Tracks employee competencies, training requirements, training delivery, and assessment results. Ensures that personnel performing quality-affecting work have documented evidence of competence as required by ISO 9001.</p>
+    <ul class="module-caps">
+      <li>Competency framework defining required competencies per role and process</li>
+      <li>Training needs analysis — gap identification between required and actual competencies</li>
+      <li>Training plan creation and approval with budget tracking</li>
+      <li>Training record management with certificate uploads and expiry tracking</li>
+      <li>Automated reminders for expiring certifications (30, 14, 7 days before expiry)</li>
+      <li>Training effectiveness assessment via post-training quizzes and manager sign-off</li>
+      <li>Compliance dashboard showing training completion rates by centre and role</li>
+      <li>SOP-to-training linkage — SOP changes trigger retraining requirements</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">Competency, Training Need, Training Record, Assessment, Certificate</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">SOP Management, Document Control, HR System (future), Action Tracking</div></div>
+    </div>
+  </div>
+
+  <!-- Module 11 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">Supplier Quality Management</span>
+      <span class="card-badge badge-iso">ISO 8.4</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">Manages the approved supplier list, supplier evaluation, performance monitoring, and supplier-related non-conformances. Ensures externally provided processes, products, and services meet quality requirements.</p>
+    <ul class="module-caps">
+      <li>Approved supplier list with status lifecycle: Pending, Approved, Conditional, Suspended, Removed</li>
+      <li>Supplier onboarding evaluation with configurable questionnaire and scoring</li>
+      <li>Periodic supplier performance review (quarterly/annual) with scorecards</li>
+      <li>Supplier NC tracking — non-conformances attributed to supplier products or services</li>
+      <li>Supplier audit scheduling and findings management</li>
+      <li>Supplier risk assessment integrated with the enterprise risk register</li>
+      <li>Supplier performance trending and comparison dashboards</li>
+      <li>Automated notifications to suppliers for evaluation requests and NC responses</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">Supplier, Supplier Evaluation, Supplier Scorecard, Supplier NC</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">NCs, Risk Management, Audits, Action Tracking, ERP (future)</div></div>
+    </div>
+  </div>
+
+  <!-- Module 12 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">Objectives &amp; KPIs</span>
+      <span class="card-badge badge-iso">ISO 6.2</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">Defines, cascades, and tracks quality objectives from enterprise level down through regions to individual centres. Each objective has measurable KPIs with targets, actuals, and trend tracking.</p>
+    <ul class="module-caps">
+      <li>Objective hierarchy: Enterprise → Regional → Centre with inheritance and override</li>
+      <li>KPI definition with measurement method, data source, frequency, and target</li>
+      <li>Automated KPI data collection from platform modules (e.g., NC closure rate, audit score average)</li>
+      <li>Manual KPI entry for metrics sourced outside the platform</li>
+      <li>Traffic-light status (Green / Amber / Red) with configurable thresholds</li>
+      <li>Trend visualisation showing KPI performance over time</li>
+      <li>Objective-to-risk linkage showing which risks threaten objective achievement</li>
+      <li>Management review input — automatic aggregation of objective performance for review meetings</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">Quality Objective, KPI Definition, KPI Measurement, Target</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">Management Review, Risk Management, Dashboard, All data-producing modules</div></div>
+    </div>
+  </div>
+
+  <!-- Module 13 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">Management Review</span>
+      <span class="card-badge badge-iso">ISO 9.3</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">Orchestrates the management review process as defined by ISO 9001 clause 9.3. Automatically assembles review inputs from across the platform, supports meeting execution, and tracks review outputs and decisions.</p>
+    <ul class="module-caps">
+      <li>Scheduled review meetings (quarterly for regions, biannual for enterprise) with agenda generation</li>
+      <li>Automated review input assembly: audit results, NC/CAPA trends, customer feedback, supplier performance, objective status, risk changes, resource adequacy</li>
+      <li>AI-generated executive summary of review inputs with highlighted concerns</li>
+      <li>Meeting minutes recording with structured decisions, actions, and resource allocation</li>
+      <li>Review output tracking — decisions and actions feed directly into Action Tracking</li>
+      <li>Historical review archive with comparison across review periods</li>
+      <li>Clause 9.3.2 compliance checker — validates all mandatory inputs are covered</li>
+      <li>Distribution workflow for approved minutes to relevant stakeholders</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">Review Meeting, Review Input, Review Decision, Review Action</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">All modules (read), Action Tracking, AI Insights, Document Control</div></div>
+    </div>
+  </div>
+
+  <!-- Module 14 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">Action Tracking</span>
+      <span class="card-badge badge-iso">ISO 10.1</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">A cross-cutting module that provides a unified view of all actions across the platform regardless of their source — CAPA actions, audit follow-ups, management review decisions, risk treatments, or ad-hoc improvement actions.</p>
+    <ul class="module-caps">
+      <li>Polymorphic action source — tracks the originating module and record for every action</li>
+      <li>Assignment to owner with due date, priority, and estimated effort</li>
+      <li>Progress update workflow with evidence of completion attachments</li>
+      <li>Overdue action escalation to the assignee's manager, then to Regional QM</li>
+      <li>Action aging analysis with bottleneck identification</li>
+      <li>"My Actions" personal view showing all actions assigned to the logged-in user</li>
+      <li>Bulk action update for managers reviewing team actions</li>
+      <li>Integration with Microsoft Planner for users who prefer task board views</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">Action Item, Action Update, Action Evidence</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">CAPA, Audits, Management Review, Risk, Complaints, Planner</div></div>
+    </div>
+  </div>
+
+  <!-- Module 15 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">Change Management</span>
+      <span class="card-badge badge-iso">ISO 6.3</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">Manages planned changes to the quality management system, processes, or operational procedures. Ensures changes are evaluated for impact, approved before implementation, and verified after deployment.</p>
+    <ul class="module-caps">
+      <li>Change request initiation with categorisation: Process, Document, System, Organisational</li>
+      <li>Impact assessment form covering quality, risk, resource, training, and customer impact</li>
+      <li>Multi-stage approval workflow based on change scope and impact level</li>
+      <li>Implementation plan with milestones, responsible parties, and rollback criteria</li>
+      <li>Post-implementation review to verify change effectiveness</li>
+      <li>Automatic triggers to related modules: SOP revision, training update, risk reassessment</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">Change Request, Impact Assessment, Implementation Plan, Post-Implementation Review</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">Document Control, SOP Management, Training, Risk Management, Action Tracking</div></div>
+    </div>
+  </div>
+
+  <!-- Module 16 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">Executive Analytics</span>
+      <span class="card-badge badge-iso">ISO 9.1</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">A Power BI-driven analytics layer providing enterprise-wide quality intelligence. Designed for the COO, Head of Quality, and Board-level reporting, it distills platform data into strategic decision-support views.</p>
+    <ul class="module-caps">
+      <li>Enterprise Quality Index — a composite score aggregating audit, NC, CAPA, training, and objective metrics</li>
+      <li>Regional comparison matrix with traffic-light status and trend arrows</li>
+      <li>Centre ranking with quartile analysis and peer benchmarking</li>
+      <li>ISO clause performance heatmap across the organisation</li>
+      <li>Strategic KPI scorecards aligned to board-level quality commitments</li>
+      <li>Drill-through from enterprise to region to centre to individual record</li>
+      <li>Automated monthly executive report generation (PDF/PowerPoint export)</li>
+      <li>Natural language Q&A via Copilot in Power BI</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">Aggregated views across all modules via Power BI semantic model</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">All modules (read), AI Insights, Copilot</div></div>
+    </div>
+  </div>
+
+  <!-- Module 17 -->
+  <div class="module-card">
+    <div class="module-card-head">
+      <span class="module-card-title">AI Insights Engine</span>
+      <span class="card-badge badge-iso">ISO 10.3</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:0.5rem">The intelligence layer that transforms historical quality data into predictive insights, recommendations, and automated narratives. Powered by AI Builder, Azure Machine Learning, and Microsoft Copilot.</p>
+    <ul class="module-caps">
+      <li>Predictive quality trend forecasting by centre and region</li>
+      <li>Recurring non-conformance pattern detection with root cause clustering</li>
+      <li>Intelligent audit schedule recommendations based on risk and performance</li>
+      <li>AI-generated management review summaries with key concern highlights</li>
+      <li>Anomaly detection — flags centres with sudden changes in quality metrics</li>
+      <li>Natural language query interface: "Which centres have overdue Major CAPAs?"</li>
+      <li>Automated executive recommendations with confidence scoring</li>
+      <li>Complaint sentiment analysis and emerging issue detection</li>
+    </ul>
+    <div class="module-meta">
+      <div><div class="module-meta-label">Data Entities</div><div class="module-meta-value">AI Prediction, Insight, Recommendation, Anomaly Alert</div></div>
+      <div><div class="module-meta-label">Integrations</div><div class="module-meta-value">All modules (read), Power BI, Copilot, Azure ML, AI Builder</div></div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ═══════ 04 User Journeys ═══════ -->
+<section class="section" id="journeys">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <span class="section-title">End-to-End User Journeys</span>
+  </div>
+  <p class="section-intro">Six primary journeys illustrate how users interact with the platform across modules. Each journey traces a quality event from its origin through resolution, showing the actors, system actions, and decision points involved.</p>
+
+  <!-- Journey 1 -->
+  <div class="journey">
+    <div class="journey-header">
+      <span class="journey-title">Non-Conformance through Corrective Action Closure</span>
+      <span class="card-badge badge-iso">ISO 10.2</span>
+    </div>
+    <div class="journey-steps">
+      <div class="journey-step">
+        <span class="step-num">1</span>
+        <div class="step-content">
+          <strong>NC Raised.</strong> A Centre Manager identifies a process deviation during daily operations and creates a Non-Conformance record via the quick-create button on their dashboard. They classify it as a Minor NC, describe the deviation, upload a photo as evidence, and record the immediate containment action taken.
+          <div class="step-actor">Actor: Centre Manager</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">2</span>
+        <div class="step-content">
+          <strong>Auto-Classification &amp; Notification.</strong> The system validates the NC, assigns a unique reference number (NC-2026-0847), and triggers a notification to the Regional Quality Manager. AI Builder analyses the description and suggests a category and ISO clause mapping, which the Centre Manager confirms or overrides.
+          <div class="step-actor">System: Power Automate + AI Builder</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">3</span>
+        <div class="step-content">
+          <strong>Root Cause Analysis.</strong> The Centre Manager uses the guided 5 Whys form to investigate the root cause. They document each "why" step, attach supporting evidence, and identify the root cause as a training gap in a recently updated SOP.
+          <div class="step-actor">Actor: Centre Manager</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">4</span>
+        <div class="step-content">
+          <strong>CAPA Creation.</strong> Because the root cause is systemic (training gap affecting multiple staff), the Centre Manager escalates to a CAPA. The system creates a linked CAPA record pre-populated with the NC details and root cause. A multi-step action plan is defined: revise the SOP, deliver retraining, update the competency assessment.
+          <div class="step-actor">Actor: Centre Manager → System</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">5</span>
+        <div class="step-content">
+          <strong>CAPA Approval.</strong> The CAPA plan is routed to the Regional Quality Manager for approval. They review the proposed actions, adjust the timeline for the retraining, and approve. The system notifies all action owners of their assignments and due dates.
+          <div class="step-actor">Actor: Regional Quality Manager</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">6</span>
+        <div class="step-content">
+          <strong>Implementation &amp; Verification.</strong> Each action owner completes their tasks and uploads evidence. The Process Owner revises the SOP (triggering the Document Control review workflow). The Centre Manager delivers retraining and records completion in the Training module. As each action is marked complete, the CAPA progress bar updates automatically.
+          <div class="step-actor">Actors: Process Owner, Centre Manager, Action Owners</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">7</span>
+        <div class="step-content">
+          <strong>Effectiveness Review.</strong> At 60 days post-implementation, the system triggers an effectiveness review task. The Regional Quality Manager verifies that no similar NCs have occurred since the CAPA was implemented, reviews the retraining records, and marks the CAPA as Effective. The linked NC is closed. The entire chain (NC → RCA → CAPA → Actions → Effectiveness) is preserved as an auditable record.
+          <div class="step-actor">Actor: Regional Quality Manager → System</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Journey 2 -->
+  <div class="journey">
+    <div class="journey-header">
+      <span class="journey-title">Internal Audit Lifecycle</span>
+      <span class="card-badge badge-iso">ISO 9.2</span>
+    </div>
+    <div class="journey-steps">
+      <div class="journey-step">
+        <span class="step-num">1</span>
+        <div class="step-content">
+          <strong>Annual Programme.</strong> The Head of Quality builds the annual audit programme using the clause coverage matrix. AI recommends increasing audit frequency at three centres based on rising NC trends. The programme is approved and published.
+          <div class="step-actor">Actor: Head of Quality</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">2</span>
+        <div class="step-content">
+          <strong>Audit Scheduling.</strong> The Quality Administrator creates individual audit schedules from the programme, assigns auditors (with independence validation), and sets dates. Outlook calendar invitations are sent automatically to auditors and auditees.
+          <div class="step-actor">Actor: Quality Administrator → System</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">3</span>
+        <div class="step-content">
+          <strong>Preparation.</strong> The assigned Internal Auditor opens the audit record, reviews the checklist (mapped to ISO clauses and centre-specific requirements), and downloads relevant SOPs and previous audit reports. They prepare the audit plan and notify the Centre Manager.
+          <div class="step-actor">Actor: Internal Auditor</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">4</span>
+        <div class="step-content">
+          <strong>On-Site Execution.</strong> The Auditor uses the Canvas App on their tablet. For each checklist item, they record the finding (Conforming, Observation, Minor NC, Major NC), add notes, and capture photo evidence. GPS tagging confirms they are on-site. Offline mode allows data capture in areas with poor connectivity, syncing when back online.
+          <div class="step-actor">Actor: Internal Auditor (mobile)</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">5</span>
+        <div class="step-content">
+          <strong>Reporting &amp; Findings.</strong> The Auditor completes the audit report with an executive summary and detailed findings. Major and Minor findings automatically generate Non-Conformance records linked to the audit. The Centre Manager receives the report and must accept or challenge each finding within 5 business days.
+          <div class="step-actor">Actor: Internal Auditor → System → Centre Manager</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">6</span>
+        <div class="step-content">
+          <strong>Follow-Up.</strong> The Auditor's dashboard shows open findings from previous audits at the same centre. During the next scheduled audit, they verify whether corrective actions from prior findings have been implemented and are effective, closing the follow-up loop.
+          <div class="step-actor">Actor: Internal Auditor</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Journey 3 -->
+  <div class="journey">
+    <div class="journey-header">
+      <span class="journey-title">Customer Complaint Resolution</span>
+      <span class="card-badge badge-iso">ISO 9.1.2</span>
+    </div>
+    <div class="journey-steps">
+      <div class="journey-step">
+        <span class="step-num">1</span>
+        <div class="step-content">
+          <strong>Intake.</strong> A customer complaint arrives via email. Power Automate parses the email, creates a Complaint record with the extracted details, and AI Builder classifies the complaint type (Service Delivery — Timeliness) and assigns it to the relevant centre.
+          <div class="step-actor">System: Power Automate + AI Builder</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">2</span>
+        <div class="step-content">
+          <strong>Acknowledgement.</strong> An automated acknowledgement email is sent to the customer within 2 hours, including a reference number and expected response timeline. The Centre Manager is notified via Teams.
+          <div class="step-actor">System: Power Automate</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">3</span>
+        <div class="step-content">
+          <strong>Investigation.</strong> The Centre Manager investigates the complaint, documents findings, and determines whether the complaint is valid. If valid and the severity warrants it, they create a linked Non-Conformance. All customer communications are logged against the complaint record.
+          <div class="step-actor">Actor: Centre Manager</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">4</span>
+        <div class="step-content">
+          <strong>Resolution &amp; Follow-Up.</strong> The Centre Manager records the resolution, closes the complaint, and the system sends a resolution notification to the customer. Seven days later, a satisfaction survey is triggered automatically via Microsoft Forms. The survey response is recorded against the complaint.
+          <div class="step-actor">Actor: Centre Manager → System</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Journey 4 -->
+  <div class="journey">
+    <div class="journey-header">
+      <span class="journey-title">Document Lifecycle</span>
+      <span class="card-badge badge-iso">ISO 7.5</span>
+    </div>
+    <div class="journey-steps">
+      <div class="journey-step">
+        <span class="step-num">1</span>
+        <div class="step-content">
+          <strong>Authoring.</strong> A Process Owner creates a new SOP using a standardised template from the template library. They complete the metadata (process area, applicable centres, competency requirements) and write the procedural content.
+          <div class="step-actor">Actor: Process Owner</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">2</span>
+        <div class="step-content">
+          <strong>Review &amp; Approval.</strong> The Process Owner submits the document for review. The workflow routes it to designated reviewers (subject-matter experts) for comment, then to the Regional Quality Manager for approval. Reviewers can annotate directly in SharePoint. All comments are tracked and resolved before final approval.
+          <div class="step-actor">Actors: Reviewers, Regional Quality Manager</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">3</span>
+        <div class="step-content">
+          <strong>Distribution &amp; Acknowledgement.</strong> On approval, the document is published to the controlled document library. All personnel at applicable centres receive a notification with a link to the document and a requirement to acknowledge they have read and understood it. The system tracks acknowledgement completion rates and sends reminders to non-respondents.
+          <div class="step-actor">System: Power Automate → All affected personnel</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">4</span>
+        <div class="step-content">
+          <strong>Periodic Review.</strong> The system schedules the document for review based on its review period (e.g., 12 months). Thirty days before the review date, the Process Owner is notified. They either confirm the document is still current (extending the review date) or initiate a revision, restarting the lifecycle from Step 1. If no action is taken, the document status changes to "Review Overdue" and escalates to the Regional Quality Manager.
+          <div class="step-actor">System → Actor: Process Owner</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Journey 5 -->
+  <div class="journey">
+    <div class="journey-header">
+      <span class="journey-title">Risk Identification to Treatment</span>
+      <span class="card-badge badge-iso">ISO 6.1</span>
+    </div>
+    <div class="journey-steps">
+      <div class="journey-step">
+        <span class="step-num">1</span>
+        <div class="step-content">
+          <strong>Risk Identification.</strong> During a quarterly risk review, a Centre Manager identifies a new risk: a key supplier has shown declining delivery performance over three consecutive months. They create a Risk record, categorise it (Supply Chain — Reliability), and link it to the relevant supplier in the Supplier Quality module.
+          <div class="step-actor">Actor: Centre Manager</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">2</span>
+        <div class="step-content">
+          <strong>Assessment.</strong> The Centre Manager assesses the risk using the 5×5 matrix: Likelihood = 4 (Likely), Impact = 3 (Moderate). The system calculates an inherent risk score of 12 (High) and colour-codes the risk on the centre heat map.
+          <div class="step-actor">Actor: Centre Manager</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">3</span>
+        <div class="step-content">
+          <strong>Treatment Planning.</strong> The Centre Manager defines a mitigation plan: qualify an alternative supplier within 60 days and renegotiate delivery terms with the current supplier. The treatment plan is submitted to the Regional Quality Manager for approval.
+          <div class="step-actor">Actor: Centre Manager → Regional Quality Manager</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">4</span>
+        <div class="step-content">
+          <strong>Monitoring &amp; Review.</strong> The risk is scheduled for monthly review. The AI Insights Engine monitors supplier NC data and flags if the supplier's performance deteriorates further. At each review, the Centre Manager updates the risk status and residual score. Once the alternative supplier is qualified, the residual risk is reassessed to 6 (Medium).
+          <div class="step-actor">Actor: Centre Manager + System: AI Insights</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Journey 6 -->
+  <div class="journey">
+    <div class="journey-header">
+      <span class="journey-title">Management Review Cycle</span>
+      <span class="card-badge badge-iso">ISO 9.3</span>
+    </div>
+    <div class="journey-steps">
+      <div class="journey-step">
+        <span class="step-num">1</span>
+        <div class="step-content">
+          <strong>Input Assembly.</strong> Four weeks before the scheduled management review, the system begins assembling review inputs automatically: audit results summary, NC/CAPA statistics and trends, customer complaint analysis, supplier performance overview, objective/KPI status, risk register changes, resource and training compliance, and actions from the previous review. AI Copilot generates a narrative executive summary highlighting the three most significant quality concerns.
+          <div class="step-actor">System: Power Automate + AI Copilot</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">2</span>
+        <div class="step-content">
+          <strong>Review &amp; Preparation.</strong> The Head of Quality reviews the assembled inputs, adds commentary, and finalises the agenda. The review meeting invitation is sent to all attendees with the input pack attached. The system validates that all mandatory ISO 9.3.2 inputs are present and flags any gaps.
+          <div class="step-actor">Actor: Head of Quality</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">3</span>
+        <div class="step-content">
+          <strong>Meeting Execution.</strong> During the review meeting, the Head of Quality uses the Management Review app to walk through each input area. Decisions are recorded in real time: resource allocations, improvement priorities, system changes, and follow-up actions. Each decision is assigned an owner and due date.
+          <div class="step-actor">Actor: Head of Quality + Executive attendees</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">4</span>
+        <div class="step-content">
+          <strong>Output Distribution &amp; Tracking.</strong> The meeting minutes are generated, approved, and distributed as a controlled document. All actions from the review feed into the Action Tracking module. The Quality Administrator monitors action completion and provides a status update at the next review, closing the continual improvement loop.
+          <div class="step-actor">Actor: Quality Administrator → System</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ 05 Workflow Automation ═══════ -->
+<section class="section" id="workflows">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <span class="section-title">Workflow Automation</span>
+  </div>
+  <p class="section-intro">Forty-two automated workflows drive the platform's operational intelligence. Every workflow is implemented as a Power Automate cloud flow, triggered by Dataverse events, scheduled timers, or user-initiated actions. The table below catalogues the primary workflows by module.</p>
+
+  <h3>Approval Workflows</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Workflow</th><th>Trigger</th><th>Approver(s)</th><th>SLA</th><th>Escalation</th></tr></thead>
+      <tbody>
+        <tr><td>Document Approval</td><td>Document submitted for approval</td><td>Designated reviewer(s) → Regional QM or Head of Quality</td><td>5 business days</td><td>Head of Quality at day 7</td></tr>
+        <tr><td>CAPA Plan Approval</td><td>CAPA plan submitted</td><td>Regional QM (Minor) / Head of Quality (Major/Critical)</td><td>3 business days</td><td>Head of Quality at day 5</td></tr>
+        <tr><td>Change Request Approval</td><td>Change request submitted</td><td>Process Owner → Regional QM → Head of Quality (for high-impact)</td><td>5 business days per stage</td><td>Next level at day 7</td></tr>
+        <tr><td>Risk Treatment Approval</td><td>Treatment plan submitted for High/Critical risks</td><td>Regional QM (High) / Head of Quality (Critical)</td><td>3 business days</td><td>COO at day 5 for Critical</td></tr>
+        <tr><td>Supplier Approval</td><td>Supplier evaluation completed</td><td>Regional QM → Head of Quality</td><td>10 business days</td><td>Head of Quality at day 14</td></tr>
+        <tr><td>Audit Report Approval</td><td>Audit report submitted</td><td>Lead Auditor → Head of Quality</td><td>5 business days</td><td>Quality Admin at day 7</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Notification Workflows</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Workflow</th><th>Trigger</th><th>Recipients</th><th>Channel</th></tr></thead>
+      <tbody>
+        <tr><td>NC Raised Alert</td><td>New NC created</td><td>Regional QM, Centre Manager</td><td>Teams + Email</td></tr>
+        <tr><td>Critical NC Escalation</td><td>NC classified as Critical</td><td>Head of Quality, COO</td><td>Teams (urgent) + Email + SMS</td></tr>
+        <tr><td>Audit Scheduled</td><td>Audit date set</td><td>Auditor, Auditee (Centre Manager)</td><td>Outlook Calendar + Email</td></tr>
+        <tr><td>Complaint Received</td><td>New complaint created</td><td>Centre Manager</td><td>Teams + Email</td></tr>
+        <tr><td>Training Expiry Warning</td><td>Certificate expires in 30/14/7 days</td><td>Employee, Centre Manager</td><td>Email</td></tr>
+        <tr><td>Document Review Due</td><td>Review date in 30 days</td><td>Process Owner</td><td>Email + Teams</td></tr>
+        <tr><td>Management Review Prep</td><td>28 days before scheduled review</td><td>Head of Quality, Quality Admin</td><td>Email + Teams</td></tr>
+        <tr><td>KPI Threshold Breach</td><td>KPI moves to Red status</td><td>Centre Manager, Regional QM</td><td>Teams</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Escalation Workflows</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Workflow</th><th>Trigger Condition</th><th>Action</th><th>Escalation Path</th></tr></thead>
+      <tbody>
+        <tr><td>Overdue NC Escalation</td><td>NC not closed within SLA (Minor: 14 days, Major: 30 days)</td><td>Reassign priority, notify next level</td><td>Centre Manager → Regional QM → Head of Quality</td></tr>
+        <tr><td>Overdue CAPA Escalation</td><td>CAPA action past due date</td><td>Notify owner + 1 level up, flag on dashboard</td><td>Action Owner → Centre Manager → Regional QM</td></tr>
+        <tr><td>Overdue Action Escalation</td><td>Action item 7+ days overdue</td><td>Automatic reminders every 3 days, escalate at day 14</td><td>Owner → Manager → Regional QM</td></tr>
+        <tr><td>Stalled Approval</td><td>Approval pending > SLA</td><td>Reminder to approver, delegate to backup at 2× SLA</td><td>Approver → Backup Approver → Quality Admin</td></tr>
+        <tr><td>Complaint SLA Breach</td><td>Complaint not responded to within 48 hours</td><td>Urgent notification to Centre Manager and Regional QM</td><td>Centre Manager → Regional QM → Head of Quality</td></tr>
+        <tr><td>Audit Finding Non-Response</td><td>Auditee has not responded to findings within 5 days</td><td>Reminder + escalation to Regional QM</td><td>Centre Manager → Regional QM</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Automated Process Workflows</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Workflow</th><th>Trigger</th><th>Automated Action</th></tr></thead>
+      <tbody>
+        <tr><td>Major Audit Finding → NC</td><td>Audit finding scored as Major NC</td><td>Create linked NC record, pre-populate from finding, notify Centre Manager</td></tr>
+        <tr><td>Critical NC → CAPA</td><td>NC classified as Critical</td><td>Create linked CAPA record, assign to Regional QM for planning</td></tr>
+        <tr><td>Complaint → NC</td><td>Valid complaint exceeds severity threshold</td><td>Create linked NC from complaint, maintain bi-directional reference</td></tr>
+        <tr><td>SOP Revision → Retraining</td><td>SOP approved with significant changes</td><td>Create training needs for all personnel with the SOP's competency requirement</td></tr>
+        <tr><td>CAPA Effectiveness Trigger</td><td>CAPA implementation completed</td><td>Schedule effectiveness review at 30/60/90 days, create review task</td></tr>
+        <tr><td>Management Review Assembly</td><td>28 days before scheduled review</td><td>Query all modules for period data, generate input summaries, invoke AI summary</td></tr>
+        <tr><td>Risk Review Scheduling</td><td>Risk created or updated</td><td>Schedule next review based on risk rating: Critical = monthly, High = quarterly, Medium = biannual</td></tr>
+        <tr><td>Customer Acknowledgement</td><td>Complaint record created</td><td>Send templated acknowledgement email with reference number within 2 hours</td></tr>
+        <tr><td>Satisfaction Survey</td><td>Complaint resolved</td><td>Send Microsoft Forms survey link 7 days after resolution</td></tr>
+        <tr><td>KPI Auto-Collection</td><td>Monthly schedule</td><td>Query module data to calculate KPI actuals, update KPI Measurement records</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-info">
+    <strong>Workflow Governance.</strong> All workflows follow a naming convention: <code>[Module]-[Type]-[Description]</code> (e.g., <code>NC-ESC-OverdueMajor</code>). Each workflow has an owner (Quality Administrator), error handling with retry logic, and failure notifications. A Power Automate management dashboard tracks flow health, run history, and failure rates across the platform.
+  </div>
+</section>
+
+
+<!-- ═══════ 06 Dashboard Strategy ═══════ -->
+<section class="section" id="dashboards">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <span class="section-title">Dashboard Strategy</span>
+  </div>
+  <p class="section-intro">Four dashboard tiers serve the three organisational levels plus a specialised auditor view. Each dashboard is built in Power BI Embedded within the Model-Driven App, with key metrics also surfaced as Adaptive Cards in Microsoft Teams.</p>
+
+  <h3>Executive Dashboard</h3>
+  <p>Designed for the COO and Head of Quality. Provides a single-screen strategic view of enterprise quality health with drill-through to regional and centre detail.</p>
+  <div class="dash-grid">
+    <div class="dash-widget"><div class="label">Enterprise Quality Index</div><div class="value">87.4</div><div class="delta delta-up">+2.1 vs prior quarter</div></div>
+    <div class="dash-widget"><div class="label">Open Major NCs</div><div class="value">12</div><div class="delta delta-down">3 overdue</div></div>
+    <div class="dash-widget"><div class="label">CAPA Effectiveness</div><div class="value">91%</div><div class="delta delta-up">+4% YoY</div></div>
+    <div class="dash-widget"><div class="label">Audit Programme</div><div class="value">68%</div><div class="delta">Complete (on track)</div></div>
+    <div class="dash-widget"><div class="label">Training Compliance</div><div class="value">94%</div><div class="delta delta-up">+1% vs target</div></div>
+    <div class="dash-widget"><div class="label">Customer Complaints</div><div class="value">23</div><div class="delta">MTD (–8 vs prior month)</div></div>
+  </div>
+  <h4>Additional executive widgets</h4>
+  <ul class="card-list">
+    <li>Regional comparison matrix — traffic-light grid of all regions against 8 key metrics</li>
+    <li>Enterprise risk heat map — top 10 risks by residual score with trend arrows</li>
+    <li>Quality objective scorecard — strategic objectives with target vs actual vs trend</li>
+    <li>ISO clause performance heatmap — colour-coded by aggregate audit scores</li>
+    <li>AI-generated executive brief — natural-language summary of top 3 quality concerns</li>
+    <li>13-month trend line — Enterprise Quality Index over time with seasonality indicators</li>
+  </ul>
+
+  <h3>Regional Dashboard</h3>
+  <p>Designed for Regional Quality Managers. Shows performance across all centres within their region with the ability to drill into individual centre detail.</p>
+  <h4>Key widgets</h4>
+  <ul class="card-list">
+    <li>Centre comparison table — all centres ranked by composite quality score with quartile shading</li>
+    <li>NC volume by centre — bar chart with severity breakdown (Minor / Major / Critical)</li>
+    <li>CAPA aging chart — stacked bar showing open CAPAs by age bracket (0–30, 31–60, 61–90, 90+ days)</li>
+    <li>Audit coverage tracker — percentage of scheduled audits completed, with upcoming audit calendar</li>
+    <li>Complaint trend by centre — sparklines showing complaint volume over 12 months</li>
+    <li>Training compliance by centre — percentage of staff with current certifications</li>
+    <li>Action items heatmap — count of overdue actions by centre and category</li>
+    <li>Supplier performance summary — top 5 suppliers by NC count within the region</li>
+  </ul>
+
+  <h3>Site Dashboard</h3>
+  <p>Designed for Centre Managers. Operational view focused on their centre's quality health, open items, and upcoming deadlines.</p>
+  <h4>Key widgets</h4>
+  <ul class="card-list">
+    <li>Centre quality score gauge — composite score with Red/Amber/Green zones</li>
+    <li>My open NCs — list with severity, age, and next action required</li>
+    <li>My open actions — personal action list sorted by due date with overdue items highlighted</li>
+    <li>Upcoming audits — next 3 scheduled audits with preparation status</li>
+    <li>Training expiry alert — staff whose certifications expire within 30 days</li>
+    <li>Customer complaint status — open complaints with SLA countdown</li>
+    <li>Document review due — controlled documents approaching review date</li>
+    <li>Centre KPI scorecard — centre-specific objectives with RAG status</li>
+    <li>Recent activity timeline — last 20 actions taken in the centre across all modules</li>
+  </ul>
+
+  <h3>Auditor Dashboard</h3>
+  <p>Designed for Internal Auditors. Focuses on audit assignments, workload, and finding follow-up.</p>
+  <h4>Key widgets</h4>
+  <ul class="card-list">
+    <li>My assigned audits — upcoming and in-progress audits with status and due dates</li>
+    <li>Finding follow-up tracker — open findings from previous audits requiring verification</li>
+    <li>Audit completion rate — percentage of assigned audits completed on time</li>
+    <li>Clause coverage gap — clauses not yet audited in the current programme</li>
+    <li>Centre historical scores — trend chart of audit scores for centres in the auditor's upcoming schedule</li>
+    <li>Audit report pipeline — reports in draft, submitted, or approved status</li>
+    <li>Workload calendar — visual timeline of audit assignments across the year</li>
+  </ul>
+
+  <div class="callout callout-info">
+    <strong>Teams Integration.</strong> A weekly digest Adaptive Card is sent every Monday to each persona via Teams, summarising their key metrics and overdue items. Users can click through from the card directly into the relevant Power App record. Critical alerts (e.g., new Critical NC, SLA breach) are sent as real-time Teams notifications.
+  </div>
+</section>
+
+
+<!-- ═══════ 07 AI Strategy ═══════ -->
+<section class="section" id="ai">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <span class="section-title">AI Strategy</span>
+  </div>
+  <p class="section-intro">The intelligence layer transforms historical quality data into predictive, prescriptive, and generative capabilities. AI is introduced progressively — beginning with classification and pattern detection, then advancing to prediction and autonomous recommendations as data maturity grows.</p>
+
+  <div class="callout callout-warn">
+    <strong>Data Maturity Prerequisite.</strong> Most predictive and generative AI capabilities require 12–18 months of clean, structured data from the platform's operational modules. The roadmap sequences AI capabilities accordingly: classification and NLP in Phase 1, pattern detection in Phase 2, and predictive models in Phase 3.
+  </div>
+
+  <div class="ai-card">
+    <div class="ai-card-head"><span class="ai-card-title">Predictive Quality Trend Analysis</span></div>
+    <div class="ai-card-desc">Forecasts quality performance metrics (NC rates, audit scores, complaint volumes) 3–6 months ahead using time-series analysis of historical centre data. Alerts leaders when a centre's trajectory suggests future degradation before it manifests in lagging indicators.</div>
+    <div class="ai-detail"><label>Approach</label><span>Azure ML time-series forecasting on Dataverse export; retrained monthly with latest data</span></div>
+    <div class="ai-detail"><label>Value</label><span>Early intervention prevents quality failures and reduces reactive firefighting by 40–60%</span></div>
+  </div>
+
+  <div class="ai-card">
+    <div class="ai-card-head"><span class="ai-card-title">Recurring Non-Conformance Analysis</span></div>
+    <div class="ai-card-desc">Clusters NC descriptions using NLP to identify recurring themes that may not be captured by manual categorisation. Detects when apparently unrelated NCs share a common root cause or systemic pattern across centres.</div>
+    <div class="ai-detail"><label>Approach</label><span>AI Builder text classification + Azure Cognitive Services for semantic clustering</span></div>
+    <div class="ai-detail"><label>Value</label><span>Reveals hidden systemic issues; reduces repeat NCs by targeting true root causes rather than symptoms</span></div>
+  </div>
+
+  <div class="ai-card">
+    <div class="ai-card-head"><span class="ai-card-title">Intelligent Audit Scheduling</span></div>
+    <div class="ai-card-desc">Recommends audit frequency and scope adjustments based on centre risk profiles, historical performance, and quality trend data. Centres with deteriorating quality indicators are recommended for more frequent or deeper audits; consistently high-performing centres may receive reduced audit frequency.</div>
+    <div class="ai-detail"><label>Approach</label><span>Rule-based model transitioning to ML as data accumulates; factors: NC rate, complaint volume, previous audit scores, CAPA overdue count, risk register severity</span></div>
+    <div class="ai-detail"><label>Value</label><span>Optimises auditor resource allocation; focuses effort where risk is highest</span></div>
+  </div>
+
+  <div class="ai-card">
+    <div class="ai-card-head"><span class="ai-card-title">Complaint Auto-Classification &amp; Routing</span></div>
+    <div class="ai-card-desc">Analyses incoming complaint text to automatically classify complaint type, assign severity, identify the responsible centre, and route to the appropriate handler. Reduces manual triage time and ensures consistent classification.</div>
+    <div class="ai-detail"><label>Approach</label><span>AI Builder document processing model trained on historical complaint data; confidence threshold triggers manual review</span></div>
+    <div class="ai-detail"><label>Value</label><span>Reduces complaint triage time from hours to seconds; improves classification consistency</span></div>
+  </div>
+
+  <div class="ai-card">
+    <div class="ai-card-head"><span class="ai-card-title">Risk Prediction Engine</span></div>
+    <div class="ai-card-desc">Predicts emerging risks by correlating signals across modules: rising NC trends in a category, supplier performance decline, training gaps, and external factors. Generates early-warning risk advisories before risks materialise as non-conformances.</div>
+    <div class="ai-detail"><label>Approach</label><span>Multi-variate anomaly detection via Azure ML; ingests data from NCs, complaints, supplier evaluations, and training records</span></div>
+    <div class="ai-detail"><label>Value</label><span>Shifts risk management from reactive to predictive; estimated 30% reduction in preventable quality incidents</span></div>
+  </div>
+
+  <div class="ai-card">
+    <div class="ai-card-head"><span class="ai-card-title">Management Review Auto-Summary</span></div>
+    <div class="ai-card-desc">Uses Microsoft Copilot to generate a narrative executive summary of all management review inputs. Highlights the three most significant quality concerns, recommends priority actions, and compares current-period performance against prior reviews.</div>
+    <div class="ai-detail"><label>Approach</label><span>Copilot integration with Power BI semantic model; structured prompts generate consistent summary format</span></div>
+    <div class="ai-detail"><label>Value</label><span>Reduces Head of Quality preparation time from days to hours; ensures no critical data is overlooked</span></div>
+  </div>
+
+  <div class="ai-card">
+    <div class="ai-card-head"><span class="ai-card-title">Executive Recommendation Engine</span></div>
+    <div class="ai-card-desc">Generates prioritised recommendations for executive action based on the combined intelligence from all AI capabilities. Each recommendation includes a confidence score, supporting evidence, and estimated impact. Recommendations are surfaced on the Executive Dashboard and in the weekly Teams digest.</div>
+    <div class="ai-detail"><label>Approach</label><span>Copilot-driven synthesis of AI Insights outputs; human-in-the-loop validation by Head of Quality before executive distribution</span></div>
+    <div class="ai-detail"><label>Value</label><span>Transforms data overload into actionable intelligence; ensures executive attention is directed at highest-impact items</span></div>
+  </div>
+
+  <div class="ai-card">
+    <div class="ai-card-head"><span class="ai-card-title">Anomaly Detection</span></div>
+    <div class="ai-card-desc">Continuously monitors quality metrics across all centres and flags statistically significant deviations from expected patterns. For example: a sudden spike in NCs at a centre, an unusual drop in training compliance, or an abnormal increase in a specific complaint category.</div>
+    <div class="ai-detail"><label>Approach</label><span>Statistical process control charts (X̄ and R charts) implemented in Power BI with alerting via Power Automate</span></div>
+    <div class="ai-detail"><label>Value</label><span>Catches quality degradation in real time rather than waiting for periodic reviews</span></div>
+  </div>
+
+  <div class="ai-card">
+    <div class="ai-card-head"><span class="ai-card-title">Intelligent Clause Prioritisation</span></div>
+    <div class="ai-card-desc">Analyses historical audit findings, NCs, and CAPA data by ISO clause to identify which clauses represent the greatest risk of non-conformance. Prioritises audit focus and improvement effort toward the clauses with the weakest organisational performance.</div>
+    <div class="ai-detail"><label>Approach</label><span>Weighted scoring model: clause finding frequency × average severity × CAPA effectiveness rate × time since last audit</span></div>
+    <div class="ai-detail"><label>Value</label><span>Ensures audit and improvement resources target the highest-risk areas of the QMS</span></div>
+  </div>
+
+  <div class="ai-card">
+    <div class="ai-card-head"><span class="ai-card-title">Sentiment Analysis on Customer Feedback</span></div>
+    <div class="ai-card-desc">Applies NLP sentiment analysis to customer complaint text, survey responses, and communication logs. Detects emerging dissatisfaction trends even when formal complaint volumes remain stable, providing a leading indicator of customer perception shifts.</div>
+    <div class="ai-detail"><label>Approach</label><span>Azure Cognitive Services Text Analytics with custom training on domain-specific vocabulary</span></div>
+    <div class="ai-detail"><label>Value</label><span>Provides early warning of customer satisfaction decline; enriches complaint trend analysis beyond volume counts</span></div>
+  </div>
+</section>
+
+
+<!-- ═══════ 08 Enterprise Reporting ═══════ -->
+<section class="section" id="reporting">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <span class="section-title">Enterprise Reporting</span>
+  </div>
+  <p class="section-intro">The reporting framework provides eight core report types, each available at centre, regional, and enterprise scope. All reports are built in Power BI with scheduled distribution via Power Automate and on-demand access through the platform.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Report</th><th>Purpose</th><th>Audience</th><th>Frequency</th><th>Key Metrics</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Centre Health Report</strong></td>
+          <td>Comprehensive quality performance assessment for a single operational centre</td>
+          <td>Centre Manager, Regional QM</td>
+          <td>Monthly</td>
+          <td>Quality score, NC count/trend, CAPA status, audit results, training compliance, complaint count, risk profile, objective RAG status</td>
+        </tr>
+        <tr>
+          <td><strong>Regional Health Report</strong></td>
+          <td>Aggregated view across all centres in a region with centre-level comparisons</td>
+          <td>Regional QM, Head of Quality</td>
+          <td>Monthly</td>
+          <td>Regional quality index, centre ranking, worst-performing centre, best-performing centre, regional NC/CAPA summary, shared risks</td>
+        </tr>
+        <tr>
+          <td><strong>Enterprise Health Report</strong></td>
+          <td>Strategic view of quality health across the entire organisation</td>
+          <td>COO, Head of Quality, Board</td>
+          <td>Quarterly</td>
+          <td>Enterprise Quality Index, regional comparison, strategic objective status, certification risk assessment, AI-generated executive summary</td>
+        </tr>
+        <tr>
+          <td><strong>ISO Performance Report</strong></td>
+          <td>Maps quality performance against each ISO 9001:2015 clause</td>
+          <td>Head of Quality, External Auditors</td>
+          <td>Biannual</td>
+          <td>Clause-by-clause conformity rate, audit finding distribution by clause, NC distribution by clause, clause coverage percentage, improvement trends</td>
+        </tr>
+        <tr>
+          <td><strong>Audit Performance Report</strong></td>
+          <td>Summarises internal audit programme delivery and outcomes</td>
+          <td>Head of Quality, Lead Auditors</td>
+          <td>Quarterly</td>
+          <td>Programme completion rate, finding breakdown by severity, clause coverage, centre audit scores, auditor workload distribution, overdue findings count</td>
+        </tr>
+        <tr>
+          <td><strong>CAPA Performance Report</strong></td>
+          <td>Analyses corrective and preventive action lifecycle performance</td>
+          <td>Head of Quality, Regional QMs</td>
+          <td>Monthly</td>
+          <td>Open/closed CAPA count, average time to closure, effectiveness rate, overdue CAPA count, CAPA by source (audit, complaint, proactive), reopen rate</td>
+        </tr>
+        <tr>
+          <td><strong>Training Compliance Report</strong></td>
+          <td>Tracks employee competency status and training programme delivery</td>
+          <td>Centre Managers, Regional QMs, HR</td>
+          <td>Monthly</td>
+          <td>Compliance rate by centre, expiring certifications, training completion rates, competency gap count, training hours delivered, cost per head</td>
+        </tr>
+        <tr>
+          <td><strong>Supplier Performance Report</strong></td>
+          <td>Evaluates external provider quality and reliability</td>
+          <td>Regional QMs, Procurement</td>
+          <td>Quarterly</td>
+          <td>Supplier scorecard results, supplier NC count, delivery performance, evaluation completion rate, approved supplier list status changes</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Report Distribution Model</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Channel</th><th>Mechanism</th><th>Use Case</th></tr></thead>
+      <tbody>
+        <tr><td>Scheduled Email</td><td>Power Automate triggers Power BI paginated report export (PDF) and emails to distribution list</td><td>Monthly Centre Health Reports to Centre Managers</td></tr>
+        <tr><td>Power BI Workspace</td><td>Interactive reports accessible via Power BI app or embedded in Power Apps</td><td>On-demand analysis with filters and drill-through</td></tr>
+        <tr><td>Teams Channel</td><td>Power BI tab embedded in Quality Management Teams channel</td><td>Always-available team-level dashboard</td></tr>
+        <tr><td>Executive Pack</td><td>Power Automate assembles enterprise report + AI summary into PowerPoint deck</td><td>Quarterly board-level reporting</td></tr>
+        <tr><td>Self-Service Export</td><td>Users export filtered views to Excel or PDF from Power BI</td><td>Ad-hoc analysis and evidence for external audits</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- ═══════ 09 Future Roadmap ═══════ -->
+<section class="section" id="roadmap">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <span class="section-title">Future Roadmap</span>
+  </div>
+  <p class="section-intro">The platform is delivered over five years in progressive phases. Each phase builds on the capabilities and data accumulated in previous phases, ensuring AI and analytics capabilities have the data maturity they require.</p>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-year">Year 1</div>
+      <div class="timeline-subtitle">Foundation &amp; Core Operations</div>
+      <div class="timeline-content">
+        <p>Establish the platform infrastructure, deploy core quality modules, and migrate from manual processes. Focus on data capture and process standardisation across all 25+ centres.</p>
+        <ul>
+          <li><strong>Q1–Q2:</strong> Dataverse schema deployment, security model, business unit configuration per centre. Document Control and SOP Management modules go live. SharePoint document library migration.</li>
+          <li><strong>Q2–Q3:</strong> Non-Conformance Management and CAPA modules. Internal Audit Management with mobile Canvas App. Action Tracking module. Core notification workflows.</li>
+          <li><strong>Q3–Q4:</strong> Customer Complaints module. Training &amp; Competency module. Risk Management module. Site-level and Regional-level dashboards in Power BI.</li>
+          <li><strong>Q4:</strong> Objectives &amp; KPIs module. Management Review module. Executive dashboard (v1). User training and adoption programme for all personas.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">Year 2</div>
+      <div class="timeline-subtitle">Intelligence &amp; Integration</div>
+      <div class="timeline-content">
+        <p>Introduce AI capabilities that leverage Year 1 data. Integrate with adjacent business systems and expand automation. Begin building the AI-driven insights layer.</p>
+        <ul>
+          <li><strong>Q1–Q2:</strong> AI Builder complaint auto-classification. Supplier Quality Management module. Change Management module. Escalation workflow framework.</li>
+          <li><strong>Q2–Q3:</strong> Copilot integration for natural-language queries across quality data. Recurring NC pattern detection via NLP clustering. Intelligent audit scheduling (rule-based v1).</li>
+          <li><strong>Q3–Q4:</strong> HR system integration for competency data. ERP integration for supplier master data. Advanced Power BI dashboards with drill-through and anomaly flagging. Teams channel integration with weekly digest cards.</li>
+          <li><strong>Q4:</strong> Management review auto-summary (Copilot). Sentiment analysis on customer feedback. Executive Analytics module (v2) with AI-generated insights.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">Year 3</div>
+      <div class="timeline-subtitle">Advanced Analytics &amp; Prediction</div>
+      <div class="timeline-content">
+        <p>With 18+ months of structured data, deploy predictive AI models and advanced analytics. Shift the organisation from reactive quality management to proactive quality intelligence.</p>
+        <ul>
+          <li><strong>Q1–Q2:</strong> Predictive quality trend forecasting (Azure ML). Risk prediction engine. Centre health scoring algorithm with predictive degradation warnings.</li>
+          <li><strong>Q2–Q3:</strong> Intelligent clause prioritisation. Intelligent audit scheduling (ML v2). Executive recommendation engine with confidence scoring.</li>
+          <li><strong>Q3–Q4:</strong> Advanced anomaly detection with statistical process control. Cross-module correlation analysis (e.g., training gaps → NC trends → complaint spikes). Process mining integration to identify process bottlenecks.</li>
+          <li><strong>Q4:</strong> Self-service analytics for power users. Custom report builder. API exposure for integration with BI tools outside the Microsoft ecosystem.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">Year 4</div>
+      <div class="timeline-subtitle">Ecosystem Expansion</div>
+      <div class="timeline-content">
+        <p>Extend the platform to adjacent quality domains: environmental management (ISO 14001), occupational health and safety (ISO 45001), and industry-specific standards. Build the supplier collaboration portal.</p>
+        <ul>
+          <li><strong>Q1–Q2:</strong> Multi-standard support — extend the data model to accommodate ISO 14001 and ISO 45001 clause mappings alongside ISO 9001. Unified audit checklists covering multiple standards.</li>
+          <li><strong>Q2–Q3:</strong> Supplier collaboration portal — external-facing Power Pages site allowing suppliers to respond to evaluations, submit corrective actions, and upload certificates directly.</li>
+          <li><strong>Q3–Q4:</strong> Customer self-service complaint portal. IoT integration for real-time quality data from operational equipment (temperature monitoring, calibration alerts). Digital twin concept for centre quality modelling.</li>
+          <li><strong>Q4:</strong> Mobile-first redesign of all Canvas Apps with enhanced offline capabilities. Accessibility audit and WCAG 2.1 AA compliance certification for all platform interfaces.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">Year 5</div>
+      <div class="timeline-subtitle">Autonomous Quality Operations</div>
+      <div class="timeline-content">
+        <p>The platform evolves toward autonomous quality management — AI-driven decision support, automated regulatory monitoring, and proactive quality interventions that require minimal human oversight for routine operations.</p>
+        <ul>
+          <li><strong>Q1–Q2:</strong> Autonomous audit scheduling — AI manages the entire audit programme, dynamically adjusting based on real-time risk signals. Human approval required only for programme changes exceeding defined thresholds.</li>
+          <li><strong>Q2–Q3:</strong> Regulatory change monitoring — AI monitors ISO and regulatory updates, assesses impact on the QMS, and recommends document and process changes. Generative AI drafts SOP updates for human review.</li>
+          <li><strong>Q3–Q4:</strong> Predictive compliance — the platform predicts which centres are at risk of certification non-conformance 6–12 months ahead and prescribes preventive interventions. Continuous improvement engine that identifies and recommends process optimisations without human prompting.</li>
+          <li><strong>Q4:</strong> Full platform maturity assessment. Benchmarking against industry peers. Strategic review of platform ROI and next-generation architecture decisions (e.g., migration considerations for emerging Microsoft capabilities).</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout callout-success">
+    <strong>Outcome by Year 5.</strong> ABC Services operates a fully integrated, AI-augmented Enterprise Quality Platform that has reduced quality incident rates by an estimated 45%, cut management review preparation from weeks to hours, achieved 100% audit programme compliance, and shifted the quality function from a compliance overhead to a strategic business differentiator.
+  </div>
+</section>
+
+</main>
+</div>

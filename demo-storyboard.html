@@ -1,0 +1,1526 @@
+<title>Executive Demo Storyboard — ABC Enterprise Quality Platform</title>
+<style>
+@font-face {
+  font-family: 'Deck';
+  src: local('Segoe UI'), local('SF Pro Display'), local('Helvetica Neue');
+  font-weight: 100 900;
+}
+
+:root {
+  --ink: #111318;
+  --ink-2: #33363D;
+  --ink-3: #555962;
+  --dim: #8B8F99;
+  --surface: #F4F3EF;
+  --card: #FFFFFF;
+  --card-raised: #FFFFFF;
+  --border: #D6D3CB;
+  --border-fine: #E8E6DF;
+  --primary: #1A5276;
+  --primary-soft: #2980B9;
+  --primary-faint: #EAF0F6;
+  --accent: #B5850A;
+  --accent-soft: #D4A017;
+  --accent-faint: #FDF6E3;
+  --danger: #A93226;
+  --danger-faint: #FDECEA;
+  --success: #1D7A47;
+  --success-faint: #E9F7EF;
+  --warn: #B7700A;
+  --warn-faint: #FEF5E7;
+  --scene-manual: #8B3A3A;
+  --scene-manual-faint: #FBF0F0;
+  --scene-transform: #1A5276;
+  --scene-transform-faint: #EAF0F6;
+  --scene-module: #2E6B4F;
+  --scene-module-faint: #EDF6F1;
+  --scene-workflow: #7B5EA7;
+  --scene-workflow-faint: #F3EFF8;
+  --scene-dash: #2471A3;
+  --scene-dash-faint: #EBF2FA;
+  --scene-ai: #9B5900;
+  --scene-ai-faint: #FFF8ED;
+  --scene-audit: #1A6B6A;
+  --scene-audit-faint: #EDF7F7;
+  --scene-exec: #1C2127;
+  --scene-exec-faint: #F0F0F2;
+  --scene-close: #B5850A;
+  --scene-close-faint: #FDF6E3;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: "Deck", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "Cascadia Code", Consolas, monospace;
+  --radius: 8px;
+  --radius-sm: 5px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #E4E1D9;
+    --ink-2: #C4C0B7;
+    --ink-3: #9A968E;
+    --dim: #706C64;
+    --surface: #12140F;
+    --card: #1C1E19;
+    --card-raised: #232520;
+    --border: #38362E;
+    --border-fine: #2C2A23;
+    --primary: #5DADE2;
+    --primary-soft: #85C1E9;
+    --primary-faint: #162030;
+    --accent: #D4A017;
+    --accent-soft: #F0C040;
+    --accent-faint: #28220E;
+    --danger: #E07060;
+    --danger-faint: #2A1815;
+    --success: #45B97C;
+    --success-faint: #132A1E;
+    --warn: #D4983F;
+    --warn-faint: #2A2112;
+    --scene-manual: #D48080;
+    --scene-manual-faint: #2A1818;
+    --scene-transform: #5DADE2;
+    --scene-transform-faint: #162030;
+    --scene-module: #5CB88A;
+    --scene-module-faint: #152A1E;
+    --scene-workflow: #B89AE0;
+    --scene-workflow-faint: #201830;
+    --scene-dash: #85C1E9;
+    --scene-dash-faint: #162030;
+    --scene-ai: #E0A840;
+    --scene-ai-faint: #2A2112;
+    --scene-audit: #5BC0BF;
+    --scene-audit-faint: #122828;
+    --scene-exec: #C0BDB6;
+    --scene-exec-faint: #1C1E19;
+    --scene-close: #D4A017;
+    --scene-close-faint: #28220E;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ink: #E4E1D9;
+  --ink-2: #C4C0B7;
+  --ink-3: #9A968E;
+  --dim: #706C64;
+  --surface: #12140F;
+  --card: #1C1E19;
+  --card-raised: #232520;
+  --border: #38362E;
+  --border-fine: #2C2A23;
+  --primary: #5DADE2;
+  --primary-soft: #85C1E9;
+  --primary-faint: #162030;
+  --accent: #D4A017;
+  --accent-soft: #F0C040;
+  --accent-faint: #28220E;
+  --danger: #E07060;
+  --danger-faint: #2A1815;
+  --success: #45B97C;
+  --success-faint: #132A1E;
+  --warn: #D4983F;
+  --warn-faint: #2A2112;
+  --scene-manual: #D48080;
+  --scene-manual-faint: #2A1818;
+  --scene-transform: #5DADE2;
+  --scene-transform-faint: #162030;
+  --scene-module: #5CB88A;
+  --scene-module-faint: #152A1E;
+  --scene-workflow: #B89AE0;
+  --scene-workflow-faint: #201830;
+  --scene-dash: #85C1E9;
+  --scene-dash-faint: #162030;
+  --scene-ai: #E0A840;
+  --scene-ai-faint: #2A2112;
+  --scene-audit: #5BC0BF;
+  --scene-audit-faint: #122828;
+  --scene-exec: #C0BDB6;
+  --scene-exec-faint: #1C1E19;
+  --scene-close: #D4A017;
+  --scene-close-faint: #28220E;
+}
+
+:root[data-theme="light"] {
+  --ink: #111318;
+  --ink-2: #33363D;
+  --ink-3: #555962;
+  --dim: #8B8F99;
+  --surface: #F4F3EF;
+  --card: #FFFFFF;
+  --card-raised: #FFFFFF;
+  --border: #D6D3CB;
+  --border-fine: #E8E6DF;
+  --primary: #1A5276;
+  --primary-soft: #2980B9;
+  --primary-faint: #EAF0F6;
+  --accent: #B5850A;
+  --accent-soft: #D4A017;
+  --accent-faint: #FDF6E3;
+  --danger: #A93226;
+  --danger-faint: #FDECEA;
+  --success: #1D7A47;
+  --success-faint: #E9F7EF;
+  --warn: #B7700A;
+  --warn-faint: #FEF5E7;
+  --scene-manual: #8B3A3A;
+  --scene-manual-faint: #FBF0F0;
+  --scene-transform: #1A5276;
+  --scene-transform-faint: #EAF0F6;
+  --scene-module: #2E6B4F;
+  --scene-module-faint: #EDF6F1;
+  --scene-workflow: #7B5EA7;
+  --scene-workflow-faint: #F3EFF8;
+  --scene-dash: #2471A3;
+  --scene-dash-faint: #EBF2FA;
+  --scene-ai: #9B5900;
+  --scene-ai-faint: #FFF8ED;
+  --scene-audit: #1A6B6A;
+  --scene-audit-faint: #EDF7F7;
+  --scene-exec: #1C2127;
+  --scene-exec-faint: #F0F0F2;
+  --scene-close: #B5850A;
+  --scene-close-faint: #FDF6E3;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--surface);
+  line-height: 1.62;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--primary); }
+a:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 2px; }
+
+/* ── Container ── */
+.wrap { max-width: 780px; margin: 0 auto; padding: 2.5rem 2rem 6rem; }
+
+@media (max-width: 600px) { .wrap { padding: 1.5rem 1rem 4rem; } }
+
+/* ── Cover ── */
+.cover {
+  text-align: center;
+  padding: 4rem 1rem 3.5rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.cover::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  margin: 0 auto;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cover-kicker {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+}
+
+.cover h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.12;
+  color: var(--ink);
+  margin: 0 0 0.5rem;
+  text-wrap: balance;
+}
+
+.cover .sub {
+  font-size: 1.05rem;
+  color: var(--ink-3);
+  max-width: 520px;
+  margin: 0 auto 2rem;
+  line-height: 1.55;
+}
+
+.cover-meta {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  font-size: 0.76rem;
+  color: var(--dim);
+}
+
+.cover-meta span { white-space: nowrap; }
+.cover-meta strong { color: var(--ink-2); font-weight: 600; }
+
+/* ── Runtime bar ── */
+.runtime {
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.runtime-seg {
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.7rem;
+  border-radius: 3px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Scene blocks ── */
+.scene {
+  margin-bottom: 3.5rem;
+  position: relative;
+}
+
+.scene-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 3px;
+  margin-bottom: 0.65rem;
+}
+
+.scene h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.18;
+  margin: 0 0 0.3rem;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.scene .scene-sub {
+  font-size: 0.92rem;
+  color: var(--ink-3);
+  margin-bottom: 1.5rem;
+  max-width: 620px;
+  font-style: italic;
+}
+
+.scene .timing {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1.25rem;
+}
+
+/* ── Narration block ── */
+.narration {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin: 1rem 0;
+  position: relative;
+}
+
+.narration::before {
+  content: "NARRATOR";
+  position: absolute;
+  top: -0.45rem;
+  left: 1rem;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--dim);
+  background: var(--card);
+  padding: 0 0.4rem;
+}
+
+.narration p {
+  font-size: 0.88rem;
+  color: var(--ink-2);
+  margin: 0;
+  line-height: 1.65;
+}
+
+.narration p + p { margin-top: 0.75rem; }
+
+.narration em { color: var(--ink); font-style: italic; }
+
+/* ── Screen description ── */
+.screen {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 1.25rem 0;
+  overflow: hidden;
+}
+
+.screen-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid var(--border-fine);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.screen-bar .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.screen-bar .dot:first-child { background: var(--danger); opacity: 0.6; }
+.screen-bar .dot:nth-child(2) { background: var(--warn); opacity: 0.6; }
+.screen-bar .dot:nth-child(3) { background: var(--success); opacity: 0.6; }
+
+.screen-body {
+  padding: 1.25rem 1.5rem;
+}
+
+.screen-body p {
+  font-size: 0.84rem;
+  color: var(--ink-2);
+  margin: 0 0 0.75rem;
+}
+
+.screen-body p:last-child { margin-bottom: 0; }
+
+/* ── Pain items ── */
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.pain-item {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-left: 3px solid var(--danger);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 0.85rem 1rem;
+}
+
+.pain-item .pi-title {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--ink);
+  margin-bottom: 0.2rem;
+}
+
+.pain-item .pi-desc {
+  font-size: 0.76rem;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+
+/* ── Feature items (with accent left border) ── */
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.feat-item {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-left: 3px solid var(--primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 0.85rem 1rem;
+}
+
+.feat-item .fi-title {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--ink);
+  margin-bottom: 0.2rem;
+}
+
+.feat-item .fi-desc {
+  font-size: 0.76rem;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+
+/* ── Workflow chain ── */
+.wf-chain {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 1.25rem 0;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.wf-chain::before {
+  content: "";
+  position: absolute;
+  left: 0.65rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  background: var(--border);
+}
+
+.wf-step {
+  position: relative;
+  padding: 0.5rem 0 0.5rem 0.75rem;
+}
+
+.wf-step::before {
+  content: "";
+  position: absolute;
+  left: -1.55rem;
+  top: 0.85rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--scene-workflow);
+  background: var(--card);
+}
+
+.wf-step.wf-active::before {
+  background: var(--scene-workflow);
+}
+
+.wf-step-title {
+  font-weight: 700;
+  font-size: 0.84rem;
+  color: var(--ink);
+}
+
+.wf-step-detail {
+  font-size: 0.78rem;
+  color: var(--ink-3);
+  line-height: 1.5;
+  margin-top: 0.15rem;
+}
+
+.wf-step-sys {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+.wf-step-sys.auto { color: var(--scene-workflow); }
+.wf-step-sys.user { color: var(--primary); }
+
+/* ── Dashboard mockup widgets ── */
+.dash-mock {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1rem 0;
+}
+
+.dm-widget {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 0.85rem;
+  text-align: center;
+}
+
+.dm-widget .dm-label {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--dim);
+}
+
+.dm-widget .dm-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  margin: 0.2rem 0 0.1rem;
+}
+
+.dm-widget .dm-delta {
+  font-size: 0.66rem;
+  font-weight: 600;
+}
+
+.dm-green .dm-value { color: var(--success); }
+.dm-red .dm-value { color: var(--danger); }
+.dm-blue .dm-value { color: var(--primary); }
+.dm-amber .dm-value { color: var(--warn); }
+.dm-green .dm-delta { color: var(--success); }
+.dm-red .dm-delta { color: var(--danger); }
+
+/* ── AI insight cards ── */
+.ai-insight {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1rem 1.25rem;
+  margin: 0.75rem 0;
+}
+
+.ai-insight .ai-flag {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.ai-insight .ai-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+
+.ai-insight .ai-body {
+  font-size: 0.82rem;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+.ai-insight .ai-why {
+  font-size: 0.76rem;
+  color: var(--ink-3);
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-fine);
+  font-style: italic;
+}
+
+/* ── Module mini cards ── */
+.mod-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+
+.mod-card {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+}
+
+.mod-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.mod-card-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.mod-card-clause {
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  background: var(--accent-faint);
+  color: var(--accent);
+  font-family: var(--mono);
+}
+
+.mod-card p {
+  font-size: 0.8rem;
+  color: var(--ink-3);
+  margin: 0 0 0.5rem;
+  line-height: 1.55;
+}
+
+.mod-card .demo-note {
+  font-size: 0.72rem;
+  color: var(--primary);
+  font-weight: 600;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-fine);
+}
+
+/* ── Transition divider ── */
+.transition {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.transition::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--border), transparent);
+}
+
+.transition-text {
+  display: inline-block;
+  background: var(--surface);
+  padding: 0.4rem 1.25rem;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: var(--dim);
+  position: relative;
+}
+
+/* ── Quote block ── */
+.quote {
+  border-left: 3px solid var(--accent);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  background: var(--accent-faint);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.quote p {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.6;
+  font-family: var(--serif);
+}
+
+.quote .attr {
+  font-size: 0.76rem;
+  font-style: normal;
+  color: var(--dim);
+  margin-top: 0.5rem;
+  font-family: var(--sans);
+}
+
+/* ── Section rule ── */
+.rule {
+  border: none;
+  border-top: 1px solid var(--border-fine);
+  margin: 3rem 0;
+}
+
+/* ── Key moment callout ── */
+.key-moment {
+  background: var(--accent-faint);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+}
+
+.key-moment .km-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+.key-moment .km-text {
+  font-size: 0.85rem;
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* ── Closing hero ── */
+.closing-hero {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-radius: var(--radius);
+  margin: 2rem 0;
+}
+
+.closing-hero h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin: 0 0 0.5rem;
+  text-wrap: balance;
+}
+
+.closing-hero p {
+  font-size: 0.92rem;
+  color: var(--ink-3);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.closing-pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0 0;
+  text-align: center;
+}
+
+.closing-pillar {
+  padding: 1rem 0.75rem;
+}
+
+.closing-pillar .cp-title {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+
+.closing-pillar .cp-desc {
+  font-size: 0.76rem;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+
+/* ── Table of contents ── */
+.toc {
+  background: var(--card);
+  border: 1px solid var(--border-fine);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.toc-title {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--dim);
+  margin-bottom: 0.75rem;
+}
+
+.toc-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.2rem 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  text-decoration: none;
+  padding: 0.3rem 0;
+  font-size: 0.8rem;
+  color: var(--ink-2);
+  transition: color 0.15s;
+}
+
+.toc-list a:hover { color: var(--primary); }
+
+.toc-list .toc-num {
+  font-family: var(--serif);
+  font-size: 0.72rem;
+  font-weight: 700;
+  min-width: 1.2rem;
+}
+
+.toc-list .toc-time {
+  margin-left: auto;
+  font-size: 0.68rem;
+  color: var(--dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* helper */
+.mt-0 { margin-top: 0; }
+.mb-0 { margin-bottom: 0; }
+
+h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 1.75rem 0 0.6rem;
+  letter-spacing: -0.01em;
+}
+
+h4 {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 1.25rem 0 0.4rem;
+}
+
+p { margin: 0 0 0.85rem; font-size: 0.88rem; color: var(--ink-2); }
+
+ul.compact {
+  margin: 0.5rem 0 1rem;
+  padding-left: 1.1rem;
+  font-size: 0.82rem;
+  color: var(--ink-2);
+}
+ul.compact li { padding: 0.15rem 0; line-height: 1.55; }
+ul.compact strong { color: var(--ink); }
+</style>
+
+<div class="wrap">
+
+<!-- ═══════ Cover ═══════ -->
+<div class="cover">
+  <div class="cover-kicker">Executive Committee Briefing</div>
+  <h1>Enterprise Quality Platform<br>Demo Storyboard</h1>
+  <div class="sub">A scene-by-scene script for a 9-minute live demonstration designed to secure Executive Committee investment in the ABC Enterprise Quality Platform.</div>
+  <div class="cover-meta">
+    <span><strong>Client</strong> &nbsp;ABC Services</span>
+    <span><strong>Audience</strong> &nbsp;Executive Committee</span>
+    <span><strong>Runtime</strong> &nbsp;9 minutes</span>
+    <span><strong>Format</strong> &nbsp;Live demo + narration</span>
+  </div>
+</div>
+
+<!-- ═══════ Runtime ═══════ -->
+<div class="runtime">
+  <span class="runtime-seg" style="background:var(--scene-manual-faint);color:var(--scene-manual);">1 &nbsp;Pain &nbsp;1:30</span>
+  <span class="runtime-seg" style="background:var(--scene-transform-faint);color:var(--scene-transform);">2 &nbsp;Transform &nbsp;0:45</span>
+  <span class="runtime-seg" style="background:var(--scene-module-faint);color:var(--scene-module);">3 &nbsp;Modules &nbsp;2:00</span>
+  <span class="runtime-seg" style="background:var(--scene-workflow-faint);color:var(--scene-workflow);">4 &nbsp;Workflow &nbsp;1:15</span>
+  <span class="runtime-seg" style="background:var(--scene-dash-faint);color:var(--scene-dash);">5 &nbsp;Dashboards &nbsp;1:00</span>
+  <span class="runtime-seg" style="background:var(--scene-ai-faint);color:var(--scene-ai);">6 &nbsp;AI &nbsp;1:00</span>
+  <span class="runtime-seg" style="background:var(--scene-audit-faint);color:var(--scene-audit);">7 &nbsp;Audit AI &nbsp;0:45</span>
+  <span class="runtime-seg" style="background:var(--scene-exec-faint);color:var(--scene-exec);">8 &nbsp;Exec Centre &nbsp;0:30</span>
+  <span class="runtime-seg" style="background:var(--scene-close-faint);color:var(--scene-close);">9 &nbsp;Close &nbsp;0:15</span>
+</div>
+
+<!-- ═══════ TOC ═══════ -->
+<div class="toc">
+  <div class="toc-title">Storyboard Scenes</div>
+  <ul class="toc-list">
+    <li><a href="#scene-1"><span class="toc-num" style="color:var(--scene-manual)">1</span> The World Before<span class="toc-time">0:00 – 1:30</span></a></li>
+    <li><a href="#scene-2"><span class="toc-num" style="color:var(--scene-transform)">2</span> Digital Transformation<span class="toc-time">1:30 – 2:15</span></a></li>
+    <li><a href="#scene-3"><span class="toc-num" style="color:var(--scene-module)">3</span> Module Walkthrough<span class="toc-time">2:15 – 4:15</span></a></li>
+    <li><a href="#scene-4"><span class="toc-num" style="color:var(--scene-workflow)">4</span> Workflow in Action<span class="toc-time">4:15 – 5:30</span></a></li>
+    <li><a href="#scene-5"><span class="toc-num" style="color:var(--scene-dash)">5</span> Enterprise Dashboards<span class="toc-time">5:30 – 6:30</span></a></li>
+    <li><a href="#scene-6"><span class="toc-num" style="color:var(--scene-ai)">6</span> The Intelligent Enterprise<span class="toc-time">6:30 – 7:30</span></a></li>
+    <li><a href="#scene-7"><span class="toc-num" style="color:var(--scene-audit)">7</span> Intelligent Audit Planning<span class="toc-time">7:30 – 8:15</span></a></li>
+    <li><a href="#scene-8"><span class="toc-num" style="color:var(--scene-exec)">8</span> Executive Decision Centre<span class="toc-time">8:15 – 8:45</span></a></li>
+    <li><a href="#scene-9"><span class="toc-num" style="color:var(--scene-close)">9</span> Closing Vision<span class="toc-time">8:45 – 9:00</span></a></li>
+  </ul>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     SCENE 1 — THE WORLD BEFORE
+     ════════════════════════════════════════════ -->
+<div class="scene" id="scene-1">
+  <div class="scene-tag" style="background:var(--scene-manual-faint);color:var(--scene-manual);">Scene 1</div>
+  <h2>The World Before</h2>
+  <div class="scene-sub">Open with what the audience already lives through every day. Make the pain visceral before offering the cure.</div>
+  <div class="timing">0:00 – 1:30 &nbsp;·&nbsp; 90 seconds</div>
+
+  <h3>Stage Direction</h3>
+  <p>The presenter's screen shows a deliberately cluttered desktop: four overlapping Excel windows, an Outlook inbox with 47 unread quality-related emails, a shared drive folder open with dozens of Word documents named <em>SOP_ServiceDelivery_v3_FINAL_FINAL2.docx</em>, and a Teams chat thread where someone is asking "Has anyone seen the latest audit report for Johannesburg?"</p>
+  <p>Hold this screen for five full seconds before speaking. Let the committee recognise their own reality.</p>
+
+  <div class="narration">
+    <p>This is the state of quality management at ABC Services today.</p>
+    <p>Audit findings live in spreadsheets that three people have different versions of. Corrective actions are tracked in email threads that get buried within a week. SOPs sit in shared folders where nobody is sure which version is current. Training records are kept in binders at each centre — and nobody at head office can tell you, right now, which staff certifications expired last month.</p>
+    <p>When the executive team asks <em>"What is our quality performance across the business?"</em> — it takes the quality team two to three weeks to manually compile a report from 25 separate centres. By the time it reaches this table, the data is already stale.</p>
+  </div>
+
+  <h3>On-Screen Pain Points</h3>
+  <div class="pain-grid">
+    <div class="pain-item">
+      <div class="pi-title">Scattered Documents</div>
+      <div class="pi-desc">SOPs across shared drives, email attachments, and local machines. No version control. No acknowledgement tracking.</div>
+    </div>
+    <div class="pain-item">
+      <div class="pi-title">Email-Driven Actions</div>
+      <div class="pi-desc">Corrective actions assigned by email. No visibility on completion. No escalation when overdue.</div>
+    </div>
+    <div class="pain-item">
+      <div class="pi-title">Spreadsheet Audits</div>
+      <div class="pi-desc">Audit findings recorded in Excel. No link to corrective actions. No trend analysis. Manual follow-up.</div>
+    </div>
+    <div class="pain-item">
+      <div class="pi-title">Invisible Risks</div>
+      <div class="pi-desc">No centralised risk register. Risks live in individual managers' heads. No enterprise view.</div>
+    </div>
+    <div class="pain-item">
+      <div class="pi-title">Delayed Reporting</div>
+      <div class="pi-desc">Weeks to compile a quality report. Data manually gathered from each centre. Stale by the time it's read.</div>
+    </div>
+    <div class="pain-item">
+      <div class="pi-title">Training Blind Spots</div>
+      <div class="pi-desc">Paper-based training records. No central visibility. Expired certifications discovered only during external audits.</div>
+    </div>
+  </div>
+
+  <div class="key-moment">
+    <div class="km-label">Key Demo Moment</div>
+    <div class="km-text">Open a real spreadsheet with mock audit data. Scroll sideways to show 40+ columns. Ask the room: "Can anyone tell me, from this spreadsheet, which ISO clause has the most recurring findings across the Northern Region?" Hold for three seconds. The silence is the point.</div>
+  </div>
+
+  <div class="narration">
+    <p>The problem is not that your teams lack diligence. They work hard with these tools every day. The problem is that spreadsheets and email were never designed to run a quality management system across 25 centres. You are managing a national quality operation with tools built for personal productivity.</p>
+    <p><em>That changes today.</em></p>
+  </div>
+</div>
+
+
+<div class="transition"><span class="transition-text">Transition — Screen fades to the ABC Quality Platform login</span></div>
+
+
+<!-- ════════════════════════════════════════════
+     SCENE 2 — DIGITAL TRANSFORMATION
+     ════════════════════════════════════════════ -->
+<div class="scene" id="scene-2">
+  <div class="scene-tag" style="background:var(--scene-transform-faint);color:var(--scene-transform);">Scene 2</div>
+  <h2>Digital Transformation</h2>
+  <div class="scene-sub">The emotional pivot of the demo. The audience should feel the contrast between what they just saw and what appears now.</div>
+  <div class="timing">1:30 – 2:15 &nbsp;·&nbsp; 45 seconds</div>
+
+  <h3>Stage Direction</h3>
+  <p>The presenter signs in with their Microsoft 365 credentials. The platform opens in a Model-Driven Power App embedded in Microsoft Teams. The homepage loads — clean, structured, immediately readable.</p>
+
+  <div class="screen">
+    <div class="screen-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>ABC Quality Platform — Home</div>
+    <div class="screen-body">
+      <p><strong>What the audience sees:</strong> A personalised dashboard for the Head of Quality. Left navigation shows all 17 modules. The main area displays four zones:</p>
+      <ul class="compact">
+        <li><strong>My Approvals</strong> — 3 pending items: a CAPA plan, a document revision, and a supplier evaluation. Each with a one-click Approve / Reject action.</li>
+        <li><strong>Quality Health Snapshot</strong> — Enterprise Quality Index at 87.4, with a 13-month sparkline. Three regional gauges underneath.</li>
+        <li><strong>Overdue Actions</strong> — 7 items across 4 centres, colour-coded by age. Each is a clickable link to the source record.</li>
+        <li><strong>AI Alert</strong> — A gold banner reads: <em>"Recurring non-conformance detected: 4 centres have raised NCs related to incoming goods inspection in the past 60 days. Review recommended."</em></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="narration">
+    <p>One login. Every quality process, every centre, every action — in one place. Built entirely on Microsoft 365. Your teams sign in with the credentials they already use. No new passwords. No new systems to learn. It runs inside Teams, alongside the tools they already live in.</p>
+    <p>And notice the AI alert at the top. The platform has already detected a pattern across four centres that no human has spotted yet. We will come back to that.</p>
+  </div>
+
+  <div class="key-moment">
+    <div class="km-label">Key Demo Moment</div>
+    <div class="km-text">Pause on the homepage for five seconds. Let the committee absorb the visual contrast between the cluttered desktop they saw 45 seconds ago and this clean, structured interface. The contrast tells the story better than any slide.</div>
+  </div>
+</div>
+
+
+<div class="transition"><span class="transition-text">Transition — Presenter clicks into the left navigation</span></div>
+
+
+<!-- ════════════════════════════════════════════
+     SCENE 3 — MODULE WALKTHROUGH
+     ════════════════════════════════════════════ -->
+<div class="scene" id="scene-3">
+  <div class="scene-tag" style="background:var(--scene-module-faint);color:var(--scene-module);">Scene 3</div>
+  <h2>Module Walkthrough</h2>
+  <div class="scene-sub">Move briskly. Executives do not need to see every field — they need to understand the scope and capability of each module in a single glance.</div>
+  <div class="timing">2:15 – 4:15 &nbsp;·&nbsp; 2 minutes</div>
+
+  <h3>Demonstration Approach</h3>
+  <p>Navigate through each module by clicking it in the left navigation. Spend 10–15 seconds on each, showing one defining screen and delivering one sentence that explains the business value. Do not open forms or demonstrate data entry — that detail belongs in a separate workshop.</p>
+
+  <div class="mod-grid">
+
+    <div class="mod-card">
+      <div class="mod-card-head">
+        <span class="mod-card-title">Document Control</span>
+        <span class="mod-card-clause">ISO 7.5</span>
+      </div>
+      <p>Show the controlled document library. Point out the version column, the status badges (Draft, In Review, Approved, Obsolete), and the acknowledgement completion percentage bar beside each document.</p>
+      <div class="demo-note">Narrate: "Every document has one version of truth. Everyone who needs to read it has confirmed they've read it — and we can prove it."</div>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-card-head">
+        <span class="mod-card-title">SOP Management</span>
+        <span class="mod-card-clause">ISO 8.1</span>
+      </div>
+      <p>Open one SOP record. Show the structured steps, the linked competency requirements, and the "Impact of Change" section. Highlight the linked training records at the bottom.</p>
+      <div class="demo-note">Narrate: "When this SOP changes, the system automatically identifies who needs retraining — no manual cross-referencing."</div>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-card-head">
+        <span class="mod-card-title">Internal Audits</span>
+        <span class="mod-card-clause">ISO 9.2</span>
+      </div>
+      <p>Show the audit list with status badges (Scheduled, In Progress, Report Submitted, Closed). Open one completed audit to show the checklist, the photo evidence, and the auto-generated findings linked to NCs.</p>
+      <div class="demo-note">Narrate: "Auditors capture findings on a tablet on-site. Photo evidence, clause mapping, and corrective actions — all in real time."</div>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-card-head">
+        <span class="mod-card-title">Non-Conformances</span>
+        <span class="mod-card-clause">ISO 10.2</span>
+      </div>
+      <p>Show the NC register with severity colour-coding. Open one NC to show the timeline: raised → investigated → root cause → containment → CAPA link. Highlight the 5 Whys analysis embedded in the record.</p>
+      <div class="demo-note">Narrate: "Every non-conformance has a root cause analysis, a corrective action, and an effectiveness review — all tracked, all auditable."</div>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-card-head">
+        <span class="mod-card-title">CAPA</span>
+        <span class="mod-card-clause">ISO 10.2</span>
+      </div>
+      <p>Show the CAPA pipeline view — a kanban-style board with columns: Planning, Awaiting Approval, In Progress, Verification, Closed. Show that each CAPA links back to its source NC and forward to its effectiveness review.</p>
+      <div class="demo-note">Narrate: "CAPAs don't disappear into email. They sit here until they're proven effective — at 30, 60, and 90 days."</div>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-card-head">
+        <span class="mod-card-title">Risk Management</span>
+        <span class="mod-card-clause">ISO 6.1</span>
+      </div>
+      <p>Show the risk heat map — a 5×5 matrix with plotted risk dots, colour-coded by category. Click one risk to show the treatment plan, the review schedule, and the linked quality objective it threatens.</p>
+      <div class="demo-note">Narrate: "Risks are no longer in people's heads. They're assessed, treated, reviewed, and visible at every level of the organisation."</div>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-card-head">
+        <span class="mod-card-title">Training &amp; Competency</span>
+        <span class="mod-card-clause">ISO 7.2</span>
+      </div>
+      <p>Show the training compliance matrix: a grid of staff names vs required competencies, with green/red/amber cells. Filter to one centre. Point out the expiry warning badges.</p>
+      <div class="demo-note">Narrate: "At a glance — who is qualified, who needs retraining, and whose certifications expire this month. Across every centre."</div>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-card-head">
+        <span class="mod-card-title">Supplier Quality</span>
+        <span class="mod-card-clause">ISO 8.4</span>
+      </div>
+      <p>Show the approved supplier list with scorecard results and status (Approved, Conditional, Suspended). Open one supplier to show their NC history and performance trend chart.</p>
+      <div class="demo-note">Narrate: "Every supplier has a performance score based on delivery, quality, and response to non-conformances. No more gut feel."</div>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-card-head">
+        <span class="mod-card-title">Customer Complaints</span>
+        <span class="mod-card-clause">ISO 9.1.2</span>
+      </div>
+      <p>Show the complaint pipeline. Open one complaint to show the investigation, customer communication log, and linked NC. Point out the satisfaction survey response at the bottom.</p>
+      <div class="demo-note">Narrate: "Complaints are automatically acknowledged, investigated, resolved, and followed up — with customer satisfaction measured at the end."</div>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-card-head">
+        <span class="mod-card-title">Management Review</span>
+        <span class="mod-card-clause">ISO 9.3</span>
+      </div>
+      <p>Show the management review screen with the auto-assembled input pack: audit summary, NC trends, CAPA status, complaint analysis, objective scores, risk changes. Point out the AI-generated executive summary at the top.</p>
+      <div class="demo-note">Narrate: "The platform assembles every input required by ISO 9.3 automatically. Your Head of Quality no longer spends two weeks preparing for this meeting."</div>
+    </div>
+
+  </div>
+
+  <div class="key-moment">
+    <div class="km-label">Key Demo Moment</div>
+    <div class="km-text">After the Management Review module, pause and say: "That was ten modules in two minutes. Each one replaces a manual process that currently takes your teams hours every week. Now let me show you what happens when these modules work together."</div>
+  </div>
+</div>
+
+
+<div class="transition"><span class="transition-text">Transition — Presenter opens a Non-Conformance form</span></div>
+
+
+<!-- ════════════════════════════════════════════
+     SCENE 4 — WORKFLOW IN ACTION
+     ════════════════════════════════════════════ -->
+<div class="scene" id="scene-4">
+  <div class="scene-tag" style="background:var(--scene-workflow-faint);color:var(--scene-workflow);">Scene 4</div>
+  <h2>Workflow in Action</h2>
+  <div class="scene-sub">This is where the platform proves it is not just a database with forms. Show the automation chain end-to-end. Every step should either happen automatically or take one click.</div>
+  <div class="timing">4:15 – 5:30 &nbsp;·&nbsp; 75 seconds</div>
+
+  <h3>Stage Direction</h3>
+  <p>The presenter role-plays as a Centre Manager at the Johannesburg centre. They raise a new Non-Conformance and then show the cascade of automated actions that follow. Use a split-screen or switch between browser tabs to show notifications arriving in real time.</p>
+
+  <div class="narration">
+    <p>Let me show you what automation looks like in practice. I'm going to raise a non-conformance right now, and I want you to watch what the system does — without anyone asking it to.</p>
+  </div>
+
+  <div class="wf-chain">
+    <div class="wf-step wf-active">
+      <div class="wf-step-title">NC Raised by Centre Manager</div>
+      <div class="wf-step-detail">The presenter completes a short form: selects the centre (Johannesburg), chooses a category (Service Delivery — Process Deviation), writes a two-sentence description, uploads a photo, and clicks Submit. The system assigns reference NC-2026-0847.</div>
+      <div class="wf-step-sys user">User action — 30 seconds</div>
+    </div>
+    <div class="wf-step wf-active">
+      <div class="wf-step-title">AI Auto-Classification</div>
+      <div class="wf-step-detail">Within two seconds, AI Builder analyses the description and suggests: Severity = Major, ISO Clause = 8.5.1 (Control of production and service provision). The presenter confirms the suggestion with one click.</div>
+      <div class="wf-step-sys auto">Automatic — AI Builder</div>
+    </div>
+    <div class="wf-step wf-active">
+      <div class="wf-step-title">Instant Notification</div>
+      <div class="wf-step-detail">Switch to a second browser tab showing Microsoft Teams. An Adaptive Card has already appeared in the Regional Quality Manager's Teams channel: "New Major NC raised at Johannesburg — NC-2026-0847. Review required." The card has View and Assign buttons.</div>
+      <div class="wf-step-sys auto">Automatic — Power Automate + Teams</div>
+    </div>
+    <div class="wf-step wf-active">
+      <div class="wf-step-title">Regional Manager Assigns Investigation</div>
+      <div class="wf-step-detail">The presenter clicks the Assign button on the Teams card. A dropdown shows the centre's process owners. They assign the investigation to the relevant Process Owner, who receives their own notification immediately.</div>
+      <div class="wf-step-sys user">User action — one click</div>
+    </div>
+    <div class="wf-step wf-active">
+      <div class="wf-step-title">CAPA Auto-Created</div>
+      <div class="wf-step-detail">Because this NC is classified as Major, the system automatically creates a linked CAPA record, pre-populated with the NC details. A new notification goes to the Centre Manager: "CAPA-2026-0312 created. Action plan required within 5 business days."</div>
+      <div class="wf-step-sys auto">Automatic — Business Rule + Power Automate</div>
+    </div>
+    <div class="wf-step">
+      <div class="wf-step-title">Reminder at Day 3</div>
+      <div class="wf-step-detail">If no action plan is submitted within 3 days, the system sends a reminder to the Centre Manager via Teams and email. A yellow "Approaching SLA" badge appears on the CAPA record.</div>
+      <div class="wf-step-sys auto">Automatic — Scheduled Flow</div>
+    </div>
+    <div class="wf-step">
+      <div class="wf-step-title">Escalation at Day 7</div>
+      <div class="wf-step-detail">If still no action plan at day 7, the system escalates to the Regional Quality Manager. A red "SLA Breached" badge appears. The Regional QM sees it on their dashboard under Overdue Actions.</div>
+      <div class="wf-step-sys auto">Automatic — Escalation Flow</div>
+    </div>
+    <div class="wf-step">
+      <div class="wf-step-title">Evidence Uploaded &amp; Verification</div>
+      <div class="wf-step-detail">Once actions are completed, the Process Owner uploads evidence of completion. The Regional QM receives a verification task. They review the evidence and mark the CAPA action as Verified.</div>
+      <div class="wf-step-sys user">User action — review and one click</div>
+    </div>
+    <div class="wf-step">
+      <div class="wf-step-title">Effectiveness Review Scheduled</div>
+      <div class="wf-step-detail">The system automatically schedules effectiveness reviews at 30, 60, and 90 days. A task appears in the Regional QM's queue on each date. If the CAPA is effective, both the CAPA and the original NC are closed.</div>
+      <div class="wf-step-sys auto">Automatic — Scheduled Flow</div>
+    </div>
+    <div class="wf-step wf-active">
+      <div class="wf-step-title">Dashboard Updates in Real Time</div>
+      <div class="wf-step-detail">Switch to the Power BI dashboard. The NC count for Johannesburg has incremented by one. The Enterprise Quality Index has adjusted. The CAPA ageing chart shows a new entry. All of this happened without anyone running a report or updating a spreadsheet.</div>
+      <div class="wf-step-sys auto">Automatic — Real-time Dataverse → Power BI</div>
+    </div>
+  </div>
+
+  <div class="narration">
+    <p>One non-conformance raised. Nine automated actions. Zero emails. Zero manual handoffs. Zero chance of this falling through the cracks.</p>
+    <p>And every step — every notification, every approval, every piece of evidence — is permanently recorded as an auditable trail for your external ISO auditors.</p>
+  </div>
+
+  <div class="key-moment">
+    <div class="km-label">Key Demo Moment</div>
+    <div class="km-text">After showing the Teams notification arrive in real time, say: "This notification appeared in under three seconds. In the current process, this same information would take between two hours and two days to reach the Regional Quality Manager — if it reached them at all."</div>
+  </div>
+</div>
+
+
+<div class="transition"><span class="transition-text">Transition — Presenter opens Power BI</span></div>
+
+
+<!-- ════════════════════════════════════════════
+     SCENE 5 — ENTERPRISE DASHBOARDS
+     ════════════════════════════════════════════ -->
+<div class="scene" id="scene-5">
+  <div class="scene-tag" style="background:var(--scene-dash-faint);color:var(--scene-dash);">Scene 5</div>
+  <h2>Enterprise Dashboards</h2>
+  <div class="scene-sub">Show three dashboard levels in quick succession. The executive audience needs to see that every level of the organisation has visibility — and that their own view is the most powerful.</div>
+  <div class="timing">5:30 – 6:30 &nbsp;·&nbsp; 60 seconds</div>
+
+  <h3>Level 1: Site Dashboard</h3>
+  <p>Show the dashboard for the Johannesburg centre. The NC just raised is visible. Point out the centre quality score, open actions list, upcoming audits, and training compliance gauge.</p>
+
+  <div class="dash-mock">
+    <div class="dm-widget dm-green"><div class="dm-label">Centre Quality Score</div><div class="dm-value">84.2</div><div class="dm-delta">+1.8 vs prior month</div></div>
+    <div class="dm-widget dm-red"><div class="dm-label">Open NCs</div><div class="dm-value">6</div><div class="dm-delta">2 overdue</div></div>
+    <div class="dm-widget dm-blue"><div class="dm-label">Next Audit</div><div class="dm-value">12 Aug</div><div class="dm-delta">Clause 8 focus</div></div>
+    <div class="dm-widget dm-green"><div class="dm-label">Training Compliance</div><div class="dm-value">96%</div><div class="dm-delta">On target</div></div>
+  </div>
+
+  <div class="narration">
+    <p>This is what a Centre Manager sees every morning. Their centre, their numbers, their actions. No spreadsheet assembly. It's live.</p>
+  </div>
+
+  <h3>Level 2: Regional Dashboard</h3>
+  <p>Click the "Regional View" tab. The dashboard expands to show all centres in the Gauteng region side by side. Highlight the centre comparison table and the CAPA ageing chart.</p>
+
+  <div class="dash-mock">
+    <div class="dm-widget dm-blue"><div class="dm-label">Regional Index</div><div class="dm-value">86.1</div><div class="dm-delta">5 centres</div></div>
+    <div class="dm-widget dm-amber"><div class="dm-label">Overdue CAPAs</div><div class="dm-value">4</div><div class="dm-delta">Across 2 centres</div></div>
+    <div class="dm-widget dm-green"><div class="dm-label">Audit Completion</div><div class="dm-value">72%</div><div class="dm-delta">On track for year-end</div></div>
+    <div class="dm-widget dm-red"><div class="dm-label">Complaints MTD</div><div class="dm-value">9</div><div class="dm-delta">+3 vs prior month</div></div>
+  </div>
+
+  <div class="narration">
+    <p>A Regional Manager sees every centre in their region compared. Which centres are strong, which need attention, and where corrective actions are stalling. This used to take a week to compile. Now it's always current.</p>
+  </div>
+
+  <h3>Level 3: Executive Dashboard</h3>
+  <p>Click the "Enterprise View" tab. Show the full executive dashboard with all regions, the Enterprise Quality Index, the national heat map, and the AI insights panel.</p>
+
+  <div class="dash-mock">
+    <div class="dm-widget dm-blue"><div class="dm-label">Enterprise Quality Index</div><div class="dm-value">87.4</div><div class="dm-delta">+2.1 vs Q1</div></div>
+    <div class="dm-widget dm-red"><div class="dm-label">Open Major NCs</div><div class="dm-value">12</div><div class="dm-delta">3 centres account for 9</div></div>
+    <div class="dm-widget dm-green"><div class="dm-label">CAPA Effectiveness</div><div class="dm-value">91%</div><div class="dm-delta">Target: 85%</div></div>
+    <div class="dm-widget dm-amber"><div class="dm-label">Supplier Risk</div><div class="dm-value">3</div><div class="dm-delta">Suppliers on watch</div></div>
+    <div class="dm-widget dm-green"><div class="dm-label">SOP Compliance</div><div class="dm-value">98%</div><div class="dm-delta">2 docs overdue for review</div></div>
+    <div class="dm-widget dm-blue"><div class="dm-label">Training National</div><div class="dm-value">94%</div><div class="dm-delta">14 certs expiring this month</div></div>
+  </div>
+
+  <div class="narration">
+    <p>This is what you, the Executive Committee, will see. The entire quality posture of ABC Services, across every centre, every region — live, right now. Not a report that was accurate three weeks ago. This data is current as of this moment.</p>
+  </div>
+
+  <div class="key-moment">
+    <div class="km-label">Key Demo Moment</div>
+    <div class="km-text">Click on the worst-performing centre in the national heat map. The dashboard drills through to that centre's Site Dashboard. Click on one of its overdue NCs. The NC record opens with the full investigation timeline. Say: "Three clicks from the boardroom to the individual finding on the ground. That's enterprise visibility."</div>
+  </div>
+</div>
+
+
+<div class="transition"><span class="transition-text">Transition — Presenter scrolls to the AI Insights panel</span></div>
+
+
+<!-- ════════════════════════════════════════════
+     SCENE 6 — THE INTELLIGENT ENTERPRISE
+     ════════════════════════════════════════════ -->
+<div class="scene" id="scene-6">
+  <div class="scene-tag" style="background:var(--scene-ai-faint);color:var(--scene-ai);">Scene 6</div>
+  <h2>The Intelligent Enterprise</h2>
+  <div class="scene-sub">This scene separates the platform from any standard QMS. The audience should leave this scene thinking "We've never had anything that can do this."</div>
+  <div class="timing">6:30 – 7:30 &nbsp;·&nbsp; 60 seconds</div>
+
+  <h3>Stage Direction</h3>
+  <p>Open the AI Insights panel from the left navigation. The screen shows a list of active AI-generated insights, each with a confidence badge, a recommendation, and an explanation of WHY the platform reached that conclusion.</p>
+
+  <div class="narration">
+    <p>Until now, we've shown you a system that tracks, automates, and reports. But this platform doesn't just record your quality data — it reads it. Let me show you what the platform sees that humans can't.</p>
+  </div>
+
+  <div class="ai-insight">
+    <div class="ai-flag">AI Insight — Pattern Detection</div>
+    <div class="ai-title">Recurring Non-Conformance: Incoming Goods Inspection</div>
+    <div class="ai-body">Four centres across two regions have raised non-conformances related to incoming goods inspection failures in the past 60 days. The affected centres are Johannesburg, Pretoria, Durban, and Cape Town. The category "Incoming Goods — Specification Non-Compliance" appeared 11 times across these centres.</div>
+    <div class="ai-why">Why this matters: The clustering across multiple centres and regions suggests a systemic issue — likely a supplier quality problem or an SOP gap — rather than isolated operational failures. Recommend: Review Supplier XYZ's quality performance; cross-reference with SOP-PRO-042 (Incoming Goods Inspection Procedure) for adequacy.</div>
+  </div>
+
+  <div class="ai-insight">
+    <div class="ai-flag">AI Insight — Risk Prediction</div>
+    <div class="ai-title">East London Centre: Predicted Quality Decline</div>
+    <div class="ai-body">The AI model predicts a 78% probability that the East London centre's quality score will drop below 75 (the Red threshold) within the next 90 days. Current trajectory shows declining audit scores, rising NC volume, and three overdue CAPAs.</div>
+    <div class="ai-why">Why this matters: East London's current quality score is 79.2 — still in the Amber zone. But the leading indicators (NC velocity, CAPA closure rate, training compliance) match the pattern seen at Port Elizabeth before its score dropped to 68 last year. Early intervention now — a focused audit and a CAPA acceleration plan — could prevent the decline.</div>
+  </div>
+
+  <div class="ai-insight">
+    <div class="ai-flag">AI Insight — Clause Prioritisation</div>
+    <div class="ai-title">ISO Clause 8.5.1 Requires National Attention</div>
+    <div class="ai-body">Across the enterprise, Clause 8.5.1 (Control of Production and Service Provision) accounts for 28% of all Major audit findings in the current year. This is disproportionate — the next-highest clause accounts for 11%. Finding severity in this clause has increased quarter-on-quarter for three consecutive quarters.</div>
+    <div class="ai-why">Why this matters: This clause governs your core service delivery process. Its disproportionate share of findings indicates either an SOP gap, a training gap, or a process design issue at the national level. Recommend: Include Clause 8.5.1 as a mandatory focus in every audit in the next programme cycle, and commission a process review of the associated SOPs.</div>
+  </div>
+
+  <div class="ai-insight">
+    <div class="ai-flag">AI Insight — Executive Recommendation</div>
+    <div class="ai-title">Three Centres Require Executive Intervention</div>
+    <div class="ai-body">East London, Bloemfontein, and Polokwane have Quality Health Scores below 80, overdue CAPA rates above 40%, and declining trends across multiple indicators. These centres have not responded adequately to regional-level interventions over the past two quarters.</div>
+    <div class="ai-why">Why this matters: Regional management has flagged improvement plans at each centre, but the data shows these plans are not producing results. The platform recommends escalating to executive-sponsored intervention: a direct review with each Centre Manager, resource reallocation, and an accelerated audit cycle. Confidence: 89%.</div>
+  </div>
+
+  <div class="narration">
+    <p>This is not a dashboard. This is an early warning system. The platform is reading patterns across 25 centres and 18 months of data to tell you <em>what is about to go wrong</em> — and <em>what to do about it</em> — before it shows up in your lagging indicators.</p>
+    <p>No spreadsheet analysis can do this. No monthly report can do this. This runs continuously, and it learns as your data grows.</p>
+  </div>
+</div>
+
+
+<div class="transition"><span class="transition-text">Transition — Presenter clicks "Audit Planning"</span></div>
+
+
+<!-- ════════════════════════════════════════════
+     SCENE 7 — INTELLIGENT AUDIT PLANNING
+     ════════════════════════════════════════════ -->
+<div class="scene" id="scene-7">
+  <div class="scene-tag" style="background:var(--scene-audit-faint);color:var(--scene-audit);">Scene 7</div>
+  <h2>Intelligent Audit Planning</h2>
+  <div class="scene-sub">Demonstrate that audit scheduling is no longer a calendar exercise — it is a risk-driven, AI-informed strategic decision.</div>
+  <div class="timing">7:30 – 8:15 &nbsp;·&nbsp; 45 seconds</div>
+
+  <h3>Stage Direction</h3>
+  <p>Open the Audit Planning module. The screen shows the annual audit programme with a new section: <strong>AI-Recommended Adjustments</strong>. This section shows a table of recommendations the platform has generated based on live quality data.</p>
+
+  <div class="screen">
+    <div class="screen-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>ABC Quality Platform — Intelligent Audit Planning</div>
+    <div class="screen-body">
+      <p><strong>What the audience sees:</strong> A table with five columns: Centre, Recommended Action, Priority, Contributing Factors, and Confidence.</p>
+    </div>
+  </div>
+
+  <div class="ai-insight">
+    <div class="ai-flag">Audit Recommendation</div>
+    <div class="ai-title">East London — Bring Forward Q4 Audit to Q3</div>
+    <div class="ai-body">Recommended priority: High. The platform recommends moving East London's scheduled Q4 audit to Q3 and expanding scope to include Clauses 8.5.1 and 10.2.</div>
+    <div class="ai-why">Contributing factors: Quality score declined from 84 to 79 over two quarters. Three overdue Major CAPAs. Repeat NCs in service delivery processes. Clause 8.5.1 findings in last two consecutive audits. Training compliance dropped to 88%.</div>
+  </div>
+
+  <div class="ai-insight">
+    <div class="ai-flag">Audit Recommendation</div>
+    <div class="ai-title">Cape Town — Reduce Frequency to Annual</div>
+    <div class="ai-body">Recommended priority: Low. Cape Town has maintained a quality score above 92 for four consecutive quarters with zero Major NCs. The platform recommends reducing audit frequency from biannual to annual, freeing auditor capacity for higher-risk centres.</div>
+    <div class="ai-why">Contributing factors: Quality score: 94.1. Zero Major NCs in 18 months. CAPA effectiveness rate: 100%. Training compliance: 99%. All audit findings in last two audits were Observations, no NCs.</div>
+  </div>
+
+  <div class="ai-insight">
+    <div class="ai-flag">Audit Recommendation</div>
+    <div class="ai-title">National — Mandatory Clause 8.5.1 Focus</div>
+    <div class="ai-body">The platform recommends adding Clause 8.5.1 as a mandatory audit focus at every centre in the next audit cycle, regardless of individual centre performance.</div>
+    <div class="ai-why">Contributing factors: Enterprise-wide, Clause 8.5.1 accounts for 28% of Major findings — nearly three times the next-highest clause. The trend is worsening. A national process review alongside targeted auditing is the recommended response.</div>
+  </div>
+
+  <div class="narration">
+    <p>The old approach: audit every centre on the same calendar cycle, same scope, same checklist. The new approach: the platform tells you <em>where</em> to audit, <em>when</em> to audit, and <em>what to look for</em> — based on live data, not last year's schedule.</p>
+    <p>You deploy your auditors where the risk is. You reduce effort where the data says it's safe. Your audit programme becomes as intelligent as the platform itself.</p>
+  </div>
+</div>
+
+
+<div class="transition"><span class="transition-text">Transition — Presenter clicks "Executive Decision Centre"</span></div>
+
+
+<!-- ════════════════════════════════════════════
+     SCENE 8 — EXECUTIVE DECISION CENTRE
+     ════════════════════════════════════════════ -->
+<div class="scene" id="scene-8">
+  <div class="scene-tag" style="background:var(--scene-exec-faint);color:var(--scene-exec);">Scene 8</div>
+  <h2>Executive Decision Centre</h2>
+  <div class="scene-sub">The crescendo. Show the committee their own future view — the one screen that replaces every quality report they have ever received.</div>
+  <div class="timing">8:15 – 8:45 &nbsp;·&nbsp; 30 seconds</div>
+
+  <h3>Stage Direction</h3>
+  <p>Open the Executive Decision Centre — a full-screen Power BI dashboard designed for boardroom display. The screen fills with the national view.</p>
+
+  <div class="screen">
+    <div class="screen-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>Executive Decision Centre — ABC Services</div>
+    <div class="screen-body">
+      <p><strong>Top row:</strong> Enterprise Quality Index (87.4), Open Major NCs (12), CAPA Effectiveness (91%), Audit Programme Completion (68%), Training Compliance (94%). Each metric shows a trend arrow and comparison to target.</p>
+      <p><strong>Left panel:</strong> National heat map. All 25+ centres plotted geographically, colour-coded by quality score — green (85+), amber (75–84), red (below 75). Three centres glow red.</p>
+      <p><strong>Centre panel:</strong> Centre ranking table. All centres listed top to bottom by quality score. Columns show NC count, CAPA status, audit result, training compliance, and complaint count. The bottom five are highlighted with a red stripe.</p>
+      <p><strong>Right panel:</strong> AI Recommendations. The three executive recommendations from Scene 6 appear here as actionable cards. Strategic quality objectives with RAG status. Enterprise risk summary showing the top five risks by residual score.</p>
+      <p><strong>Bottom row:</strong> 13-month trend line for Enterprise Quality Index. Quality trend by region (sparklines). Upcoming management review date with preparation status.</p>
+    </div>
+  </div>
+
+  <div class="narration">
+    <p>This is what your Monday morning looks like with this platform. One screen. Every centre. Every metric. Every risk. Every AI recommendation. Updated in real time.</p>
+    <p>You will never again wait three weeks for a quality report. You will never again discover a systemic issue only when the external auditor finds it. The platform finds it first — and tells you what to do about it.</p>
+  </div>
+</div>
+
+
+<div class="transition"><span class="transition-text">Transition — Screen fades to vision statement</span></div>
+
+
+<!-- ════════════════════════════════════════════
+     SCENE 9 — CLOSING VISION
+     ════════════════════════════════════════════ -->
+<div class="scene" id="scene-9">
+  <div class="scene-tag" style="background:var(--scene-close-faint);color:var(--scene-close);">Scene 9</div>
+  <h2>Closing Vision</h2>
+  <div class="scene-sub">Land the emotional close. Do not end on features — end on transformation.</div>
+  <div class="timing">8:45 – 9:00 &nbsp;·&nbsp; 15 seconds</div>
+
+  <h3>Stage Direction</h3>
+  <p>The screen shows a clean dark background with a single statement in white text, appearing one line at a time. The presenter reads it aloud, slowly.</p>
+
+  <div class="closing-hero">
+    <h3>From Compliance to Intelligence</h3>
+    <p>This platform transforms quality management from a manual compliance activity into an intelligent strategic management system — one that predicts, recommends, and protects the reputation of ABC Services at scale.</p>
+    <div class="closing-pillars">
+      <div class="closing-pillar">
+        <div class="cp-title">Unified</div>
+        <div class="cp-desc">One platform replacing fragmented spreadsheets, emails, and shared drives across 25+ centres</div>
+      </div>
+      <div class="closing-pillar">
+        <div class="cp-title">Automated</div>
+        <div class="cp-desc">42 workflows that eliminate manual handoffs, missed deadlines, and lost follow-ups</div>
+      </div>
+      <div class="closing-pillar">
+        <div class="cp-title">Visible</div>
+        <div class="cp-desc">Real-time dashboards at every level — from Centre Manager to Executive Committee</div>
+      </div>
+      <div class="closing-pillar">
+        <div class="cp-title">Intelligent</div>
+        <div class="cp-desc">AI that reads your quality data, predicts what will go wrong, and tells you what to do about it</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote">
+    <p>Quality is not a department. It is a capability. This platform makes that capability visible, measurable, and intelligent — for the first time in the history of this organisation.</p>
+    <div class="attr">— Closing statement to the Executive Committee</div>
+  </div>
+
+  <div class="narration">
+    <p>Thank the committee. Offer to run a deeper module-by-module workshop for the operational leaders. Confirm that the platform is built entirely on Microsoft 365 — no new vendor dependencies, no new infrastructure. State the recommended timeline: Phase 1 live within six months.</p>
+  </div>
+</div>
+
+<hr class="rule">
+
+<!-- ═══════ Presenter Notes ═══════ -->
+<h3>Presenter Notes</h3>
+
+<div class="feat-grid">
+  <div class="feat-item">
+    <div class="fi-title">Pacing</div>
+    <div class="fi-desc">Spend the most time on Scenes 4 and 6 — the workflow chain and AI insights. These are the moments that create executive conviction. Move briskly through Scene 3 (module walkthrough).</div>
+  </div>
+  <div class="feat-item">
+    <div class="fi-title">Data</div>
+    <div class="fi-desc">Use realistic mock data from actual centres. Executives will disengage if they see "Lorem Ipsum" or obviously fake centre names. Use real geography, realistic numbers, and plausible scenarios.</div>
+  </div>
+  <div class="feat-item">
+    <div class="fi-title">Live Notifications</div>
+    <div class="fi-desc">The Teams notification in Scene 4 must appear live. Pre-stage the Power Automate flow so it fires when you submit the NC form. This "live" moment is the most memorable part of the demo.</div>
+  </div>
+  <div class="feat-item">
+    <div class="fi-title">Silence</div>
+    <div class="fi-desc">Use deliberate pauses. After the cluttered desktop in Scene 1, hold five seconds. After the drill-through in Scene 5, hold three seconds. After the AI recommendations in Scene 6, hold three seconds. Silence is your most powerful tool.</div>
+  </div>
+  <div class="feat-item">
+    <div class="fi-title">Contrast</div>
+    <div class="fi-desc">The demo is structured as a before/after story. The transition from Scene 1 to Scene 2 must feel dramatic. Everything after that builds on the contrast you established in that first transition.</div>
+  </div>
+  <div class="feat-item">
+    <div class="fi-title">Fallback</div>
+    <div class="fi-desc">Have screenshots of every screen as backup. If a live demo fails (network, permissions, data), switch to screenshots immediately without apology. Never let the audience see you troubleshoot.</div>
+  </div>
+</div>
+
+</div>
