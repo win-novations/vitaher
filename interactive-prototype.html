@@ -1288,6 +1288,10 @@ transition:all .15s var(--ease);
     </div></div>
     <div class="card"><div class="card-header"><h3>Notification Preferences</h3></div><div class="card-body" id="settingsNotifications"></div></div>
   </div>
+  <div class="card" style="margin-top:16px">
+    <div class="card-header"><h3>Voice &amp; Narration</h3><span class="card-badge st-purple">Presentation Mode</span></div>
+    <div class="card-body" id="voiceSettingsBody"></div>
+  </div>
 </div>
 
 </div><!-- /main-area -->
@@ -1496,6 +1500,7 @@ function navigate(page){
   if(page==='risk')renderRiskMatrix();
   if(page==='training')renderTrainingChart();
   if(page==='review')renderReviewPanels();
+  if(page==='settings')renderVoiceSettings();
   const sb=document.getElementById('sidebar');
   if(sb.classList.contains('mobile-open'))sb.classList.remove('mobile-open');
 }
@@ -2859,23 +2864,51 @@ const PRES_SPEED_LABELS=['0.8×','1×','1.3×'];
 let presMuted=false;
 const presSynth=window.speechSynthesis||null;
 let presVoice=null,presKeepAlive=null;
+let presPitch=1.0,presVolume=1.0;
 
 // Event-driven narration waiting
 let presNarrEndTime=0,presNarrRemaining=0,presWaitingForNarr=false,presWaitCb=null;
 let presNarrCurrentText='';
 
+function presLoadVoicePrefs(){
+  try{
+    const s=localStorage.getItem('presVoicePrefs');
+    if(s){const p=JSON.parse(s);presPitch=p.pitch??1.0;presVolume=p.volume??1.0;
+      const si=PRES_SPEEDS.indexOf(p.speed);if(si>=0){presSpeed=p.speed;document.getElementById('presSpeedLabel').textContent=PRES_SPEED_LABELS[si];}
+    }
+  }catch(e){}
+}
+
+function presSaveVoicePrefs(){
+  try{localStorage.setItem('presVoicePrefs',JSON.stringify({
+    voiceName:presVoice?presVoice.name:'',pitch:presPitch,volume:presVolume,speed:presSpeed
+  }))}catch(e){}
+}
+
 function presInitVoice(){
   if(!presSynth)return;
+  presLoadVoicePrefs();
   const pick=()=>{
     const voices=presSynth.getVoices();
     if(!voices.length)return;
+    // Restore saved voice
+    try{const s=localStorage.getItem('presVoicePrefs');
+      if(s){const saved=JSON.parse(s).voiceName;
+        if(saved){const match=voices.find(v=>v.name===saved);if(match){presVoice=match;return;}}
+      }
+    }catch(e){}
+    // Auto-detect best female English voice
     const prefs=[
-      v=>/Microsoft.*(David|Mark|Guy)/i.test(v.name),
-      v=>/Google UK English Male/i.test(v.name),
-      v=>/Daniel/i.test(v.name)&&/en/i.test(v.lang),
-      v=>/Google US English/i.test(v.name),
+      v=>/Microsoft.*(Zira|Jenny|Aria|Sara|Natasha)/i.test(v.name),
+      v=>/Microsoft.*Natural/i.test(v.name)&&/en/i.test(v.lang)&&!/Male|David|Mark|Guy|Ryan/i.test(v.name),
+      v=>/Google UK English Female/i.test(v.name),
       v=>/Samantha/i.test(v.name)&&/en/i.test(v.lang),
-      v=>/Alex/i.test(v.name)&&/en/i.test(v.lang),
+      v=>/Karen/i.test(v.name)&&/en/i.test(v.lang),
+      v=>/Moira/i.test(v.name)&&/en/i.test(v.lang),
+      v=>/Tessa/i.test(v.name)&&/en/i.test(v.lang),
+      v=>/Victoria/i.test(v.name)&&/en/i.test(v.lang),
+      v=>/Google US English/i.test(v.name),
+      v=>/Fiona/i.test(v.name)&&/en/i.test(v.lang),
       v=>/en[-_](US|GB)/i.test(v.lang)&&v.localService,
       v=>/en[-_]/i.test(v.lang)&&v.localService,
       v=>/en[-_]/i.test(v.lang),
@@ -2912,7 +2945,7 @@ function presSpeak(html){
   if(!text)return;
   const utt=new SpeechSynthesisUtterance(text);
   if(presVoice)utt.voice=presVoice;
-  utt.rate=presSpeed*0.94;utt.pitch=1.0;utt.volume=1.0;utt.lang='en-US';
+  utt.rate=presSpeed*0.94;utt.pitch=presPitch;utt.volume=presVolume;utt.lang='en-US';
   presSynth.speak(utt);
   presKeepAlive=setInterval(()=>{
     if(!presSynth.speaking)return clearInterval(presKeepAlive);
@@ -3331,6 +3364,113 @@ function presRunStep(){
       if(presRunning&&!presPaused)presRunStep();
     });
   });
+}
+
+// ── Voice Settings UI ──
+function renderVoiceSettings(){
+  const body=document.getElementById('voiceSettingsBody');
+  if(!body)return;
+  if(!presSynth){body.innerHTML='<p style="color:var(--text3)">Speech synthesis is not supported in this browser.</p>';return;}
+  presInitVoice();
+  const voices=presSynth.getVoices().filter(v=>/en/i.test(v.lang));
+  const allVoices=presSynth.getVoices();
+  const enVoices=voices.length?voices:allVoices;
+  const savedName=presVoice?presVoice.name:'';
+
+  let voiceOpts=enVoices.map(v=>{
+    const sel=v.name===savedName?'selected':'';
+    const tag=v.localService?'Local':'Remote';
+    return `<option value="${v.name.replace(/"/g,'&quot;')}" ${sel}>${v.name} (${v.lang}) [${tag}]</option>`;
+  }).join('');
+
+  body.innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div style="grid-column:1/-1">
+        <div class="form-group"><label>Narration Voice</label>
+          <select id="vsVoice" onchange="vsChangeVoice(this.value)" style="width:100%;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--surface);color:var(--text);font-size:13px">${voiceOpts}</select>
+          <div style="font-size:11px;color:var(--text4);margin-top:6px" id="vsVoiceHint"></div>
+        </div>
+      </div>
+      <div class="form-group"><label>Speed <span style="color:var(--text4);font-weight:400" id="vsSpeedVal">${presSpeed.toFixed(2)}</span></label>
+        <input type="range" id="vsSpeed" min="0.5" max="2" step="0.05" value="${presSpeed}" oninput="vsUpdateSpeed(this.value)" style="width:100%;accent-color:var(--brand)">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text4)"><span>Slow</span><span>Normal</span><span>Fast</span></div>
+      </div>
+      <div class="form-group"><label>Pitch <span style="color:var(--text4);font-weight:400" id="vsPitchVal">${presPitch.toFixed(2)}</span></label>
+        <input type="range" id="vsPitch" min="0.5" max="2" step="0.05" value="${presPitch}" oninput="vsUpdatePitch(this.value)" style="width:100%;accent-color:var(--brand)">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text4)"><span>Low</span><span>Natural</span><span>High</span></div>
+      </div>
+      <div class="form-group"><label>Volume <span style="color:var(--text4);font-weight:400" id="vsVolVal">${presVolume.toFixed(2)}</span></label>
+        <input type="range" id="vsVol" min="0" max="1" step="0.05" value="${presVolume}" oninput="vsUpdateVol(this.value)" style="width:100%;accent-color:var(--brand)">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text4)"><span>Mute</span><span>Half</span><span>Full</span></div>
+      </div>
+      <div class="form-group">
+        <label>&nbsp;</label>
+        <button class="btn btn-primary btn-sm" onclick="vsPreview()" style="margin-top:2px"><svg class="icon-svg sm" viewBox="0 0 20 20" style="stroke:#fff"><polygon points="7,4 16,10 7,16" fill="#fff" stroke="none"/></svg> Preview Voice</button>
+        <button class="btn btn-outline btn-sm" onclick="vsReset()" style="margin-top:2px;margin-left:8px">Reset Defaults</button>
+      </div>
+    </div>`;
+  vsUpdateHint();
+}
+
+function vsChangeVoice(name){
+  if(!presSynth)return;
+  const v=presSynth.getVoices().find(v=>v.name===name);
+  if(v)presVoice=v;
+  presSaveVoicePrefs();
+  vsUpdateHint();
+}
+
+function vsUpdateHint(){
+  const el=document.getElementById('vsVoiceHint');
+  if(!el||!presVoice)return;
+  const quality=presVoice.localService?'Local (high quality)':'Cloud-based';
+  const gender=/Zira|Jenny|Aria|Sara|Natasha|Samantha|Karen|Moira|Tessa|Victoria|Fiona|Hazel|Female|Susan|Catherine|Remy/i.test(presVoice.name)?'Female':'';
+  el.textContent=`${quality}${gender?' · '+gender:''} · ${presVoice.lang}`;
+}
+
+function vsUpdateSpeed(v){
+  presSpeed=parseFloat(v);
+  document.getElementById('vsSpeedVal').textContent=presSpeed.toFixed(2);
+  const si=PRES_SPEEDS.indexOf(presSpeed);
+  document.getElementById('presSpeedLabel').textContent=si>=0?PRES_SPEED_LABELS[si]:presSpeed.toFixed(1)+'×';
+  presSaveVoicePrefs();
+}
+
+function vsUpdatePitch(v){
+  presPitch=parseFloat(v);
+  document.getElementById('vsPitchVal').textContent=presPitch.toFixed(2);
+  presSaveVoicePrefs();
+}
+
+function vsUpdateVol(v){
+  presVolume=parseFloat(v);
+  document.getElementById('vsVolVal').textContent=presVolume.toFixed(2);
+  presSaveVoicePrefs();
+}
+
+function vsPreview(){
+  if(!presSynth)return;
+  presSynth.cancel();clearInterval(presKeepAlive);
+  const text='The Enterprise Quality Platform transforms quality management across 25 operational centres with artificial intelligence.';
+  const utt=new SpeechSynthesisUtterance(text);
+  if(presVoice)utt.voice=presVoice;
+  utt.rate=presSpeed*0.94;utt.pitch=presPitch;utt.volume=presVolume;utt.lang='en-US';
+  presSynth.speak(utt);
+  presKeepAlive=setInterval(()=>{
+    if(!presSynth.speaking)return clearInterval(presKeepAlive);
+    if(!presSynth.paused){presSynth.pause();presSynth.resume();}
+  },8000);
+  utt.onend=()=>clearInterval(presKeepAlive);
+}
+
+function vsReset(){
+  presSpeed=1.0;presPitch=1.0;presVolume=1.0;
+  presVoice=null;
+  try{localStorage.removeItem('presVoicePrefs')}catch(e){}
+  presInitVoice();
+  document.getElementById('presSpeedLabel').textContent='1×';
+  renderVoiceSettings();
+  showToast('success','Voice Reset','Narration settings restored to defaults');
 }
 
 function presStart(){
