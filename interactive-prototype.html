@@ -641,9 +641,9 @@ transition:all .15s var(--ease);
 .pres-bar .pb-mute{position:relative}
 .pres-bar .pb-mute.muted{opacity:.45}
 .pres-bar .pb-sep{width:1px;height:24px;background:rgba(255,255,255,.1);flex-shrink:0}
-.pres-narrator{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(180deg,rgba(8,10,18,.96),rgba(8,10,18,.92));color:#fff;padding:20px 32px;border-radius:14px;font-size:15.5px;font-weight:400;line-height:1.65;max-width:720px;text-align:center;z-index:901;opacity:0;transition:all .5s var(--ease);pointer-events:none;box-shadow:0 12px 48px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06);letter-spacing:-.005em}
-.pres-narrator.visible{opacity:1;transform:translateX(-50%) translateY(0)}
-.pres-narrator .pn-label{font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:var(--brand);font-weight:700;margin-bottom:8px}
+.pres-sub{position:fixed;bottom:72px;left:50%;transform:translateX(-50%);max-width:780px;width:88%;text-align:center;background:rgba(0,0,0,.7);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:#fff;font-size:15px;font-weight:400;line-height:1.6;padding:11px 28px;border-radius:8px;z-index:901;opacity:0;transition:opacity .4s ease;pointer-events:none;letter-spacing:-.005em}
+.pres-sub.visible{opacity:1}
+.pres-bar .pb-speed{font-size:11px;font-weight:700;width:auto;min-width:40px;padding:0 10px;border-radius:14px;font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .pres-spotlight{position:fixed;z-index:800;border-radius:12px;box-shadow:0 0 0 9999px rgba(0,0,0,.55);pointer-events:none;transition:all .6s var(--ease);opacity:0}
 .pres-spotlight.visible{opacity:1}
 .pres-cursor{position:fixed;z-index:850;width:24px;height:24px;pointer-events:none;transition:all .8s cubic-bezier(.4,0,.2,1);opacity:0}
@@ -676,7 +676,7 @@ transition:all .15s var(--ease);
 .pres-end .pe-thanks{font-size:22px;font-weight:300;color:rgba(255,255,255,.5);letter-spacing:.04em;margin-top:8px;opacity:0;transition:all .8s 1.1s var(--ease)}
 .pres-end .pe-restart{margin-top:20px;opacity:0;transition:all .6s 1.4s var(--ease)}
 .pres-end.reveal .pe-badge,.pres-end.reveal .pe-title,.pres-end.reveal .pe-sub,.pres-end.reveal .pe-line,.pres-end.reveal .pe-stats,.pres-end.reveal .pe-thanks,.pres-end.reveal .pe-restart{opacity:1;transform:translateY(0)}
-@media(prefers-reduced-motion:reduce){.pres-cursor,.pres-spotlight,.pres-narrator,.pres-click-ripple{transition:none!important;animation:none!important}}
+@media(prefers-reduced-motion:reduce){.pres-cursor,.pres-spotlight,.pres-sub,.pres-click-ripple{transition:none!important;animation:none!important}}
 </style>
 
 <!-- ═══════ TOPBAR ═══════ -->
@@ -1305,11 +1305,12 @@ transition:all .15s var(--ease);
   <button class="pb-btn pb-play" id="presPlayBtn" onclick="presToggle()"><svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" id="presPlayIcon"><polygon points="7,4 16,10 7,16"/></svg></button>
   <button class="pb-btn" onclick="presStop()" title="Stop"><svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><rect x="5" y="5" width="10" height="10" rx="1"/></svg></button>
   <div class="pb-progress"><div class="pb-fill" id="presFill"></div></div>
-  <div class="pb-time" id="presTime">0:00 / 5:00</div>
+  <div class="pb-time" id="presTime">0:00</div>
   <div class="pb-sep"></div>
+  <button class="pb-btn pb-speed" id="presSpeedBtn" onclick="presSpeedCycle()" title="Playback speed"><span id="presSpeedLabel">1×</span></button>
   <button class="pb-btn pb-mute" id="presMuteBtn" onclick="presMuteToggle()" title="Toggle voice narration"><svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor" id="presMuteIcon"><path d="M10 3L5 7H2v6h3l5 4V3z"/><path d="M14.5 7.5a4 4 0 0 1 0 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16.5 5.5a7 7 0 0 1 0 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
 </div>
-<div class="pres-narrator" id="presNarrator"><div class="pn-label">Narrator</div><div id="presNarrText"></div></div>
+<div class="pres-sub" id="presSub"><div id="presSubText"></div></div>
 <div class="pres-spotlight" id="presSpotlight"></div>
 <div class="pres-cursor" id="presCursor"></div>
 <div class="pres-launch" id="presLaunch">
@@ -2846,14 +2847,22 @@ window.addEventListener('resize',()=>{
   if(currentPage==='auditplan'){renderApPriorityChart();renderApClauseChart();}
 });
 // ═══════ PRESENTATION MODE ═══════
-let presRunning=false,presPaused=false,presTimer=null,presStartTime=0,presPausedAt=0,presElapsed=0;
-const PRES_TOTAL=300;
-let presStepIdx=0,presSteps=[];
+let presRunning=false,presPaused=false,presTimer=null,presStepIdx=0,presSteps=[];
+let presElapsedMs=0,presLastTick=0,presTickRAF=null;
 
-// ── Voice Narration (Web Speech API) ──
+// Speed: 0.8=Slow, 1.0=Normal, 1.25=Fast
+let presSpeed=1.0;
+const PRES_SPEEDS=[0.8,1.0,1.25];
+const PRES_SPEED_LABELS=['0.8×','1×','1.3×'];
+
+// Voice narration
 let presMuted=false;
 const presSynth=window.speechSynthesis||null;
 let presVoice=null,presKeepAlive=null;
+
+// Event-driven narration waiting
+let presNarrEndTime=0,presNarrRemaining=0,presWaitingForNarr=false,presWaitCb=null;
+let presNarrCurrentText='';
 
 function presInitVoice(){
   if(!presSynth)return;
@@ -2878,6 +2887,21 @@ function presInitVoice(){
   if(!presVoice&&presSynth.addEventListener)presSynth.addEventListener('voiceschanged',pick,{once:true});
 }
 
+function presTextDuration(html){
+  const tmp=document.createElement('div');
+  tmp.innerHTML=html;
+  const text=(tmp.textContent||tmp.innerText||'').trim();
+  const words=text.split(/\s+/).filter(Boolean).length;
+  return Math.max(3000,words/150*60000/presSpeed);
+}
+
+function presSpeedCycle(){
+  const idx=PRES_SPEEDS.indexOf(presSpeed);
+  const next=(idx+1)%PRES_SPEEDS.length;
+  presSpeed=PRES_SPEEDS[next];
+  document.getElementById('presSpeedLabel').textContent=PRES_SPEED_LABELS[next];
+}
+
 function presSpeak(html){
   if(!presSynth||presMuted)return;
   presSynth.cancel();
@@ -2888,7 +2912,7 @@ function presSpeak(html){
   if(!text)return;
   const utt=new SpeechSynthesisUtterance(text);
   if(presVoice)utt.voice=presVoice;
-  utt.rate=0.94;utt.pitch=1.0;utt.volume=1.0;utt.lang='en-US';
+  utt.rate=presSpeed*0.94;utt.pitch=1.0;utt.volume=1.0;utt.lang='en-US';
   presSynth.speak(utt);
   presKeepAlive=setInterval(()=>{
     if(!presSynth.speaking)return clearInterval(presKeepAlive);
@@ -2920,24 +2944,87 @@ function presSpeechResume(){
   }
 }
 
+// ── Narration display ──
+function presNarr(text){
+  presNarrCurrentText=text;
+  const canSpeak=presSynth&&!presMuted;
+  const sub=document.getElementById('presSub');
+  const subText=document.getElementById('presSubText');
+  if(canSpeak){
+    // Voice active: hide subtitle, speak
+    sub.classList.remove('visible');
+    presSpeak(text);
+    presNarrEndTime=0; // voice drives timing
+  } else {
+    // No voice: show subtitle, use text timer
+    subText.innerHTML=text;
+    sub.classList.add('visible');
+    presNarrEndTime=Date.now()+presTextDuration(text);
+  }
+}
+
+function presNarrOff(){
+  document.getElementById('presSub').classList.remove('visible');
+  presSpeechStop();
+  presNarrEndTime=0;
+  presNarrCurrentText='';
+}
+
+// ── Wait for narration to finish ──
+function presDoWait(){
+  if(!presRunning||presPaused)return;
+  const speaking=presSynth&&presSynth.speaking&&!presMuted;
+  const textWaiting=presNarrEndTime>0&&Date.now()<presNarrEndTime;
+  if(speaking||textWaiting){
+    presTimer=setTimeout(presDoWait,200);
+  } else {
+    // Narration done — deliberate pause before next step
+    const hadNarr=!!presNarrCurrentText;
+    presNarrOff();
+    const pause=hadNarr?1800:500;
+    presTimer=setTimeout(()=>{
+      presWaitingForNarr=false;
+      if(presWaitCb)presWaitCb();
+    },pause);
+  }
+}
+
+function presWaitForNarr(cb){
+  presWaitingForNarr=true;
+  presWaitCb=cb;
+  presDoWait();
+}
+
+// ── Mute toggle with mid-narration handling ──
 function presMuteToggle(){
   presMuted=!presMuted;
   const btn=document.getElementById('presMuteBtn');
   const icon=document.getElementById('presMuteIcon');
   if(presMuted){
+    // Switching to muted: stop speech, if narration active switch to text timer
+    if(presSynth&&presSynth.speaking){
+      const remaining=presTextDuration(presNarrCurrentText)*0.5; // estimate remaining
+      presNarrEndTime=Date.now()+remaining;
+      const sub=document.getElementById('presSub');
+      document.getElementById('presSubText').innerHTML=presNarrCurrentText;
+      sub.classList.add('visible');
+    }
     presSpeechStop();
     btn.classList.add('muted');
     icon.innerHTML='<path d="M10 3L5 7H2v6h3l5 4V3z"/><line x1="15" y1="7" x2="19" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="7" x2="15" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>';
   } else {
+    // Switching to unmuted: if narration text active, speak it
     btn.classList.remove('muted');
     icon.innerHTML='<path d="M10 3L5 7H2v6h3l5 4V3z"/><path d="M14.5 7.5a4 4 0 0 1 0 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16.5 5.5a7 7 0 0 1 0 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>';
-    const narrEl=document.getElementById('presNarrator');
-    if(narrEl.classList.contains('visible')){
-      presSpeak(document.getElementById('presNarrText').innerHTML);
+    if(presNarrCurrentText){
+      document.getElementById('presSub').classList.remove('visible');
+      presNarrEndTime=0;
+      presSpeak(presNarrCurrentText);
     }
   }
 }
 
+// ── Cursor / spotlight / navigation helpers ──
 function presCursorTo(el,cb){
   const cursor=document.getElementById('presCursor');
   if(!el){cursor.classList.remove('visible');if(cb)cb();return;}
@@ -2983,13 +3070,6 @@ function presSpotOn(sel){
 }
 
 function presSpotOff(){document.getElementById('presSpotlight').classList.remove('visible')}
-function presNarr(text){
-  const n=document.getElementById('presNarrator');
-  document.getElementById('presNarrText').innerHTML=text;
-  n.classList.add('visible');
-  presSpeak(text);
-}
-function presNarrOff(){document.getElementById('presNarrator').classList.remove('visible');presSpeechStop();}
 function presCursorOff(){document.getElementById('presCursor').classList.remove('visible')}
 
 function presNav(page,cb){
@@ -3027,10 +3107,11 @@ function presAnimateValue(el,from,to,suffix,duration,cb){
   requestAnimationFrame(tick);
 }
 
+// ── Build steps (event-driven — no timestamps) ──
 function buildPresSteps(){
   presSteps=[
     // ACT I: OPENING
-    {t:0,phase:'ABC Services',fn:cb=>{
+    {phase:'ABC Services',fn:cb=>{
       const launch=document.getElementById('presLaunch');
       launch.classList.add('visible');
       setTimeout(()=>launch.classList.add('reveal'),300);
@@ -3038,135 +3119,135 @@ function buildPresSteps(){
     }},
 
     // ACT II: THE BUSINESS PROBLEM
-    {t:7,phase:'The Challenge',fn:cb=>{
+    {phase:'The Challenge',fn:cb=>{
       presNarr('Today, ABC Services manages quality across <strong>25 operational centres</strong> and five regions in South Africa. Non-conformances tracked in spreadsheets. Audit schedules maintained by email. Quality metrics compiled manually, every month.');
       presNav('dashboard',cb);
     }},
-    {t:18,fn:cb=>{
+    {fn:cb=>{
       presNarr('When a critical supplier defect occurs in Polokwane, it can take <strong>weeks</strong> before the Executive Committee has visibility. The Enterprise Quality Platform eliminates this gap entirely.');
       cb();
     }},
 
     // ACT III: ENTERPRISE DASHBOARD
-    {t:28,phase:'Enterprise Dashboard',fn:cb=>{
-      presNarr('The <strong>Enterprise Dashboard</strong> is the operational heartbeat. Five key performance indicators \u2014 updated in real-time across all 25 centres.');
+    {phase:'Enterprise Dashboard',fn:cb=>{
+      presNarr('The <strong>Enterprise Dashboard</strong> is the operational heartbeat. Five key performance indicators — updated in real-time across all 25 centres.');
       presSpotOn('#dashMetrics');
       cb();
     }},
-    {t:38,fn:cb=>{
+    {fn:cb=>{
       presSpotOff();presScrollTo('#chartTrend',()=>{
         presSpotOn('.chart-container');
-        presNarr('Enterprise Quality Index: <strong>87.4</strong> \u2014 a 6.4 percent improvement over twelve months. The trend confirms a sustained upward trajectory, driven by the Quality Maturity Programme.');
+        presNarr('Enterprise Quality Index: <strong>87.4</strong> — a 6.4 percent improvement over twelve months. The trend confirms a sustained upward trajectory, driven by the Quality Maturity Programme.');
         cb();
       });
     }},
-    {t:50,fn:cb=>{
+    {fn:cb=>{
       presSpotOff();presScrollTo('#dashAiInsights',()=>{
         presSpotOn('#dashAiInsights');
-        presNarr('The platform doesn\u2019t wait for you to find problems. AI insights surface automatically \u2014 a <strong>27% increase</strong> in Clause 8.5.1 findings detected. Supplier quality deterioration flagged before it impacts operations.');
+        presNarr('The platform doesn’t wait for you to find problems. AI insights surface automatically — a <strong>27% increase</strong> in Clause 8.5.1 findings detected. Supplier quality deterioration flagged before it impacts operations.');
         cb();
       });
     }},
 
     // ACT IV: DOCUMENT CONTROL
-    {t:62,phase:'Document Control',fn:cb=>{
+    {phase:'Document Control',fn:cb=>{
       presSpotOff();presCursorOff();
-      presNarr('<strong>Document Control</strong> \u2014 the foundation of ISO 9001 compliance. 148 controlled documents, version-managed, clause-mapped, and fully audit-trailed.');
+      presNarr('<strong>Document Control</strong> — the foundation of ISO 9001 compliance. 148 controlled documents, version-managed, clause-mapped, and fully audit-trailed.');
       presNav('documents',cb);
     }},
-    {t:72,fn:cb=>{
+    {fn:cb=>{
       presSpotOn('.metrics-row');
       presNarr('Review cycles automated. Acknowledgement tracking verified. Distribution controlled. The current acknowledgement rate across the enterprise: <strong>96 percent</strong>.');
       cb();
     }},
 
     // ACT V: INTERNAL AUDITS
-    {t:82,phase:'Internal Audits',fn:cb=>{
+    {phase:'Internal Audits',fn:cb=>{
       presSpotOff();presCursorOff();
-      presNarr('The <strong>Internal Audit</strong> module manages the complete audit lifecycle. 25 audits this cycle, 17 completed, average score <strong>82 percent</strong>. Planning through to follow-up verification \u2014 in one system.');
+      presNarr('The <strong>Internal Audit</strong> module manages the complete audit lifecycle. 25 audits this cycle, 17 completed, average score <strong>82 percent</strong>. Planning through to follow-up verification — in one system.');
       presNav('audits',cb);
     }},
 
     // ACT VI: LIVE WORKFLOW
-    {t:94,phase:'Live Workflow',fn:cb=>{
+    {phase:'Live Workflow',fn:cb=>{
       presSpotOff();presCursorOff();
-      presNarr('Now watch the platform in action. A quality officer at Johannesburg has identified incoming goods from Supplier XYZ outside specification. We\u2019ll raise the non-conformance and watch the <strong>automated workflow</strong> execute.');
+      presNarr('Now watch the platform in action. A quality officer at Johannesburg has identified incoming goods from Supplier XYZ outside specification. We’ll raise the non-conformance and watch the <strong>automated workflow</strong> execute.');
       presNav('workflow',cb);
     }},
-    {t:106,fn:cb=>{
+    {fn:cb=>{
       presSpotOn('#wfCentre');
-      presNarr('Centre: <strong>Johannesburg</strong>. Category: Incoming Goods \u2014 Specification. Severity: <strong>Major</strong>.');
+      presNarr('Centre: <strong>Johannesburg</strong>. Category: Incoming Goods — Specification. Severity: <strong>Major</strong>.');
       setTimeout(()=>{
         document.getElementById('wfCentre').value='Johannesburg';
-        document.getElementById('wfCategory').value='Incoming Goods \u2014 Specification';
+        document.getElementById('wfCategory').value='Incoming Goods — Specification';
         document.getElementById('wfSeverity').value='Major';
       },1200);
       cb();
     }},
-    {t:116,fn:cb=>{
+    {fn:cb=>{
       presSpotOff();
       presNarr('Submitting. Watch the <strong>nine-step workflow</strong> execute automatically.');
       presClick('#wfSubmit',cb);
     }},
-    {t:122,fn:cb=>{
+    {fn:cb=>{
       presSpotOn('#wfStepper');
       presNarr('NC reference <strong>NC-2026-0847</strong> assigned. The AI auto-classifies against ISO Clause 8.4. The Regional Quality Manager receives a Microsoft Teams notification with the full NC details.');
       cb();
     }},
-    {t:134,fn:cb=>{
-      presNarr('Severity is Major \u2014 a <strong>CAPA is auto-generated</strong>. Action owners assigned. Three-day reminders configured. Seven-day escalation armed. The entire workflow completes in seconds \u2014 not days.');
+    {fn:cb=>{
+      presNarr('Severity is Major — a <strong>CAPA is auto-generated</strong>. Action owners assigned. Three-day reminders configured. Seven-day escalation armed. The entire workflow completes in seconds — not days.');
       cb();
     }},
-    {t:146,fn:cb=>{
+    {fn:cb=>{
       presNarr('Step 9: <strong>All dashboards refresh</strong>. The new non-conformance and CAPA are reflected across every view in the platform, in real-time. No manual updates. No delays.');
       cb();
     }},
 
     // ACT VII: DASHBOARD REFRESH
-    {t:156,phase:'Real-Time Updates',fn:cb=>{
+    {phase:'Real-Time Updates',fn:cb=>{
       presSpotOff();presCursorOff();
-      presNarr('Back on the <strong>Dashboard</strong> \u2014 KPIs already reflect the new submission. The activity feed shows the complete chain: NC raised, CAPA auto-created, all stakeholders notified.');
+      presNarr('Back on the <strong>Dashboard</strong> — KPIs already reflect the new submission. The activity feed shows the complete chain: NC raised, CAPA auto-created, all stakeholders notified.');
       presNav('dashboard',cb);
     }},
-    {t:164,fn:cb=>{
+    {fn:cb=>{
       presSpotOn('#dashMetrics');
       cb();
     }},
 
     // ACT VIII: AI INTELLIGENCE
-    {t:172,phase:'AI Intelligence',fn:cb=>{
+    {phase:'AI Intelligence',fn:cb=>{
       presSpotOff();presCursorOff();
       presNarr('The <strong>AI Intelligence</strong> engine analyses data continuously across all centres. It identifies patterns that humans would miss.');
       presNav('ai',cb);
     }},
-    {t:182,fn:cb=>{
+    {fn:cb=>{
       presScrollTo('.ai-card:first-child',()=>{
         presSpotOn('.ai-card:first-child');
-        presNarr('<strong>Pattern detected:</strong> Clause 8.5.1 findings increased 27% this quarter across seven centres \u2014 traced to SOP-SRV-018, last revised January 2025, no longer reflecting current process requirements. Confidence: <strong>94 percent</strong>.');
+        presNarr('<strong>Pattern detected:</strong> Clause 8.5.1 findings increased 27% this quarter across seven centres — traced to SOP-SRV-018, last revised January 2025, no longer reflecting current process requirements. Confidence: <strong>94 percent</strong>.');
         cb();
       });
     }},
-    {t:196,fn:cb=>{
+    {fn:cb=>{
       presScrollTo('.ai-card:nth-child(2)',()=>{
         presSpotOn('.ai-card:nth-child(2)');
-        presNarr('<strong>Supplier Intelligence:</strong> Supplier XYZ changed their manufacturing process in April \u2014 defect rate doubled across four centres. Estimated financial impact: <strong>R615,000</strong>. The platform identified this before the quarterly review.');
+        presNarr('<strong>Supplier Intelligence:</strong> Supplier XYZ changed their manufacturing process in April — defect rate doubled across four centres. Estimated financial impact: <strong>R615,000</strong>. The platform identified this before the quarterly review.');
         cb();
       });
     }},
 
     // ACT IX: INTELLIGENT AUDIT PLANNING
-    {t:208,phase:'Intelligent Audit Planning',fn:cb=>{
+    {phase:'Intelligent Audit Planning',fn:cb=>{
       presSpotOff();presCursorOff();
       presNarr('AI-driven <strong>Audit Planning</strong> replaces calendar-based scheduling with data-driven recommendations. Twelve audits recommended using eight enterprise signals. Two critical priority.');
       presNav('auditplan',cb);
     }},
-    {t:220,fn:cb=>{
+    {fn:cb=>{
       presScrollTo('#apTimeline .ap-rec:first-child',()=>{
         const firstRec=document.querySelector('#apTimeline .ap-rec');
         if(firstRec){
           presClick(firstRec.querySelector('.apr-head'),()=>{
             presSpotOn(firstRec);
-            presNarr('<strong>Polokwane \u2014 Critical Priority.</strong> Nine open NCs. Six overdue CAPAs. Declining trajectory. Expected impact of intervention: <strong>R420,000 in prevented quality failures</strong>. Every recommendation shows exactly why.');
+            presNarr('<strong>Polokwane — Critical Priority.</strong> Nine open NCs. Six overdue CAPAs. Declining trajectory. Expected impact of intervention: <strong>R420,000 in prevented quality failures</strong>. Every recommendation shows exactly why.');
             cb();
           });
         } else cb();
@@ -3174,88 +3255,95 @@ function buildPresSteps(){
     }},
 
     // ACT X: EXECUTIVE DECISION CENTRE
-    {t:232,phase:'Executive Decision Centre',fn:cb=>{
+    {phase:'Executive Decision Centre',fn:cb=>{
       presSpotOff();presCursorOff();
-      presNarr('The <strong>Executive Decision Centre</strong> \u2014 designed for CEOs and Executive Committee members. The single view that makes quality a boardroom conversation.');
+      presNarr('The <strong>Executive Decision Centre</strong> — designed for CEOs and Executive Committee members. The single view that makes quality a boardroom conversation.');
       presNav('exec',cb);
     }},
-    {t:240,fn:cb=>{
+    {fn:cb=>{
       presSpotOn('#execHero');
       presNarr('Enterprise Quality Index <strong>87.4</strong>, up 2.1 points. 15 centres at Green. Cost of Quality year-to-date: <strong>R2.4 million</strong>, down 18 percent versus prior year.');
       cb();
     }},
-    {t:250,fn:cb=>{
+    {fn:cb=>{
       presSpotOff();presScrollTo('#execHealth',()=>{
         presSpotOn('#execHealth');
-        presNarr('<strong>Enterprise Health</strong> computed from eight weighted factors. The gauge shows the national score. Factor bars reveal where the enterprise is strong \u2014 and where it\u2019s vulnerable.');
+        presNarr('<strong>Enterprise Health</strong> computed from eight weighted factors. The gauge shows the national score. Factor bars reveal where the enterprise is strong — and where it’s vulnerable.');
         cb();
       });
     }},
-    {t:260,fn:cb=>{
+    {fn:cb=>{
       presSpotOff();presScrollTo('#execFinancial',()=>{
         presSpotOn('#execFinancial');
         presNarr('<strong>Financial impact quantified.</strong> Rework costs R820K. Supplier defects R615K. But CAPAs have delivered <strong>R840,000 in savings</strong>. Projected annual savings if trend holds: <strong>R1.2 million</strong>.');
         cb();
       });
     }},
-    {t:270,fn:cb=>{
+    {fn:cb=>{
       presSpotOff();presScrollTo('#execAi',()=>{
         presSpotOn('#execAi');
-        presNarr('<strong>AI Recommendations</strong> translate data into decisions. Confidence levels. Supporting evidence. One-click actions. The executive doesn\u2019t search for insights \u2014 <strong>insights come to the executive</strong>.');
+        presNarr('<strong>AI Recommendations</strong> translate data into decisions. Confidence levels. Supporting evidence. One-click actions. The executive doesn’t search for insights — <strong>insights come to the executive</strong>.');
         cb();
       });
     }},
 
     // ACT XI: CLOSING VISION
-    {t:280,phase:'Closing',fn:cb=>{
+    {phase:'Closing',fn:cb=>{
       presSpotOff();presCursorOff();presNarrOff();
       cb();
     }},
-    {t:282,fn:cb=>{
+    {fn:cb=>{
       const end=document.getElementById('presEnd');
       end.classList.add('visible');
       setTimeout(()=>end.classList.add('reveal'),400);
-      cb();
+      setTimeout(cb,2000);
     }},
-    {t:PRES_TOTAL,fn:cb=>{presStop();cb()}}
+    {fn:cb=>{presStop();cb()}}
   ];
 }
 
+// ── Elapsed time display ──
 function presUpdateTime(){
   if(!presRunning||presPaused)return;
-  presElapsed=(Date.now()-presStartTime)/1000;
-  const pct=Math.min(presElapsed/PRES_TOTAL*100,100);
+  const now=performance.now();
+  presElapsedMs+=(now-presLastTick);
+  presLastTick=now;
+  const secs=Math.floor(presElapsedMs/1000);
+  const mins=Math.floor(secs/60);
+  const s=secs%60;
+  document.getElementById('presTime').textContent=mins+':'+(s<10?'0':'')+s;
+  // Progress bar based on step index
+  const pct=presSteps.length?Math.min(presStepIdx/presSteps.length*100,100):0;
   document.getElementById('presFill').style.width=pct+'%';
-  const mins=Math.floor(presElapsed/60);
-  const secs=Math.floor(presElapsed%60);
-  document.getElementById('presTime').textContent=mins+':'+(secs<10?'0':'')+secs+' / 5:00';
-  if(presElapsed<PRES_TOTAL)requestAnimationFrame(presUpdateTime);
+  presTickRAF=requestAnimationFrame(presUpdateTime);
 }
 
+// ── Sequential step runner ──
 function presRunStep(){
   if(!presRunning||presPaused)return;
   if(presStepIdx>=presSteps.length)return;
   const step=presSteps[presStepIdx];
-  if(presElapsed>=step.t){
-    if(step.phase)document.getElementById('presPhase').textContent=step.phase;
-    presStepIdx++;
-    step.fn(()=>{
-      if(presRunning&&!presPaused)presTimer=setTimeout(presRunStep,200);
+  if(step.phase)document.getElementById('presPhase').textContent=step.phase;
+  presStepIdx++;
+  step.fn(()=>{
+    // Action done — wait for narration to finish, then next step
+    presWaitForNarr(()=>{
+      if(presRunning&&!presPaused)presRunStep();
     });
-  } else {
-    presTimer=setTimeout(presRunStep,200);
-  }
+  });
 }
 
 function presStart(){
   if(presRunning)return;
   presInitVoice();
   buildPresSteps();
-  presRunning=true;presPaused=false;presStepIdx=0;presElapsed=0;
-  presStartTime=Date.now();
+  presRunning=true;presPaused=false;presStepIdx=0;
+  presElapsedMs=0;presLastTick=performance.now();
+  presNarrEndTime=0;presNarrRemaining=0;presWaitingForNarr=false;presWaitCb=null;presNarrCurrentText='';
   document.getElementById('presBar').classList.add('visible');
   document.getElementById('presPlayIcon').innerHTML='<rect x="5" y="4" width="3" height="12" rx="1" fill="currentColor"/><rect x="12" y="4" width="3" height="12" rx="1" fill="currentColor"/>';
   document.getElementById('presFill').style.width='0%';
+  document.getElementById('presTime').textContent='0:00';
   presUpdateTime();
   presRunStep();
 }
@@ -3263,23 +3351,42 @@ function presStart(){
 function presToggle(){
   if(!presRunning)return presStart();
   if(presPaused){
+    // Resume
     presPaused=false;
-    presStartTime=Date.now()-presElapsed*1000;
+    presLastTick=performance.now();
     document.getElementById('presPlayIcon').innerHTML='<rect x="5" y="4" width="3" height="12" rx="1" fill="currentColor"/><rect x="12" y="4" width="3" height="12" rx="1" fill="currentColor"/>';
     presSpeechResume();
-    presUpdateTime();presRunStep();
+    // Restore text timer if paused mid-narration
+    if(presNarrRemaining>0){
+      presNarrEndTime=Date.now()+presNarrRemaining;
+      presNarrRemaining=0;
+    }
+    presUpdateTime();
+    // Re-enter wait loop if we were waiting for narration
+    if(presWaitingForNarr)presDoWait();
+    else presRunStep();
   } else {
+    // Pause
     presPaused=true;
+    clearTimeout(presTimer);
+    cancelAnimationFrame(presTickRAF);
     document.getElementById('presPlayIcon').innerHTML='<polygon points="7,4 16,10 7,16"/>';
     presSpeechPause();
+    // Save remaining text timer
+    if(presNarrEndTime>0){
+      presNarrRemaining=Math.max(0,presNarrEndTime-Date.now());
+      presNarrEndTime=0;
+    }
   }
 }
 
 function presStop(){
   presRunning=false;presPaused=false;
   clearTimeout(presTimer);
+  cancelAnimationFrame(presTickRAF);
   presSpeechStop();
   presSpotOff();presNarrOff();presCursorOff();
+  presWaitingForNarr=false;presWaitCb=null;presNarrRemaining=0;
   document.getElementById('presBar').classList.remove('visible');
   document.getElementById('presLaunch').classList.remove('visible','reveal');
   document.getElementById('presEnd').classList.remove('visible','reveal');
