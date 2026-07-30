@@ -638,9 +638,9 @@ transition:all .15s var(--ease);
 .pres-bar .pb-fill{height:100%;background:var(--brand);border-radius:2px;transition:width .3s linear;width:0}
 .pres-bar .pb-time{font-size:12px;color:rgba(255,255,255,.6);font-weight:600;min-width:80px;text-align:center;font-variant-numeric:tabular-nums}
 .pres-bar .pb-phase{font-size:12px;color:rgba(255,255,255,.45);max-width:200px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pres-narrator{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(0,0,0,.92);color:#fff;padding:16px 28px;border-radius:12px;font-size:15px;font-weight:500;line-height:1.5;max-width:640px;text-align:center;z-index:901;opacity:0;transition:all .5s var(--ease);pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,.4);letter-spacing:-.01em;border:1px solid rgba(255,255,255,.06)}
+.pres-narrator{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(180deg,rgba(8,10,18,.96),rgba(8,10,18,.92));color:#fff;padding:20px 32px;border-radius:14px;font-size:15.5px;font-weight:400;line-height:1.65;max-width:720px;text-align:center;z-index:901;opacity:0;transition:all .5s var(--ease);pointer-events:none;box-shadow:0 12px 48px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06);letter-spacing:-.005em}
 .pres-narrator.visible{opacity:1;transform:translateX(-50%) translateY(0)}
-.pres-narrator .pn-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);font-weight:700;margin-bottom:6px}
+.pres-narrator .pn-label{font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:var(--brand);font-weight:700;margin-bottom:8px}
 .pres-spotlight{position:fixed;z-index:800;border-radius:12px;box-shadow:0 0 0 9999px rgba(0,0,0,.55);pointer-events:none;transition:all .6s var(--ease);opacity:0}
 .pres-spotlight.visible{opacity:1}
 .pres-cursor{position:fixed;z-index:850;width:24px;height:24px;pointer-events:none;transition:all .8s cubic-bezier(.4,0,.2,1);opacity:0}
@@ -652,21 +652,27 @@ transition:all .15s var(--ease);
 @keyframes cursorPulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.15;transform:scale(1.3)}}
 @keyframes clickRipple{0%{transform:scale(.5);opacity:.8}100%{transform:scale(2.5);opacity:0}}
 @keyframes presValuePop{0%{transform:scale(1)}50%{transform:scale(1.15);color:var(--brand)}100%{transform:scale(1)}}
-.pres-launch{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;opacity:0;pointer-events:none;transition:opacity .6s}
+.pres-launch{position:fixed;inset:0;z-index:1000;background:radial-gradient(ellipse at 30% 50%,rgba(15,108,189,.12),transparent 70%),radial-gradient(ellipse at 70% 60%,rgba(124,58,237,.08),transparent 60%),rgba(4,6,14,.97);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;opacity:0;pointer-events:none;transition:opacity .6s}
 .pres-launch.visible{opacity:1;pointer-events:auto}
-.pres-launch .pl-title{font-size:36px;font-weight:800;color:#fff;letter-spacing:-.03em;text-align:center;opacity:0;transform:translateY(20px);transition:all .8s var(--ease)}
-.pres-launch .pl-sub{font-size:16px;color:rgba(255,255,255,.5);text-align:center;opacity:0;transform:translateY(10px);transition:all .8s .3s var(--ease)}
-.pres-launch.reveal .pl-title,.pres-launch.reveal .pl-sub{opacity:1;transform:translateY(0)}
-.pres-end{position:fixed;inset:0;z-index:1000;background:linear-gradient(135deg,rgba(15,108,189,.95),rgba(124,58,237,.9));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;opacity:0;pointer-events:none;transition:opacity .8s}
+.pres-launch .pl-badge{font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:var(--brand);font-weight:700;border:1px solid rgba(15,108,189,.3);padding:6px 18px;border-radius:20px;opacity:0;transform:translateY(14px);transition:all .7s .1s var(--ease)}
+.pres-launch .pl-org{font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600;opacity:0;transform:translateY(14px);transition:all .7s .25s var(--ease)}
+.pres-launch .pl-title{font-size:42px;font-weight:800;color:#fff;letter-spacing:-.03em;text-align:center;opacity:0;transform:translateY(20px);transition:all .8s .4s var(--ease);line-height:1.15}
+.pres-launch .pl-sub{font-size:16px;color:rgba(255,255,255,.45);text-align:center;opacity:0;transform:translateY(10px);transition:all .8s .6s var(--ease);max-width:500px;line-height:1.5}
+.pres-launch .pl-line{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--brand),transparent);opacity:0;transition:all .6s .8s var(--ease)}
+.pres-launch.reveal .pl-badge,.pres-launch.reveal .pl-org,.pres-launch.reveal .pl-title,.pres-launch.reveal .pl-sub,.pres-launch.reveal .pl-line{opacity:1;transform:translateY(0)}
+.pres-end{position:fixed;inset:0;z-index:1000;background:radial-gradient(ellipse at 40% 40%,rgba(15,108,189,.25),transparent 60%),radial-gradient(ellipse at 65% 70%,rgba(124,58,237,.18),transparent 55%),rgba(4,6,14,.97);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;opacity:0;pointer-events:none;transition:opacity .8s}
 .pres-end.visible{opacity:1;pointer-events:auto}
-.pres-end .pe-title{font-size:38px;font-weight:800;color:#fff;letter-spacing:-.03em;text-align:center;opacity:0;transform:translateY(30px);transition:all .8s .2s var(--ease)}
-.pres-end .pe-sub{font-size:18px;color:rgba(255,255,255,.7);text-align:center;max-width:600px;line-height:1.6;opacity:0;transform:translateY(20px);transition:all .8s .5s var(--ease)}
-.pres-end .pe-stats{display:flex;gap:40px;margin-top:12px;opacity:0;transform:translateY(20px);transition:all .8s .8s var(--ease)}
+.pres-end .pe-badge{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--brand);font-weight:700;opacity:0;transform:translateY(20px);transition:all .7s .15s var(--ease)}
+.pres-end .pe-title{font-size:42px;font-weight:800;color:#fff;letter-spacing:-.03em;text-align:center;opacity:0;transform:translateY(30px);transition:all .8s .3s var(--ease);line-height:1.15}
+.pres-end .pe-sub{font-size:17px;color:rgba(255,255,255,.55);text-align:center;max-width:580px;line-height:1.7;opacity:0;transform:translateY(20px);transition:all .8s .55s var(--ease)}
+.pres-end .pe-line{width:60px;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);opacity:0;transition:all .6s .7s var(--ease)}
+.pres-end .pe-stats{display:flex;gap:48px;margin-top:8px;opacity:0;transform:translateY(20px);transition:all .8s .85s var(--ease)}
 .pres-end .pe-stat{text-align:center}
-.pres-end .pe-stat-val{font-size:32px;font-weight:800;color:#fff}
-.pres-end .pe-stat-label{font-size:12px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
-.pres-end .pe-restart{margin-top:24px;opacity:0;transition:all .6s 1.2s var(--ease)}
-.pres-end.reveal .pe-title,.pres-end.reveal .pe-sub,.pres-end.reveal .pe-stats,.pres-end.reveal .pe-restart{opacity:1;transform:translateY(0)}
+.pres-end .pe-stat-val{font-size:36px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+.pres-end .pe-stat-label{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-top:6px}
+.pres-end .pe-thanks{font-size:22px;font-weight:300;color:rgba(255,255,255,.5);letter-spacing:.04em;margin-top:8px;opacity:0;transition:all .8s 1.1s var(--ease)}
+.pres-end .pe-restart{margin-top:20px;opacity:0;transition:all .6s 1.4s var(--ease)}
+.pres-end.reveal .pe-badge,.pres-end.reveal .pe-title,.pres-end.reveal .pe-sub,.pres-end.reveal .pe-line,.pres-end.reveal .pe-stats,.pres-end.reveal .pe-thanks,.pres-end.reveal .pe-restart{opacity:1;transform:translateY(0)}
 @media(prefers-reduced-motion:reduce){.pres-cursor,.pres-spotlight,.pres-narrator,.pres-click-ripple{transition:none!important;animation:none!important}}
 </style>
 
@@ -1296,25 +1302,31 @@ transition:all .15s var(--ease);
   <button class="pb-btn pb-play" id="presPlayBtn" onclick="presToggle()"><svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" id="presPlayIcon"><polygon points="7,4 16,10 7,16"/></svg></button>
   <button class="pb-btn" onclick="presStop()" title="Stop"><svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><rect x="5" y="5" width="10" height="10" rx="1"/></svg></button>
   <div class="pb-progress"><div class="pb-fill" id="presFill"></div></div>
-  <div class="pb-time" id="presTime">0:00 / 8:00</div>
+  <div class="pb-time" id="presTime">0:00 / 5:00</div>
 </div>
 <div class="pres-narrator" id="presNarrator"><div class="pn-label">Narrator</div><div id="presNarrText"></div></div>
 <div class="pres-spotlight" id="presSpotlight"></div>
 <div class="pres-cursor" id="presCursor"></div>
 <div class="pres-launch" id="presLaunch">
+  <div class="pl-badge">Version 1.0</div>
+  <div class="pl-org">ABC Services</div>
   <div class="pl-title">Enterprise Quality Platform</div>
-  <div class="pl-sub">A complete demonstration of AI-driven quality management</div>
+  <div class="pl-sub">Transforming quality management across 25 operational centres with artificial intelligence</div>
+  <div class="pl-line"></div>
 </div>
 <div class="pres-end" id="presEnd">
+  <div class="pe-badge">ABC Services</div>
   <div class="pe-title">Enterprise Quality Platform</div>
-  <div class="pe-sub">From reactive compliance to proactive quality intelligence. One platform. Every centre. Every clause. Every decision — driven by data.</div>
+  <div class="pe-sub">From reactive compliance to proactive quality intelligence.<br>One platform. Every centre. Every clause. Every decision — driven by data.</div>
+  <div class="pe-line"></div>
   <div class="pe-stats">
     <div class="pe-stat"><div class="pe-stat-val">25</div><div class="pe-stat-label">Centres</div></div>
     <div class="pe-stat"><div class="pe-stat-val">9</div><div class="pe-stat-label">ISO Clauses</div></div>
     <div class="pe-stat"><div class="pe-stat-val">8</div><div class="pe-stat-label">AI Signals</div></div>
     <div class="pe-stat"><div class="pe-stat-val">1</div><div class="pe-stat-label">Platform</div></div>
   </div>
-  <div class="pe-restart"><button class="btn btn-primary" onclick="presRestart()" style="background:#fff;color:#111;font-size:14px;padding:12px 28px">Watch Again</button></div>
+  <div class="pe-thanks">Thank you</div>
+  <div class="pe-restart"><button class="btn btn-primary" onclick="presRestart()" style="background:rgba(255,255,255,.12);color:#fff;font-size:13px;padding:11px 28px;border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(8px)">Watch Again</button></div>
 </div>
 
 <!-- COMMAND PALETTE -->
@@ -2830,7 +2842,7 @@ window.addEventListener('resize',()=>{
 });
 // ═══════ PRESENTATION MODE ═══════
 let presRunning=false,presPaused=false,presTimer=null,presStartTime=0,presPausedAt=0,presElapsed=0;
-const PRES_TOTAL=480;
+const PRES_TOTAL=300;
 let presStepIdx=0,presSteps=[];
 
 function presCursorTo(el,cb){
@@ -2923,235 +2935,192 @@ function presAnimateValue(el,from,to,suffix,duration,cb){
 
 function buildPresSteps(){
   presSteps=[
-    // ── PHASE 1: Opening (0:00-0:15) ──
-    {t:0,phase:'Opening',fn:cb=>{
+    // ACT I: OPENING
+    {t:0,phase:'ABC Services',fn:cb=>{
       const launch=document.getElementById('presLaunch');
       launch.classList.add('visible');
-      setTimeout(()=>launch.classList.add('reveal'),200);
-      setTimeout(()=>{launch.classList.remove('reveal');setTimeout(()=>{launch.classList.remove('visible');cb()},600)},4000);
+      setTimeout(()=>launch.classList.add('reveal'),300);
+      setTimeout(()=>{launch.classList.remove('reveal');setTimeout(()=>{launch.classList.remove('visible');cb()},700)},5500);
     }},
 
-    // ── PHASE 2: Enterprise Dashboard (0:15-1:15) ──
-    {t:5,phase:'Enterprise Dashboard',fn:cb=>{
-      presNarr('The <strong>Enterprise Dashboard</strong> provides an instant view of quality across all 25 operational centres.');
+    // ACT II: THE BUSINESS PROBLEM
+    {t:7,phase:'The Challenge',fn:cb=>{
+      presNarr('Today, ABC Services manages quality across <strong>25 operational centres</strong> and five regions in South Africa. Non-conformances tracked in spreadsheets. Audit schedules maintained by email. Quality metrics compiled manually, every month.');
       presNav('dashboard',cb);
     }},
-    {t:14,fn:cb=>{
-      presSpotOn('#dashMetrics');
-      presNarr('Five key performance indicators update in real-time — Enterprise Quality Index at <strong>87.4</strong>, open non-conformances, CAPA effectiveness, training, and customer satisfaction.');
+    {t:18,fn:cb=>{
+      presNarr('When a critical supplier defect occurs in Polokwane, it can take <strong>weeks</strong> before the Executive Committee has visibility. The Enterprise Quality Platform eliminates this gap entirely.');
       cb();
     }},
-    {t:26,fn:cb=>{
-      presSpotOff();presScrollTo('#chartTrend',()=>{
-        presSpotOn('.chart-container');
-        presNarr('The 13-month trend shows a consistent upward trajectory — from <strong>82.1</strong> to <strong>87.4</strong>, a 6.4% improvement driven by the Quality Maturity Programme.');
-        cb();
-      });
+
+    // ACT III: ENTERPRISE DASHBOARD
+    {t:28,phase:'Enterprise Dashboard',fn:cb=>{
+      presNarr('The <strong>Enterprise Dashboard</strong> is the operational heartbeat. Five key performance indicators \u2014 updated in real-time across all 25 centres.');
+      presSpotOn('#dashMetrics');
+      cb();
     }},
     {t:38,fn:cb=>{
+      presSpotOff();presScrollTo('#chartTrend',()=>{
+        presSpotOn('.chart-container');
+        presNarr('Enterprise Quality Index: <strong>87.4</strong> \u2014 a 6.4 percent improvement over twelve months. The trend confirms a sustained upward trajectory, driven by the Quality Maturity Programme.');
+        cb();
+      });
+    }},
+    {t:50,fn:cb=>{
       presSpotOff();presScrollTo('#dashAiInsights',()=>{
         presSpotOn('#dashAiInsights');
-        presNarr('AI insights surface automatically. The platform has detected a <strong>27% increase</strong> in Clause 8.5.1 findings and flagged Supplier XYZ quality deterioration.');
+        presNarr('The platform doesn\u2019t wait for you to find problems. AI insights surface automatically \u2014 a <strong>27% increase</strong> in Clause 8.5.1 findings detected. Supplier quality deterioration flagged before it impacts operations.');
         cb();
       });
     }},
 
-    // ── PHASE 3: Document Control (1:15-1:50) ──
-    {t:55,fn:cb=>{
+    // ACT IV: DOCUMENT CONTROL
+    {t:62,phase:'Document Control',fn:cb=>{
       presSpotOff();presCursorOff();
-      presNarr('Let\'s look at <strong>Document Control</strong> — the foundation of ISO 9001 compliance.');
+      presNarr('<strong>Document Control</strong> \u2014 the foundation of ISO 9001 compliance. 148 controlled documents, version-managed, clause-mapped, and fully audit-trailed.');
       presNav('documents',cb);
     }},
-    {t:62,fn:cb=>{
+    {t:72,fn:cb=>{
       presSpotOn('.metrics-row');
-      presNarr('<strong>148</strong> controlled documents across the enterprise. 7 pending review, 2 overdue. The platform enforces the full document lifecycle — creation, review, approval, distribution, and retirement.');
+      presNarr('Review cycles automated. Acknowledgement tracking verified. Distribution controlled. The current acknowledgement rate across the enterprise: <strong>96 percent</strong>.');
       cb();
     }},
-    {t:76,fn:cb=>{
-      presSpotOff();presScrollTo('#docTable',()=>{
-        presSpotOn('#docTable');
-        presNarr('Every document is version-controlled with full audit trail. ISO clause mapping ensures traceability. The acknowledgement rate sits at <strong>96%</strong>.');
-        cb();
-      });
-    }},
 
-    // ── PHASE 4: Internal Audits (1:50-2:20) ──
-    {t:88,fn:cb=>{
+    // ACT V: INTERNAL AUDITS
+    {t:82,phase:'Internal Audits',fn:cb=>{
       presSpotOff();presCursorOff();
-      presNarr('Moving to <strong>Internal Audits</strong> — 25 scheduled for this cycle, 17 completed, 3 in progress.');
+      presNarr('The <strong>Internal Audit</strong> module manages the complete audit lifecycle. 25 audits this cycle, 17 completed, average score <strong>82 percent</strong>. Planning through to follow-up verification \u2014 in one system.');
       presNav('audits',cb);
     }},
-    {t:97,fn:cb=>{
-      presSpotOn('.metrics-row');
-      presNarr('Average audit score is <strong>82%</strong>. The platform manages the full audit lifecycle — planning, execution, findings, corrective actions, and follow-up verification.');
-      cb();
-    }},
 
-    // ── PHASE 5: Workflow Demo — Raise NC (2:20-4:00) ──
-    {t:112,fn:cb=>{
+    // ACT VI: LIVE WORKFLOW
+    {t:94,phase:'Live Workflow',fn:cb=>{
       presSpotOff();presCursorOff();
-      presNarr('Now watch the platform in action. We\'ll <strong>raise a non-conformance</strong> and see the entire NC-to-CAPA workflow execute automatically.');
+      presNarr('Now watch the platform in action. A quality officer at Johannesburg has identified incoming goods from Supplier XYZ outside specification. We\u2019ll raise the non-conformance and watch the <strong>automated workflow</strong> execute.');
       presNav('workflow',cb);
     }},
-    {t:122,fn:cb=>{
+    {t:106,fn:cb=>{
       presSpotOn('#wfCentre');
-      presNarr('A quality officer at <strong>Johannesburg</strong> has found incoming goods from Supplier XYZ outside specification. Category: <em>Incoming Goods — Specification</em>. Severity: <strong>Major</strong>.');
+      presNarr('Centre: <strong>Johannesburg</strong>. Category: Incoming Goods \u2014 Specification. Severity: <strong>Major</strong>.');
       setTimeout(()=>{
         document.getElementById('wfCentre').value='Johannesburg';
-        document.getElementById('wfCategory').value='Incoming Goods — Specification';
+        document.getElementById('wfCategory').value='Incoming Goods \u2014 Specification';
         document.getElementById('wfSeverity').value='Major';
-      },1500);
+      },1200);
       cb();
     }},
-    {t:138,fn:cb=>{
+    {t:116,fn:cb=>{
       presSpotOff();
-      presNarr('Submitting the non-conformance. Watch the <strong>9-step automated workflow</strong> execute.');
+      presNarr('Submitting. Watch the <strong>nine-step workflow</strong> execute automatically.');
       presClick('#wfSubmit',cb);
     }},
-    {t:145,fn:cb=>{
+    {t:122,fn:cb=>{
       presSpotOn('#wfStepper');
-      presNarr('Step 1: <strong>NC Submitted</strong> — a unique reference NC-2026-0847 is assigned. The AI Builder analyses the description and auto-classifies against ISO Clause 8.4.');
+      presNarr('NC reference <strong>NC-2026-0847</strong> assigned. The AI auto-classifies against ISO Clause 8.4. The Regional Quality Manager receives a Microsoft Teams notification with the full NC details.');
       cb();
     }},
-    {t:155,fn:cb=>{
-      presNarr('Step 3: <strong>Manager Notified</strong> — a Microsoft Teams notification is sent to the Regional Quality Manager with the full NC details and AI classification.');
+    {t:134,fn:cb=>{
+      presNarr('Severity is Major \u2014 a <strong>CAPA is auto-generated</strong>. Action owners assigned. Three-day reminders configured. Seven-day escalation armed. The entire workflow completes in seconds \u2014 not days.');
       cb();
     }},
-    {t:163,fn:cb=>{
-      presNarr('Step 4: <strong>Manager Review</strong> — the Regional QM reviews and approves the classification. Because severity is Major, a <strong>CAPA is auto-generated</strong>.');
-      cb();
-    }},
-    {t:172,fn:cb=>{
-      presNarr('Steps 5-7: <strong>Action owners assigned</strong>, 3-day reminders configured, 7-day escalation armed. The entire workflow completes in under 10 seconds.');
-      cb();
-    }},
-    {t:184,fn:cb=>{
-      presNarr('Step 9: <strong>All dashboards refresh</strong>. The new NC and CAPA are reflected across every view in the platform — in real-time.');
+    {t:146,fn:cb=>{
+      presNarr('Step 9: <strong>All dashboards refresh</strong>. The new non-conformance and CAPA are reflected across every view in the platform, in real-time. No manual updates. No delays.');
       cb();
     }},
 
-    // ── PHASE 6: Dashboard Updates (4:00-4:30) ──
-    {t:196,fn:cb=>{
+    // ACT VII: DASHBOARD REFRESH
+    {t:156,phase:'Real-Time Updates',fn:cb=>{
       presSpotOff();presCursorOff();
-      presNarr('Back to the <strong>Dashboard</strong>. Notice the NC count has updated and the activity feed shows the new records.');
+      presNarr('Back on the <strong>Dashboard</strong> \u2014 KPIs already reflect the new submission. The activity feed shows the complete chain: NC raised, CAPA auto-created, all stakeholders notified.');
       presNav('dashboard',cb);
     }},
-    {t:208,fn:cb=>{
+    {t:164,fn:cb=>{
       presSpotOn('#dashMetrics');
-      presNarr('KPIs update in real-time. Open NCs reflect the new submission. Activity feed shows the full chain — NC raised, CAPA auto-created, stakeholders notified.');
       cb();
     }},
 
-    // ── PHASE 7: AI Detects Trend (4:30-5:10) ──
-    {t:220,fn:cb=>{
+    // ACT VIII: AI INTELLIGENCE
+    {t:172,phase:'AI Intelligence',fn:cb=>{
       presSpotOff();presCursorOff();
-      presNarr('The <strong>AI Intelligence</strong> engine continuously analyses enterprise data. It has detected patterns that humans would miss.');
+      presNarr('The <strong>AI Intelligence</strong> engine analyses data continuously across all centres. It identifies patterns that humans would miss.');
       presNav('ai',cb);
     }},
-    {t:230,fn:cb=>{
+    {t:182,fn:cb=>{
       presScrollTo('.ai-card:first-child',()=>{
         presSpotOn('.ai-card:first-child');
-        presNarr('<strong>Pattern Detection:</strong> Clause 8.5.1 findings increased 27% this quarter across 7 centres. The AI traces this to SOP-SRV-018 — last revised January 2025, no longer reflecting current process requirements. Confidence: <strong>94%</strong>.');
+        presNarr('<strong>Pattern detected:</strong> Clause 8.5.1 findings increased 27% this quarter across seven centres \u2014 traced to SOP-SRV-018, last revised January 2025, no longer reflecting current process requirements. Confidence: <strong>94 percent</strong>.');
         cb();
       });
     }},
-    {t:248,fn:cb=>{
+    {t:196,fn:cb=>{
       presScrollTo('.ai-card:nth-child(2)',()=>{
         presSpotOn('.ai-card:nth-child(2)');
-        presNarr('<strong>Supplier Intelligence:</strong> The AI has cross-referenced NC data with supplier records and identified that Supplier XYZ changed their manufacturing process in April — causing a defect rate increase from 2.1% to 4.8% across 4 centres. Estimated impact: <strong>R615K</strong>.');
+        presNarr('<strong>Supplier Intelligence:</strong> Supplier XYZ changed their manufacturing process in April \u2014 defect rate doubled across four centres. Estimated financial impact: <strong>R615,000</strong>. The platform identified this before the quarterly review.');
         cb();
       });
     }},
 
-    // ── PHASE 8: Audit Planning Updated (5:10-5:50) ──
-    {t:264,fn:cb=>{
+    // ACT IX: INTELLIGENT AUDIT PLANNING
+    {t:208,phase:'Intelligent Audit Planning',fn:cb=>{
       presSpotOff();presCursorOff();
-      presNarr('The AI engine feeds directly into <strong>Audit Planning</strong>. Audits are no longer scheduled by calendar — they\'re recommended by data.');
+      presNarr('AI-driven <strong>Audit Planning</strong> replaces calendar-based scheduling with data-driven recommendations. Twelve audits recommended using eight enterprise signals. Two critical priority.');
       presNav('auditplan',cb);
     }},
-    {t:274,fn:cb=>{
-      presSpotOn('#apSummary');
-      presNarr('<strong>12 audits recommended</strong> using 8 enterprise signals. 2 Critical priority, 3 High. The AI has calculated auditor capacity, allocated teams, and identified the specific ISO clauses to prioritise at each centre.');
-      cb();
-    }},
-    {t:288,fn:cb=>{
-      presSpotOff();presScrollTo('#apTimeline .ap-rec:first-child',()=>{
+    {t:220,fn:cb=>{
+      presScrollTo('#apTimeline .ap-rec:first-child',()=>{
         const firstRec=document.querySelector('#apTimeline .ap-rec');
         if(firstRec){
           presClick(firstRec.querySelector('.apr-head'),()=>{
             presSpotOn(firstRec);
-            presNarr('<strong>Polokwane — Critical Priority (71).</strong> The AI explains exactly why: 9 open NCs, 6 overdue CAPAs, 10 complaints, declining trajectory. Expected impact of intervention: <strong>R420K in prevented quality failures</strong>. Every recommendation shows the data signals that drove it.');
+            presNarr('<strong>Polokwane \u2014 Critical Priority.</strong> Nine open NCs. Six overdue CAPAs. Declining trajectory. Expected impact of intervention: <strong>R420,000 in prevented quality failures</strong>. Every recommendation shows exactly why.');
             cb();
           });
         } else cb();
       });
     }},
 
-    // ── PHASE 9: Executive Dashboard (5:50-6:40) ──
-    {t:308,fn:cb=>{
+    // ACT X: EXECUTIVE DECISION CENTRE
+    {t:232,phase:'Executive Decision Centre',fn:cb=>{
       presSpotOff();presCursorOff();
-      presNarr('Now the view that matters most — the <strong>Executive Dashboard</strong>. Designed for CEOs and Executive Committee members.');
+      presNarr('The <strong>Executive Decision Centre</strong> \u2014 designed for CEOs and Executive Committee members. The single view that makes quality a boardroom conversation.');
       presNav('exec',cb);
     }},
-    {t:318,fn:cb=>{
+    {t:240,fn:cb=>{
       presSpotOn('#execHero');
-      presNarr('Five headline KPIs at a glance. Enterprise Quality Index <strong>87.4</strong> — up 2.1 points. 15 centres at Green. Cost of Quality year-to-date: <strong>R2.4M</strong>, down 18% versus prior year.');
+      presNarr('Enterprise Quality Index <strong>87.4</strong>, up 2.1 points. 15 centres at Green. Cost of Quality year-to-date: <strong>R2.4 million</strong>, down 18 percent versus prior year.');
       cb();
     }},
-    {t:332,fn:cb=>{
+    {t:250,fn:cb=>{
       presSpotOff();presScrollTo('#execHealth',()=>{
         presSpotOn('#execHealth');
-        presNarr('<strong>Enterprise Health</strong> computed from 8 weighted factors across all 25 centres. The gauge shows the national score. Factor bars reveal where the enterprise is strong and where it\'s vulnerable.');
+        presNarr('<strong>Enterprise Health</strong> computed from eight weighted factors. The gauge shows the national score. Factor bars reveal where the enterprise is strong \u2014 and where it\u2019s vulnerable.');
         cb();
       });
     }},
-    {t:346,fn:cb=>{
-      presSpotOff();presScrollTo('#execRisks',()=>{
-        presSpotOn('#execRisks');
-        presNarr('<strong>Top Enterprise Risks:</strong> The ISO 8.5.1 systemic failure, Supplier XYZ quality deterioration, and three centres below threshold. Each risk links directly to the data that triggered it.');
-        cb();
-      });
-    }},
-
-    // ── PHASE 10: Decision Centre deep-dive (6:40-7:20) ──
-    {t:358,fn:cb=>{
+    {t:260,fn:cb=>{
       presSpotOff();presScrollTo('#execFinancial',()=>{
         presSpotOn('#execFinancial');
-        presNarr('<strong>Financial Impact of Quality</strong> — rework costs R820K, supplier defects R615K, complaints R540K. But CAPAs have delivered <strong>R840K in savings</strong>. Projected annual savings if trend holds: <strong>R1.2M</strong>.');
+        presNarr('<strong>Financial impact quantified.</strong> Rework costs R820K. Supplier defects R615K. But CAPAs have delivered <strong>R840,000 in savings</strong>. Projected annual savings if trend holds: <strong>R1.2 million</strong>.');
         cb();
       });
     }},
-    {t:372,fn:cb=>{
-      presSpotOff();presScrollTo('#execObjectives',()=>{
-        presSpotOn('#execObjectives');
-        presNarr('<strong>Strategic Objectives</strong> with live progress. CAPA effectiveness <em>achieved</em>. Quality Index and complaint reduction <em>on track</em>. Two objectives <em>at risk</em> — training compliance and regional parity.');
-        cb();
-      });
-    }},
-    {t:386,fn:cb=>{
-      presSpotOff();presScrollTo('#execAlerts',()=>{
-        presSpotOn('#execAlerts');
-        presNarr('<strong>Executive Alerts</strong> surface the decisions that need attention. Three critical alerts right now — Polokwane intervention, Supplier XYZ conditional status, and October certification preparation.');
-        cb();
-      });
-    }},
-    {t:400,fn:cb=>{
+    {t:270,fn:cb=>{
       presSpotOff();presScrollTo('#execAi',()=>{
         presSpotOn('#execAi');
-        presNarr('<strong>AI Recommendations</strong> translate data into decisions. Every recommendation includes confidence level, supporting evidence, and a one-click action. The executive doesn\'t search for insights — insights come to the executive.');
+        presNarr('<strong>AI Recommendations</strong> translate data into decisions. Confidence levels. Supporting evidence. One-click actions. The executive doesn\u2019t search for insights \u2014 <strong>insights come to the executive</strong>.');
         cb();
       });
     }},
 
-    // ── PHASE 11: Closing Vision (7:20-8:00) ──
-    {t:418,fn:cb=>{
+    // ACT XI: CLOSING VISION
+    {t:280,phase:'Closing',fn:cb=>{
       presSpotOff();presCursorOff();presNarrOff();
       cb();
     }},
-    {t:420,fn:cb=>{
+    {t:282,fn:cb=>{
       const end=document.getElementById('presEnd');
       end.classList.add('visible');
-      setTimeout(()=>end.classList.add('reveal'),300);
+      setTimeout(()=>end.classList.add('reveal'),400);
       cb();
     }},
     {t:PRES_TOTAL,fn:cb=>{presStop();cb()}}
@@ -3165,7 +3134,7 @@ function presUpdateTime(){
   document.getElementById('presFill').style.width=pct+'%';
   const mins=Math.floor(presElapsed/60);
   const secs=Math.floor(presElapsed%60);
-  document.getElementById('presTime').textContent=mins+':'+(secs<10?'0':'')+secs+' / 8:00';
+  document.getElementById('presTime').textContent=mins+':'+(secs<10?'0':'')+secs+' / 5:00';
   if(presElapsed<PRES_TOTAL)requestAnimationFrame(presUpdateTime);
 }
 
