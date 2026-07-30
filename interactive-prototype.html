@@ -638,6 +638,9 @@ transition:all .15s var(--ease);
 .pres-bar .pb-fill{height:100%;background:var(--brand);border-radius:2px;transition:width .3s linear;width:0}
 .pres-bar .pb-time{font-size:12px;color:rgba(255,255,255,.6);font-weight:600;min-width:80px;text-align:center;font-variant-numeric:tabular-nums}
 .pres-bar .pb-phase{font-size:12px;color:rgba(255,255,255,.45);max-width:200px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pres-bar .pb-mute{position:relative}
+.pres-bar .pb-mute.muted{opacity:.45}
+.pres-bar .pb-sep{width:1px;height:24px;background:rgba(255,255,255,.1);flex-shrink:0}
 .pres-narrator{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(180deg,rgba(8,10,18,.96),rgba(8,10,18,.92));color:#fff;padding:20px 32px;border-radius:14px;font-size:15.5px;font-weight:400;line-height:1.65;max-width:720px;text-align:center;z-index:901;opacity:0;transition:all .5s var(--ease);pointer-events:none;box-shadow:0 12px 48px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06);letter-spacing:-.005em}
 .pres-narrator.visible{opacity:1;transform:translateX(-50%) translateY(0)}
 .pres-narrator .pn-label{font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:var(--brand);font-weight:700;margin-bottom:8px}
@@ -1303,6 +1306,8 @@ transition:all .15s var(--ease);
   <button class="pb-btn" onclick="presStop()" title="Stop"><svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><rect x="5" y="5" width="10" height="10" rx="1"/></svg></button>
   <div class="pb-progress"><div class="pb-fill" id="presFill"></div></div>
   <div class="pb-time" id="presTime">0:00 / 5:00</div>
+  <div class="pb-sep"></div>
+  <button class="pb-btn pb-mute" id="presMuteBtn" onclick="presMuteToggle()" title="Toggle voice narration"><svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor" id="presMuteIcon"><path d="M10 3L5 7H2v6h3l5 4V3z"/><path d="M14.5 7.5a4 4 0 0 1 0 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16.5 5.5a7 7 0 0 1 0 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
 </div>
 <div class="pres-narrator" id="presNarrator"><div class="pn-label">Narrator</div><div id="presNarrText"></div></div>
 <div class="pres-spotlight" id="presSpotlight"></div>
@@ -2845,6 +2850,94 @@ let presRunning=false,presPaused=false,presTimer=null,presStartTime=0,presPaused
 const PRES_TOTAL=300;
 let presStepIdx=0,presSteps=[];
 
+// ── Voice Narration (Web Speech API) ──
+let presMuted=false;
+const presSynth=window.speechSynthesis||null;
+let presVoice=null,presKeepAlive=null;
+
+function presInitVoice(){
+  if(!presSynth)return;
+  const pick=()=>{
+    const voices=presSynth.getVoices();
+    if(!voices.length)return;
+    const prefs=[
+      v=>/Microsoft.*(David|Mark|Guy)/i.test(v.name),
+      v=>/Google UK English Male/i.test(v.name),
+      v=>/Daniel/i.test(v.name)&&/en/i.test(v.lang),
+      v=>/Google US English/i.test(v.name),
+      v=>/Samantha/i.test(v.name)&&/en/i.test(v.lang),
+      v=>/Alex/i.test(v.name)&&/en/i.test(v.lang),
+      v=>/en[-_](US|GB)/i.test(v.lang)&&v.localService,
+      v=>/en[-_]/i.test(v.lang)&&v.localService,
+      v=>/en[-_]/i.test(v.lang),
+    ];
+    for(const pred of prefs){const f=voices.find(pred);if(f){presVoice=f;return;}}
+    presVoice=voices.find(v=>/en/i.test(v.lang))||voices[0];
+  };
+  pick();
+  if(!presVoice&&presSynth.addEventListener)presSynth.addEventListener('voiceschanged',pick,{once:true});
+}
+
+function presSpeak(html){
+  if(!presSynth||presMuted)return;
+  presSynth.cancel();
+  clearInterval(presKeepAlive);
+  const tmp=document.createElement('div');
+  tmp.innerHTML=html;
+  const text=(tmp.textContent||tmp.innerText||'').trim();
+  if(!text)return;
+  const utt=new SpeechSynthesisUtterance(text);
+  if(presVoice)utt.voice=presVoice;
+  utt.rate=0.94;utt.pitch=1.0;utt.volume=1.0;utt.lang='en-US';
+  presSynth.speak(utt);
+  presKeepAlive=setInterval(()=>{
+    if(!presSynth.speaking)return clearInterval(presKeepAlive);
+    if(!presSynth.paused){presSynth.pause();presSynth.resume();}
+  },8000);
+  utt.onend=()=>clearInterval(presKeepAlive);
+  utt.onerror=()=>clearInterval(presKeepAlive);
+}
+
+function presSpeechStop(){
+  if(!presSynth)return;
+  presSynth.cancel();clearInterval(presKeepAlive);
+}
+
+function presSpeechPause(){
+  if(!presSynth||!presSynth.speaking)return;
+  clearInterval(presKeepAlive);
+  try{presSynth.pause();}catch(e){}
+}
+
+function presSpeechResume(){
+  if(!presSynth)return;
+  try{presSynth.resume();}catch(e){}
+  if(presSynth.speaking){
+    presKeepAlive=setInterval(()=>{
+      if(!presSynth.speaking)return clearInterval(presKeepAlive);
+      if(!presSynth.paused){presSynth.pause();presSynth.resume();}
+    },8000);
+  }
+}
+
+function presMuteToggle(){
+  presMuted=!presMuted;
+  const btn=document.getElementById('presMuteBtn');
+  const icon=document.getElementById('presMuteIcon');
+  if(presMuted){
+    presSpeechStop();
+    btn.classList.add('muted');
+    icon.innerHTML='<path d="M10 3L5 7H2v6h3l5 4V3z"/><line x1="15" y1="7" x2="19" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="7" x2="15" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>';
+  } else {
+    btn.classList.remove('muted');
+    icon.innerHTML='<path d="M10 3L5 7H2v6h3l5 4V3z"/><path d="M14.5 7.5a4 4 0 0 1 0 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16.5 5.5a7 7 0 0 1 0 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>';
+    const narrEl=document.getElementById('presNarrator');
+    if(narrEl.classList.contains('visible')){
+      presSpeak(document.getElementById('presNarrText').innerHTML);
+    }
+  }
+}
+
 function presCursorTo(el,cb){
   const cursor=document.getElementById('presCursor');
   if(!el){cursor.classList.remove('visible');if(cb)cb();return;}
@@ -2894,8 +2987,9 @@ function presNarr(text){
   const n=document.getElementById('presNarrator');
   document.getElementById('presNarrText').innerHTML=text;
   n.classList.add('visible');
+  presSpeak(text);
 }
-function presNarrOff(){document.getElementById('presNarrator').classList.remove('visible')}
+function presNarrOff(){document.getElementById('presNarrator').classList.remove('visible');presSpeechStop();}
 function presCursorOff(){document.getElementById('presCursor').classList.remove('visible')}
 
 function presNav(page,cb){
@@ -3155,6 +3249,7 @@ function presRunStep(){
 
 function presStart(){
   if(presRunning)return;
+  presInitVoice();
   buildPresSteps();
   presRunning=true;presPaused=false;presStepIdx=0;presElapsed=0;
   presStartTime=Date.now();
@@ -3171,16 +3266,19 @@ function presToggle(){
     presPaused=false;
     presStartTime=Date.now()-presElapsed*1000;
     document.getElementById('presPlayIcon').innerHTML='<rect x="5" y="4" width="3" height="12" rx="1" fill="currentColor"/><rect x="12" y="4" width="3" height="12" rx="1" fill="currentColor"/>';
+    presSpeechResume();
     presUpdateTime();presRunStep();
   } else {
     presPaused=true;
     document.getElementById('presPlayIcon').innerHTML='<polygon points="7,4 16,10 7,16"/>';
+    presSpeechPause();
   }
 }
 
 function presStop(){
   presRunning=false;presPaused=false;
   clearTimeout(presTimer);
+  presSpeechStop();
   presSpotOff();presNarrOff();presCursorOff();
   document.getElementById('presBar').classList.remove('visible');
   document.getElementById('presLaunch').classList.remove('visible','reveal');
